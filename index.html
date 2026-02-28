@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Calibrator · by Adrian Wang</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #000000;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252a3a;
+    --border-hover: #3a4260;
+
+    --c1: #5b8dee;
+    --c2: #e06c8a;
+    --c3: #4ecdc4;
+    --c4: #f7c948;
+    --c5: #a78bfa;
+
+    --text: #dde2f0;
+    --muted: #656b86;
+    --muted2: #8289a3;
+    --green: #3dd68c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    min-height: 100vh;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  .page {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+    gap: 0 40px;
+  }
+
+  @media (max-width: 900px) {
+    .page { grid-template-columns: 1fr; padding: 0 16px; }
+    .output-col { position: static; padding-bottom: 60px; }
+  }
+
+  header {
+    grid-column: 1 / -1;
+    padding: 48px 0 36px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--c1), var(--c2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 17px;
+    color: var(--muted2);
+    margin-top: 10px;
+    letter-spacing: 0.01em;
+  }
+
+  .byline {
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  .byline span {
+    display: block;
+    color: var(--muted2);
+    font-size: 13px;
+  }
+
+  .form-col { padding-bottom: 80px; }
+
+  .tier-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+
+  .tier-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .field {
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    animation: fadeUp 0.35s ease both;
+  }
+
+  .field:nth-child(2) { animation-delay: 0.05s; }
+  .field:nth-child(3) { animation-delay: 0.10s; }
+  .field:nth-child(4) { animation-delay: 0.15s; }
+  .field:nth-child(5) { animation-delay: 0.20s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .field:focus-within { border-color: var(--border-hover); }
+
+  .field-header {
+    padding: 18px 22px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .field-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .field-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .field-hint {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 3px;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  .field-body { padding: 15px 22px 18px; }
+
+  .sub-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 13px 0 8px;
+  }
+
+  .sub-label:first-child { margin-top: 0; }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 13px;
+  }
+
+  .chip {
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    padding: 5px 13px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted2);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    line-height: 1.4;
+  }
+
+  .chip:hover { border-color: var(--border-hover); color: var(--text); }
+
+  .chip.active[data-field="1"]  { background: #5b8dee15; border-color: var(--c1); color: var(--c1); }
+  .chip.active[data-field="2"]  { background: #e06c8a15; border-color: var(--c2); color: var(--c2); }
+  .chip.active[data-field="3"]  { background: #4ecdc415; border-color: var(--c3); color: var(--c3); }
+  .chip.active[data-field="4"]  { background: #f7c94815; border-color: var(--c4); color: var(--c4); }
+  .chip.active[data-field="5a"] { background: #a78bfa15; border-color: var(--c5); color: var(--c5); }
+  .chip.active[data-field="5b"] { background: #a78bfa15; border-color: var(--c5); color: var(--c5); }
+
+  input[type="text"], textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    padding: 9px 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+
+  input[type="text"]:focus, textarea:focus { border-color: var(--border-hover); }
+  input::placeholder, textarea::placeholder { color: var(--muted); font-style: italic; }
+
+  .tier2-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    user-select: none;
+  }
+
+  .tier2-toggle .tier-label { margin-bottom: 0; flex: 1; cursor: pointer; }
+
+  .accordion-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .tier2-toggle:hover .accordion-icon { border-color: var(--border-hover); color: var(--text); }
+
+  .tier2-content { display: none; }
+  .tier2-content.open { display: block; }
+
+  .field-5-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 600px) { .field-5-row { grid-template-columns: 1fr; } }
+
+  /* OUTPUT */
+  .output-col {
+    position: sticky;
+    top: 24px;
+    height: fit-content;
+    padding-bottom: 80px;
+  }
+
+  .output-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .output-header {
+    padding: 20px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface2);
+  }
+
+  .output-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.3; transform: scale(0.8); }
+  }
+
+  .copy-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    padding: 6px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted2);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .copy-btn:hover:not(:disabled) { background: var(--c1); border-color: var(--c1); color: white; }
+  .copy-btn.copied { background: var(--green); border-color: var(--green); color: #0d0f14; }
+  .copy-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .output-body {
+    padding: 22px;
+    min-height: 260px;
+    max-height: calc(100vh - 280px);
+    overflow-y: auto;
+  }
+
+  #prompt-preview {
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.95;
+    color: var(--text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .placeholder-msg {
+    color: var(--muted);
+    font-style: italic;
+    font-family: 'Lato', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  .hl1 { color: var(--c1); }
+  .hl2 { color: var(--c2); }
+  .hl3 { color: var(--c3); }
+  .hl4 { color: var(--c4); }
+  .hl5 { color: var(--c5); }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+    padding: 13px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .output-footer {
+    padding: 10px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .reset-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: color 0.15s;
+    padding: 0;
+  }
+
+  .reset-btn:hover { color: #ff6b6b; }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div>
+      <h1>Prompt <em>Calibrator</em></h1>
+      <p class="tagline">A better way to start every AI conversation</p>
+    </div>
+    <div class="byline">
+      <span>by Adrian Wang</span>
+      open source · free to use
+    </div>
+  </header>
+
+  <!-- FORM -->
+  <div class="form-col">
+
+    <div class="tier-label">Tier 1 — Core Setup</div>
+
+    <!-- Field 1 -->
+    <div class="field">
+      <div class="field-header">
+        <div class="field-num" style="background:#5b8dee18;color:var(--c1)">01</div>
+        <div>
+          <div class="field-title">What's your task today?</div>
+          <div class="field-hint">Multi-select · or skip chips and write your own below</div>
+        </div>
+      </div>
+      <div class="field-body">
+        <div class="chips" id="chips-1">
+          <div class="chip" data-field="1" data-val="draft an email">Draft email</div>
+          <div class="chip" data-field="1" data-val="draft an analysis framework">Draft framework</div>
+          <div class="chip" data-field="1" data-val="review a document">Review document</div>
+          <div class="chip" data-field="1" data-val="conduct market research">Market research</div>
+          <div class="chip" data-field="1" data-val="analyze data">Analyze data</div>
+          <div class="chip" data-field="1" data-val="build a deck">Build deck</div>
+          <div class="chip" data-field="1" data-val="summarize findings">Summarize findings</div>
+          <div class="chip" data-field="1" data-val="write a report">Write report</div>
+        </div>
+        <input type="text" id="input-1" placeholder="Or describe your task in a full sentence..." />
+      </div>
+    </div>
+
+    <!-- Field 2 -->
+    <div class="field">
+      <div class="field-header">
+        <div class="field-num" style="background:#e06c8a18;color:var(--c2)">02</div>
+        <div>
+          <div class="field-title">Who should the AI act as?</div>
+          <div class="field-hint">Single-select · or skip chips and write your own below</div>
+        </div>
+      </div>
+      <div class="field-body">
+        <div class="chips" id="chips-2">
+          <div class="chip" data-field="2" data-val="a Senior Analyst">Senior Analyst</div>
+          <div class="chip" data-field="2" data-val="a Business Strategist">Business Strategist</div>
+          <div class="chip" data-field="2" data-val="a Domain Expert">Domain Expert</div>
+          <div class="chip" data-field="2" data-val="a Writing Coach">Writing Coach</div>
+          <div class="chip" data-field="2" data-val="a Research Assistant">Research Assistant</div>
+          <div class="chip" data-field="2" data-val="a Thought Partner">Thought Partner</div>
+        </div>
+        <input type="text" id="input-2" placeholder="Or describe the AI's role in a full sentence..." />
+      </div>
+    </div>
+
+    <!-- Field 3 -->
+    <div class="field">
+      <div class="field-header">
+        <div class="field-num" style="background:#4ecdc418;color:var(--c3)">03</div>
+        <div>
+          <div class="field-title">Tell AI about the client or audience.</div>
+          <div class="field-hint">Multi-select · or skip chips and write your own below · avoid using real names</div>
+        </div>
+      </div>
+      <div class="field-body">
+        <div class="sub-label">Industry</div>
+        <div class="chips" id="chips-3a">
+          <div class="chip" data-field="3" data-val="Retail">Retail</div>
+          <div class="chip" data-field="3" data-val="Healthcare">Healthcare</div>
+          <div class="chip" data-field="3" data-val="Foodservice">Foodservice</div>
+          <div class="chip" data-field="3" data-val="CPG">CPG</div>
+          <div class="chip" data-field="3" data-val="Logistics">Logistics</div>
+          <div class="chip" data-field="3" data-val="Manufacturing">Manufacturing</div>
+        </div>
+        <div class="sub-label">Company Size</div>
+        <div class="chips" id="chips-3b">
+          <div class="chip" data-field="3" data-grp="size" data-val="a startup">Startup</div>
+          <div class="chip" data-field="3" data-grp="size" data-val="a mid-size company">Mid-size</div>
+          <div class="chip" data-field="3" data-grp="size" data-val="an enterprise">Enterprise</div>
+        </div>
+        <div class="sub-label">Situation</div>
+        <div class="chips" id="chips-3c">
+          <div class="chip" data-field="3" data-val="campaign planning">Campaign planning</div>
+          <div class="chip" data-field="3" data-val="brand repositioning">Brand repositioning</div>
+          <div class="chip" data-field="3" data-val="consumer insights">Consumer insights</div>
+          <div class="chip" data-field="3" data-val="data-driven storytelling">Data-driven storytelling</div>
+          <div class="chip" data-field="3" data-val="market expansion">Market expansion</div>
+          <div class="chip" data-field="3" data-val="performance review">Performance review</div>
+          <div class="chip" data-field="3" data-val="new product launch">New product launch</div>
+          <div class="chip" data-field="3" data-val="agency pitch">Agency pitch</div>
+        </div>
+        <input type="text" id="input-3" placeholder="Or describe the client in a full sentence. Avoid using real names." />
+      </div>
+    </div>
+
+    <!-- Field 4 -->
+    <div class="field">
+      <div class="field-header">
+        <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
+        <div>
+          <div class="field-title">Any other context AI should know?</div>
+          <div class="field-hint">Multi-select · or skip chips and write your own below</div>
+        </div>
+      </div>
+      <div class="field-body">
+        <div class="chips" id="chips-4">
+          <div class="chip" data-field="4" data-val="for an executive audience">Executive audience</div>
+          <div class="chip" data-field="4" data-val="for a non-technical audience">Non-technical audience</div>
+          <div class="chip" data-field="4" data-val="this is early-stage thinking">Early-stage thinking</div>
+          <div class="chip" data-field="4" data-val="this is a final deliverable">Final deliverable</div>
+          <div class="chip" data-field="4" data-val="there is a tight deadline">Tight deadline</div>
+          <div class="chip" data-field="4" data-val="for internal use only">Internal use only</div>
+        </div>
+        <input type="text" id="input-4" placeholder="Or add any other context in a full sentence..." />
+      </div>
+    </div>
+
+    <!-- TIER 2 -->
+    <div class="tier2-toggle" onclick="toggleTier2()">
+      <div class="tier-label">Tier 2 — Style Preferences</div>
+      <div class="accordion-icon" id="accordion-icon">+ Expand</div>
+    </div>
+
+    <div class="tier2-content" id="tier2-content">
+
+      <div class="field-5-row">
+        <!-- 5a Tone -->
+        <div class="field">
+          <div class="field-header">
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
+            <div>
+              <div class="field-title">Tone</div>
+              <div class="field-hint">Single-select</div>
+            </div>
+          </div>
+          <div class="field-body">
+            <div class="chips" id="chips-5a">
+              <div class="chip" data-field="5a" data-val="concise">Concise</div>
+              <div class="chip" data-field="5a" data-val="detailed">Detailed</div>
+              <div class="chip" data-field="5a" data-val="formal">Formal</div>
+              <div class="chip" data-field="5a" data-val="conversational">Conversational</div>
+              <div class="chip" data-field="5a" data-val="simple and clear">Simple & clear</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5b Format -->
+        <div class="field">
+          <div class="field-header">
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
+            <div>
+              <div class="field-title">Format</div>
+              <div class="field-hint">Single-select</div>
+            </div>
+          </div>
+          <div class="field-body">
+            <div class="chips" id="chips-5b">
+              <div class="chip" data-field="5b" data-val="bullet points">Bullet points</div>
+              <div class="chip" data-field="5b" data-val="step-by-step">Step-by-step</div>
+              <div class="chip" data-field="5b" data-val="prose">Prose</div>
+              <div class="chip" data-field="5b" data-val="examples where possible">Use examples</div>
+              <div class="chip" data-field="5b" data-val="a mixed format">Mixed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Field 6 -->
+      <div class="field">
+        <div class="field-header">
+          <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
+          <div>
+            <div class="field-title">Constraints</div>
+            <div class="field-hint">Free text · anything the AI should know or avoid</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <textarea id="input-6" rows="3" placeholder="e.g. Keep it under 300 words. Avoid technical jargon. Do not suggest Python solutions."></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="output-col">
+    <div class="output-card">
+      <div class="output-header">
+        <div class="output-label">
+          <div class="live-dot"></div>
+          Generated Prompt
+        </div>
+        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy</button>
+      </div>
+      <div class="output-body">
+        <div id="prompt-preview"><span class="placeholder-msg">Your prompt will appear here as you fill in the fields above.</span>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>AI Role</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Client</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Context</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Style</div>
+      </div>
+      <div class="output-footer">
+        <div class="meta" id="meta">— / —</div>
+        <button class="reset-btn" onclick="resetAll()">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── STATE ──
+  const state = {
+    f1chips: [], f1text: '',
+    f2chip: '',  f2text: '',
+    f3industry: [], f3size: '', f3situation: [], f3text: '',
+    f4chips: [], f4text: '',
+    f5a: '', f5b: '',
+    f6: ''
+  };
+
+  // ── CHIP WIRING ──
+
+  // Field 1 — multi
+  document.getElementById('chips-1').querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      const v = chip.dataset.val;
+      state.f1chips = chip.classList.contains('active')
+        ? [...state.f1chips, v]
+        : state.f1chips.filter(x => x !== v);
+      render();
+    });
+  });
+
+  // Field 2 — single
+  document.getElementById('chips-2').querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const wasActive = chip.classList.contains('active');
+      document.getElementById('chips-2').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      if (!wasActive) { chip.classList.add('active'); state.f2chip = chip.dataset.val; }
+      else state.f2chip = '';
+      render();
+    });
+  });
+
+  // Field 3 — industry (multi)
+  document.getElementById('chips-3a').querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      const v = chip.dataset.val;
+      state.f3industry = chip.classList.contains('active')
+        ? [...state.f3industry, v]
+        : state.f3industry.filter(x => x !== v);
+      render();
+    });
+  });
+
+  // Field 3 — size (single)
+  document.getElementById('chips-3b').querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const wasActive = chip.classList.contains('active');
+      document.getElementById('chips-3b').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      if (!wasActive) { chip.classList.add('active'); state.f3size = chip.dataset.val; }
+      else state.f3size = '';
+      render();
+    });
+  });
+
+  // Field 3 — situation (multi)
+  document.getElementById('chips-3c').querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      const v = chip.dataset.val;
+      state.f3situation = chip.classList.contains('active')
+        ? [...state.f3situation, v]
+        : state.f3situation.filter(x => x !== v);
+      render();
+    });
+  });
+
+  // Field 4 — multi
+  document.getElementById('chips-4').querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      const v = chip.dataset.val;
+      state.f4chips = chip.classList.contains('active')
+        ? [...state.f4chips, v]
+        : state.f4chips.filter(x => x !== v);
+      render();
+    });
+  });
+
+  // Field 5a — single
+  document.getElementById('chips-5a').querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const wasActive = chip.classList.contains('active');
+      document.getElementById('chips-5a').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      if (!wasActive) { chip.classList.add('active'); state.f5a = chip.dataset.val; }
+      else state.f5a = '';
+      render();
+    });
+  });
+
+  // Field 5b — single
+  document.getElementById('chips-5b').querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const wasActive = chip.classList.contains('active');
+      document.getElementById('chips-5b').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      if (!wasActive) { chip.classList.add('active'); state.f5b = chip.dataset.val; }
+      else state.f5b = '';
+      render();
+    });
+  });
+
+  // Text inputs
+  document.getElementById('input-1').addEventListener('input', e => { state.f1text = e.target.value.trim(); render(); });
+  document.getElementById('input-2').addEventListener('input', e => { state.f2text = e.target.value.trim(); render(); });
+  document.getElementById('input-3').addEventListener('input', e => { state.f3text = e.target.value.trim(); render(); });
+  document.getElementById('input-4').addEventListener('input', e => { state.f4text = e.target.value.trim(); render(); });
+  document.getElementById('input-6').addEventListener('input', e => { state.f6 = e.target.value.trim(); render(); });
+
+  // ── HELPERS ──
+  function joinList(arr) {
+    if (!arr.length) return '';
+    if (arr.length === 1) return arr[0];
+    if (arr.length === 2) return arr[0] + ' and ' + arr[1];
+    return arr.slice(0, -1).join(', ') + ', and ' + arr[arr.length - 1];
+  }
+
+  function isFullSentence(str) {
+    return /[.!?]$/.test(str.trim());
+  }
+
+  function wrapFragment(str) {
+    if (!str) return '';
+    str = str.trim();
+    if (isFullSentence(str)) return str;
+    return 'Additional context: ' + str + '.';
+  }
+
+  // ── BUILD PROMPT ──
+  function buildPrompt() {
+    const s = state;
+    const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
+                   s.f3industry.length || s.f3size || s.f3situation.length || s.f3text ||
+                   s.f4chips.length || s.f4text;
+    if (!hasAny) return null;
+
+    const plain = [];
+    const html  = [];
+
+    function add(p, h) { plain.push(p); html.push(h); }
+
+    // F2 — AI Role (sets stage first)
+    const aiRole = s.f2chip || s.f2text;
+    if (aiRole) {
+      const sentence = isFullSentence(aiRole) ? aiRole : 'You are ' + aiRole + '.';
+      add(sentence, '<span class="hl2">' + sentence + '</span>');
+    }
+
+    // F1 — Task
+    if (s.f1chips.length || s.f1text) {
+      let sentence;
+      if (s.f1chips.length && s.f1text) {
+        sentence = 'My goals for this conversation are to ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text);
+      } else if (s.f1chips.length) {
+        sentence = 'My goals for this conversation are to ' + joinList(s.f1chips) + '.';
+      } else {
+        sentence = wrapFragment(s.f1text);
+      }
+      add(sentence, '<span class="hl1">' + sentence + '</span>');
+    }
+
+    // F3 — Client
+    if (s.f3industry.length || s.f3size || s.f3situation.length || s.f3text) {
+      let sentence = '';
+      if (s.f3industry.length || s.f3size || s.f3situation.length) {
+        let desc = 'The client is';
+        if (s.f3size) desc += ' ' + s.f3size;
+        if (s.f3industry.length) desc += ' ' + joinList(s.f3industry) + ' company';
+        if (!s.f3size && !s.f3industry.length) desc += ' a company';
+        if (s.f3situation.length) desc += ' currently focused on ' + joinList(s.f3situation);
+        desc += '.';
+        if (s.f3text) desc += ' ' + wrapFragment(s.f3text);
+        sentence = desc;
+      } else {
+        sentence = wrapFragment(s.f3text);
+      }
+      add(sentence, '<span class="hl3">' + sentence + '</span>');
+    }
+
+    // F4 — Context
+    if (s.f4chips.length || s.f4text) {
+      let sentence;
+      if (s.f4chips.length && s.f4text) {
+        sentence = 'Please note this is ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text);
+      } else if (s.f4chips.length) {
+        sentence = 'Please note this is ' + joinList(s.f4chips) + '.';
+      } else {
+        sentence = wrapFragment(s.f4text);
+      }
+      add(sentence, '<span class="hl4">' + sentence + '</span>');
+    }
+
+    // F5a + F5b — Style
+    if (s.f5a || s.f5b) {
+      const parts = [s.f5a, s.f5b].filter(Boolean);
+      const stylePlain = 'Please keep your responses ' + joinList(parts) + '.';
+      const styleHtml  = 'Please keep your responses ' +
+        parts.map(p => '<span class="hl5">' + p + '</span>').join(' and ') + '.';
+      add(stylePlain, styleHtml);
+    }
+
+    // F6 — Constraints
+    if (s.f6) {
+      const sentence = wrapFragment(s.f6);
+      add(sentence, '<span class="hl5">' + sentence + '</span>');
+    }
+
+    // Closing
+    const assumption = '\nWhen sharing insights or recommendations, please acknowledge any analysis that assumptions goes into it, and highlight the limitations of your response.'
+    const rules = '\nCRITICAL RULE: Never fabricate, assume, or infer insights beyond what the data directly supports. When data is limited or absent, conduct web research from credible sources and cite every external insights.'
+    const closing = '\nPlease acknowledge this setup and confirm you\'re ready to help.';
+    add(assumption, assumption);
+    add(rules, rules);
+    add(closing, closing);
+
+    return {
+      plain: plain.join('\n'),
+      highlighted: html.join('\n')
+    };
+  }
+
+  // ── RENDER ──
+  function render() {
+    const preview = document.getElementById('prompt-preview');
+    const copyBtn = document.getElementById('copy-btn');
+    const meta    = document.getElementById('meta');
+
+    const result = buildPrompt();
+    if (!result) {
+      preview.innerHTML = '<span class="placeholder-msg">Your prompt will appear here as you fill in the fields above.</span>';
+      copyBtn.disabled = true;
+      meta.textContent = '— / —';
+      return;
+    }
+
+    preview.innerHTML = result.highlighted;
+    copyBtn.disabled = false;
+    const words = result.plain.trim().split(/\s+/).filter(Boolean).length;
+    meta.textContent = words + ' words · ' + result.plain.length + ' chars';
+  }
+
+  // ── COPY ──
+  function copyPrompt() {
+    const result = buildPrompt();
+    if (!result) return;
+    navigator.clipboard.writeText(result.plain).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2200);
+    });
+  }
+
+  // ── RESET ──
+  function resetAll() {
+    state.f1chips = []; state.f1text = '';
+    state.f2chip  = ''; state.f2text = '';
+    state.f3industry = []; state.f3size = ''; state.f3situation = []; state.f3text = '';
+    state.f4chips = []; state.f4text = '';
+    state.f5a = ''; state.f5b = '';
+    state.f6 = '';
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+    render();
+  }
+
+  // ── ACCORDION ──
+  function toggleTier2() {
+    const content = document.getElementById('tier2-content');
+    const icon    = document.getElementById('accordion-icon');
+    const isOpen  = content.classList.contains('open');
+    content.classList.toggle('open');
+    icon.textContent = isOpen ? '+ Expand' : '− Collapse';
+  }
+</script>
+</body>
+</html>

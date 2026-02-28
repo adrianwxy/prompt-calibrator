@@ -6,6 +6,7 @@ Most people open ChatGPT, Claude, or Gemini and type a quick sentence. They get 
 Not because AI is bad — but because the first prompt was too vague.
 
 Prompt Calibrator guides you through a structured setup and instantly generates a ready-to-use prompt. No prompt engineering knowledge required.
+Built as a fully static, zero-backend tool — all prompt generation runs client-side with no data collection by design.
 
 👉 **[Try it live](https://adrianwxy.github.io/prompt-calibrator/)**
 

@@ -12,17 +12,16 @@
     --surface2: #1a1e2a;
     --border: #252a3a;
     --border-hover: #3a4260;
-
     --c1: #5b8dee;
     --c2: #e06c8a;
     --c3: #4ecdc4;
     --c4: #f7c948;
     --c5: #a78bfa;
-
     --text: #dde2f0;
     --muted: #656b86;
     --muted2: #8289a3;
     --green: #3dd68c;
+    --theme-accent: #5b8dee;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,9 +62,9 @@
 
   header {
     grid-column: 1 / -1;
-    padding: 48px 0 36px;
+    padding: 48px 0 28px;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -112,7 +111,67 @@
     font-size: 13px;
   }
 
+  /* ── THEME SWITCHER ── */
+  .theme-switcher-wrap {
+    grid-column: 1 / -1;
+    margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .theme-switcher-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .theme-switcher {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .theme-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 9px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted2);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    user-select: none;
+  }
+
+  .theme-btn:hover { border-color: var(--border-hover); color: var(--text); }
+
+  .theme-btn.active {
+    color: var(--bg);
+    font-weight: 500;
+  }
+
+  .theme-btn[data-theme="agency"].active    { background: #5b8dee; border-color: #5b8dee; }
+  .theme-btn[data-theme="education"].active { background: #4ecdc4; border-color: #4ecdc4; }
+  .theme-btn[data-theme="student"].active   { background: #f7c948; border-color: #f7c948; color: #13161e; }
+  .theme-btn[data-theme="creative"].active  { background: #e06c8a; border-color: #e06c8a; }
+
+  .theme-icon { font-size: 15px; line-height: 1; }
+
+  /* ── FORM ── */
   .form-col { padding-bottom: 80px; }
+
+  .theme-panel { display: none; }
+  .theme-panel.active { display: block; animation: fadeIn 0.25s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
   .tier-label {
     font-family: 'DM Mono', monospace;
@@ -139,17 +198,6 @@
     border-radius: 15px;
     overflow: hidden;
     transition: border-color 0.2s;
-    animation: fadeUp 0.35s ease both;
-  }
-
-  .field:nth-child(2) { animation-delay: 0.05s; }
-  .field:nth-child(3) { animation-delay: 0.10s; }
-  .field:nth-child(4) { animation-delay: 0.15s; }
-  .field:nth-child(5) { animation-delay: 0.20s; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
   }
 
   .field:focus-within { border-color: var(--border-hover); }
@@ -176,7 +224,6 @@
   }
 
   .field-title {
-    font-family: 'Syne', sans-serif;
     font-size: 15px;
     font-weight: 600;
     color: var(--text);
@@ -184,7 +231,7 @@
   }
 
   .field-hint {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--muted);
     margin-top: 3px;
     font-weight: 400;
@@ -201,15 +248,9 @@
     text-transform: uppercase;
     margin: 13px 0 8px;
   }
-
   .sub-label:first-child { margin-top: 0; }
 
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-bottom: 13px;
-  }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 4px; }
 
   .chip {
     font-size: 13px;
@@ -227,12 +268,14 @@
 
   .chip:hover { border-color: var(--border-hover); color: var(--text); }
 
-  .chip.active[data-field="1"]  { background: #5b8dee15; border-color: var(--c1); color: var(--c1); }
-  .chip.active[data-field="2"]  { background: #e06c8a15; border-color: var(--c2); color: var(--c2); }
-  .chip.active[data-field="3"]  { background: #4ecdc415; border-color: var(--c3); color: var(--c3); }
-  .chip.active[data-field="4"]  { background: #f7c94815; border-color: var(--c4); color: var(--c4); }
-  .chip.active[data-field="5a"] { background: #a78bfa15; border-color: var(--c5); color: var(--c5); }
-  .chip.active[data-field="5b"] { background: #a78bfa15; border-color: var(--c5); color: var(--c5); }
+  /* Agency — blue */
+  .agency-field .chip.active { background: #5b8dee18; border-color: var(--c1); color: var(--c1); }
+  /* Education — teal */
+  .edu-field .chip.active    { background: #4ecdc418; border-color: var(--c3); color: var(--c3); }
+  /* Student — yellow */
+  .stu-field .chip.active    { background: #f7c94818; border-color: var(--c4); color: var(--c4); }
+  /* Creative — pink */
+  .cre-field .chip.active    { background: #e06c8a18; border-color: var(--c2); color: var(--c2); }
 
   input[type="text"], textarea {
     width: 100%;
@@ -246,6 +289,7 @@
     outline: none;
     transition: border-color 0.2s;
     resize: none;
+    margin-top: 10px;
   }
 
   input[type="text"]:focus, textarea:focus { border-color: var(--border-hover); }
@@ -275,19 +319,18 @@
   }
 
   .tier2-toggle:hover .accordion-icon { border-color: var(--border-hover); color: var(--text); }
-
-  .tier2-content { display: none; }
+  .tier2-content { display: block; }
   .tier2-content.open { display: block; }
 
-  .field-5-row {
+  .field-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  @media (max-width: 600px) { .field-5-row { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .field-row { grid-template-columns: 1fr; } }
 
-  /* OUTPUT */
+  /* ── OUTPUT ── */
   .output-col {
     position: sticky;
     top: 24px;
@@ -303,7 +346,7 @@
   }
 
   .output-header {
-    padding: 20px 20px;
+    padding: 20px;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -352,10 +395,20 @@
   .copy-btn.copied { background: var(--green); border-color: var(--green); color: #0d0f14; }
   .copy-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
+  .theme-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-right: 6px;
+  }
+
   .output-body {
     padding: 22px;
     min-height: 260px;
-    max-height: calc(100vh - 280px);
+    max-height: calc(100vh - 320px);
     overflow-y: auto;
   }
 
@@ -376,11 +429,30 @@
     line-height: 1.7;
   }
 
-  .hl1 { color: var(--c1); }
-  .hl2 { color: var(--c2); }
-  .hl3 { color: var(--c3); }
-  .hl4 { color: var(--c4); }
-  .hl5 { color: var(--c5); }
+  /* Highlight classes per theme */
+  .hl-a1 { color: var(--c1); }
+  .hl-a2 { color: var(--c2); }
+  .hl-a3 { color: var(--c3); }
+  .hl-a4 { color: var(--c4); }
+  .hl-a5 { color: var(--c5); }
+
+  .hl-e1 { color: var(--c3); }
+  .hl-e2 { color: #6ee7b7; }
+  .hl-e3 { color: var(--c1); }
+  .hl-e4 { color: var(--c4); }
+  .hl-e5 { color: var(--c5); }
+
+  .hl-s1 { color: var(--c4); }
+  .hl-s2 { color: #fde68a; }
+  .hl-s3 { color: var(--c3); }
+  .hl-s4 { color: var(--c1); }
+  .hl-s5 { color: var(--c5); }
+
+  .hl-c1 { color: var(--c2); }
+  .hl-c2 { color: #f9a8d4; }
+  .hl-c3 { color: var(--c5); }
+  .hl-c4 { color: var(--c4); }
+  .hl-c5 { color: var(--c3); }
 
   .legend {
     display: flex;
@@ -448,215 +520,705 @@
     <div>
       <h1>Prompt <em>Calibrator</em></h1>
       <p class="tagline">A better way to start every AI conversation</p>
-
     </div>
     <div class="byline">
-      <span>v0.1.0 </span>
+      <span>v0.2.0</span>
       <span>by Adrian Wang</span>
       Data Not Collected · Open Source
     </div>
   </header>
 
-  <!-- FORM -->
-  <div class="form-col">
-
-    <div class="tier-label">Tier 1 — Core Setup</div>
-
-    <!-- Field 1 -->
-    <div class="field">
-      <div class="field-header">
-        <div class="field-num" style="background:#5b8dee18;color:var(--c1)">01</div>
-        <div>
-          <div class="field-title">What's your task today?</div>
-          <div class="field-hint">Multi-select · or skip chips and write your own below</div>
-        </div>
-      </div>
-      <div class="field-body">
-        <div class="chips" id="chips-1">
-          <div class="chip" data-field="1" data-val="draft an email">Draft email</div>
-          <div class="chip" data-field="1" data-val="draft an analysis framework">Draft framework</div>
-          <div class="chip" data-field="1" data-val="review a document">Review document</div>
-          <div class="chip" data-field="1" data-val="conduct market research">Market research</div>
-          <div class="chip" data-field="1" data-val="analyze data">Analyze data</div>
-          <div class="chip" data-field="1" data-val="build a deck">Build deck</div>
-          <div class="chip" data-field="1" data-val="summarize findings">Summarize findings</div>
-          <div class="chip" data-field="1" data-val="write a report">Write report</div>
-        </div>
-        <input type="text" id="input-1" placeholder="Or describe your task in a full sentence..." />
-      </div>
-    </div>
-
-    <!-- Field 2 -->
-    <div class="field">
-      <div class="field-header">
-        <div class="field-num" style="background:#e06c8a18;color:var(--c2)">02</div>
-        <div>
-          <div class="field-title">Who should the AI act as?</div>
-          <div class="field-hint">Single-select · or skip chips and write your own below</div>
-        </div>
-      </div>
-      <div class="field-body">
-        <div class="chips" id="chips-2">
-          <div class="chip" data-field="2" data-val="a Senior Analyst">Senior Analyst</div>
-          <div class="chip" data-field="2" data-val="a Business Strategist">Business Strategist</div>
-          <div class="chip" data-field="2" data-val="a Domain Expert">Domain Expert</div>
-          <div class="chip" data-field="2" data-val="a Writing Coach">Writing Coach</div>
-          <div class="chip" data-field="2" data-val="a Research Assistant">Research Assistant</div>
-          <div class="chip" data-field="2" data-val="a Thought Partner">Thought Partner</div>
-        </div>
-        <input type="text" id="input-2" placeholder="Or describe the AI's role in a full sentence..." />
-      </div>
-    </div>
-
-    <!-- Field 3 -->
-    <div class="field">
-      <div class="field-header">
-        <div class="field-num" style="background:#4ecdc418;color:var(--c3)">03</div>
-        <div>
-          <div class="field-title">Tell AI about the client or audience.</div>
-          <div class="field-hint">Multi-select · or skip chips and write your own below · avoid using real names</div>
-        </div>
-      </div>
-      <div class="field-body">
-        <div class="sub-label">Industry</div>
-        <div class="chips" id="chips-3a">
-          <div class="chip" data-field="3" data-val="Retail">Retail</div>
-          <div class="chip" data-field="3" data-val="Healthcare">Healthcare</div>
-          <div class="chip" data-field="3" data-val="Foodservice">Foodservice</div>
-          <div class="chip" data-field="3" data-val="CPG">CPG</div>
-          <div class="chip" data-field="3" data-val="Logistics">Logistics</div>
-          <div class="chip" data-field="3" data-val="Manufacturing">Manufacturing</div>
-        </div>
-        <div class="sub-label">Company Size</div>
-        <div class="chips" id="chips-3b">
-          <div class="chip" data-field="3" data-grp="size" data-val="a startup">Startup</div>
-          <div class="chip" data-field="3" data-grp="size" data-val="a mid-size company">Mid-size</div>
-          <div class="chip" data-field="3" data-grp="size" data-val="an enterprise">Enterprise</div>
-        </div>
-        <div class="sub-label">Situation</div>
-        <div class="chips" id="chips-3c">
-          <div class="chip" data-field="3" data-val="campaign planning">Campaign planning</div>
-          <div class="chip" data-field="3" data-val="brand repositioning">Brand repositioning</div>
-          <div class="chip" data-field="3" data-val="consumer insights">Consumer insights</div>
-          <div class="chip" data-field="3" data-val="data-driven storytelling">Data-driven storytelling</div>
-          <div class="chip" data-field="3" data-val="market expansion">Market expansion</div>
-          <div class="chip" data-field="3" data-val="performance review">Performance review</div>
-          <div class="chip" data-field="3" data-val="new product launch">New product launch</div>
-          <div class="chip" data-field="3" data-val="agency pitch">Agency pitch</div>
-        </div>
-        <input type="text" id="input-3" placeholder="Or describe the client in a full sentence. Avoid using real names." />
-      </div>
-    </div>
-
-    <!-- Field 4 -->
-    <div class="field">
-      <div class="field-header">
-        <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
-        <div>
-          <div class="field-title">Any other context AI should know?</div>
-          <div class="field-hint">Multi-select · or skip chips and write your own below</div>
-        </div>
-      </div>
-      <div class="field-body">
-        <div class="chips" id="chips-4">
-          <div class="chip" data-field="4" data-val="for an executive audience">Executive audience</div>
-          <div class="chip" data-field="4" data-val="for a non-technical audience">Non-technical audience</div>
-          <div class="chip" data-field="4" data-val="this is early-stage thinking">Early-stage thinking</div>
-          <div class="chip" data-field="4" data-val="this is a final deliverable">Final deliverable</div>
-          <div class="chip" data-field="4" data-val="there is a tight deadline">Tight deadline</div>
-          <div class="chip" data-field="4" data-val="for internal use only">Internal use only</div>
-        </div>
-        <input type="text" id="input-4" placeholder="Or add any other context in a full sentence..." />
-      </div>
-    </div>
-
-    <!-- TIER 2 -->
-    <div class="tier2-toggle" onclick="toggleTier2()">
-      <div class="tier-label">Tier 2 — Style Preferences</div>
-      <div class="accordion-icon" id="accordion-icon">+ Expand</div>
-    </div>
-
-    <div class="tier2-content" id="tier2-content">
-
-      <div class="field-5-row">
-        <!-- 5a Tone -->
-        <div class="field">
-          <div class="field-header">
-            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
-            <div>
-              <div class="field-title">Tone</div>
-              <div class="field-hint">Single-select</div>
-            </div>
-          </div>
-          <div class="field-body">
-            <div class="chips" id="chips-5a">
-              <div class="chip" data-field="5a" data-val="concise">Concise</div>
-              <div class="chip" data-field="5a" data-val="detailed">Detailed</div>
-              <div class="chip" data-field="5a" data-val="formal">Formal</div>
-              <div class="chip" data-field="5a" data-val="conversational">Conversational</div>
-              <div class="chip" data-field="5a" data-val="simple and clear">Simple & clear</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5b Format -->
-        <div class="field">
-          <div class="field-header">
-            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
-            <div>
-              <div class="field-title">Format</div>
-              <div class="field-hint">Single-select</div>
-            </div>
-          </div>
-          <div class="field-body">
-            <div class="chips" id="chips-5b">
-              <div class="chip" data-field="5b" data-val="bullet points">Bullet points</div>
-              <div class="chip" data-field="5b" data-val="step-by-step">Step-by-step</div>
-              <div class="chip" data-field="5b" data-val="prose">Prose</div>
-              <div class="chip" data-field="5b" data-val="examples where possible">Use examples</div>
-              <div class="chip" data-field="5b" data-val="a mixed format">Mixed</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Field 6 -->
-      <div class="field">
-        <div class="field-header">
-          <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
-          <div>
-            <div class="field-title">Constraints</div>
-            <div class="field-hint">Free text · anything the AI should know or avoid</div>
-          </div>
-        </div>
-        <div class="field-body">
-          <textarea id="input-6" rows="3" placeholder="e.g. Keep it under 300 words. Avoid technical jargon. Do not suggest Python solutions."></textarea>
-        </div>
-      </div>
-
+  <!-- THEME SWITCHER -->
+  <div class="theme-switcher-wrap">
+    <div class="theme-switcher-label">Choose your mode</div>
+    <div class="theme-switcher">
+      <button class="theme-btn active" data-theme="agency"    onclick="switchTheme('agency')">   <span class="theme-icon">🏢</span> Agency</button>
+      <button class="theme-btn"        data-theme="education" onclick="switchTheme('education')"><span class="theme-icon">🎓</span> Education</button>
+      <button class="theme-btn"        data-theme="student"   onclick="switchTheme('student')">  <span class="theme-icon">📚</span> Student</button>
+      <button class="theme-btn"        data-theme="creative"  onclick="switchTheme('creative')"> <span class="theme-icon">✍️</span> Creative</button>
     </div>
   </div>
 
-  <!-- OUTPUT -->
+  <!-- FORM -->
+  <div class="form-col">
+
+    <!-- ═══════════════════════════════════════════
+         AGENCY THEME
+    ════════════════════════════════════════════ -->
+    <div class="theme-panel active" id="panel-agency">
+
+      <div class="tier-label">Tier 1 — Core Setup</div>
+
+      <!-- A1: Task -->
+      <div class="field agency-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#5b8dee18;color:var(--c1)">01</div>
+          <div>
+            <div class="field-title">What's your task today?</div>
+            <div class="field-hint">Multi-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="a-chips-1">
+            <div class="chip" data-val="draft an email">Draft email</div>
+            <div class="chip" data-val="draft an analysis framework">Draft framework</div>
+            <div class="chip" data-val="review a document">Review document</div>
+            <div class="chip" data-val="conduct market research">Market research</div>
+            <div class="chip" data-val="analyze data">Analyze data</div>
+            <div class="chip" data-val="build a deck">Build deck</div>
+            <div class="chip" data-val="summarize findings">Summarize findings</div>
+            <div class="chip" data-val="write a report">Write report</div>
+          </div>
+          <input type="text" id="a-input-1" placeholder="Or describe your task in a full sentence..." />
+        </div>
+      </div>
+
+      <!-- A2: AI Role -->
+      <div class="field agency-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#e06c8a18;color:var(--c2)">02</div>
+          <div>
+            <div class="field-title">Who should the AI act as?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="a-chips-2">
+            <div class="chip" data-val="a Senior Analyst">Senior Analyst</div>
+            <div class="chip" data-val="a Business Strategist">Business Strategist</div>
+            <div class="chip" data-val="a Domain Expert">Domain Expert</div>
+            <div class="chip" data-val="a Writing Coach">Writing Coach</div>
+            <div class="chip" data-val="a Research Assistant">Research Assistant</div>
+            <div class="chip" data-val="a Thought Partner">Thought Partner</div>
+          </div>
+          <input type="text" id="a-input-2" placeholder="Or describe the AI's role in a full sentence..." />
+        </div>
+      </div>
+
+      <!-- A3: Client -->
+      <div class="field agency-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#4ecdc418;color:var(--c3)">03</div>
+          <div>
+            <div class="field-title">Tell AI about the client or audience.</div>
+            <div class="field-hint">Multi-select · avoid using real names</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="sub-label">Industry</div>
+          <div class="chips" id="a-chips-3a">
+            <div class="chip" data-val="Retail">Retail</div>
+            <div class="chip" data-val="Healthcare">Healthcare</div>
+            <div class="chip" data-val="Foodservice">Foodservice</div>
+            <div class="chip" data-val="CPG">CPG</div>
+            <div class="chip" data-val="Logistics">Logistics</div>
+            <div class="chip" data-val="Manufacturing">Manufacturing</div>
+          </div>
+          <div class="sub-label">Company Size</div>
+          <div class="chips" id="a-chips-3b">
+            <div class="chip" data-val="a startup" data-single="true">Startup</div>
+            <div class="chip" data-val="a mid-size company" data-single="true">Mid-size</div>
+            <div class="chip" data-val="an enterprise" data-single="true">Enterprise</div>
+          </div>
+          <div class="sub-label">Situation</div>
+          <div class="chips" id="a-chips-3c">
+            <div class="chip" data-val="campaign planning">Campaign planning</div>
+            <div class="chip" data-val="brand repositioning">Brand repositioning</div>
+            <div class="chip" data-val="consumer insights">Consumer insights</div>
+            <div class="chip" data-val="data-driven storytelling">Data-driven storytelling</div>
+            <div class="chip" data-val="market expansion">Market expansion</div>
+            <div class="chip" data-val="performance review">Performance review</div>
+            <div class="chip" data-val="new product launch">New product launch</div>
+            <div class="chip" data-val="agency pitch">Agency pitch</div>
+          </div>
+          <input type="text" id="a-input-3" placeholder="Or describe the client in a full sentence. Avoid real names." />
+        </div>
+      </div>
+
+      <!-- A4: Context -->
+      <div class="field agency-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
+          <div>
+            <div class="field-title">Any other context AI should know?</div>
+            <div class="field-hint">Multi-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="a-chips-4">
+            <div class="chip" data-val="for an executive audience">Executive audience</div>
+            <div class="chip" data-val="for a non-technical audience">Non-technical audience</div>
+            <div class="chip" data-val="this is early-stage thinking">Early-stage thinking</div>
+            <div class="chip" data-val="this is a final deliverable">Final deliverable</div>
+            <div class="chip" data-val="there is a tight deadline">Tight deadline</div>
+            <div class="chip" data-val="for internal use only">Internal use only</div>
+          </div>
+          <input type="text" id="a-input-4" placeholder="Or add any other context in a full sentence..." />
+        </div>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="tier-label">Tier 2 — Style Preferences</div>
+      <div class="tier2-content open" id="a-tier2">
+        <div class="field-row">
+          <div class="field agency-field">
+            <div class="field-header">
+              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
+              <div><div class="field-title">Tone</div><div class="field-hint">Single-select</div></div>
+            </div>
+            <div class="field-body">
+              <div class="chips" id="a-chips-5a">
+                <div class="chip" data-val="concise" data-single="true">Concise</div>
+                <div class="chip" data-val="detailed" data-single="true">Detailed</div>
+                <div class="chip" data-val="formal" data-single="true">Formal</div>
+                <div class="chip" data-val="conversational" data-single="true">Conversational</div>
+                <div class="chip" data-val="simple and clear" data-single="true">Simple & clear</div>
+              </div> 
+              <input type="text" id="a-input-5a" placeholder="Or describe your tone preference..." />
+            </div>
+          </div>
+          <div class="field agency-field">
+            <div class="field-header">
+              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
+              <div><div class="field-title">Format</div><div class="field-hint">Single-select</div></div>
+            </div>
+            <div class="field-body">
+              <div class="chips" id="a-chips-5b">
+                <div class="chip" data-val="bullet points" data-single="true">Bullet points</div>
+                <div class="chip" data-val="step-by-step" data-single="true">Step-by-step</div>
+                <div class="chip" data-val="prose" data-single="true">Prose</div>
+                <div class="chip" data-val="examples where possible" data-single="true">Use examples</div>
+                <div class="chip" data-val="a mixed format" data-single="true">Mixed</div>
+              </div> 
+              <input type="text" id="a-input-5b" placeholder="Or describe your format preference..." />
+            </div>
+          </div>
+        </div>
+        <div class="field agency-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
+            <div><div class="field-title">Constraints</div><div class="field-hint">Anything the AI should know or avoid</div></div>
+          </div>
+          <div class="field-body">
+            <textarea id="a-input-6" rows="3" placeholder="e.g. Keep it under 300 words. Avoid technical jargon. Do not suggest Python solutions."></textarea>
+          </div>
+        </div>
+      </div>
+    </div><!-- /agency -->
+
+
+    <!-- ═══════════════════════════════════════════
+         EDUCATION THEME
+    ════════════════════════════════════════════ -->
+    <div class="theme-panel" id="panel-education">
+
+      <div class="tier-label" style="color:var(--c3)">Tier 1 — Core Setup</div>
+
+      <!-- E1: Task -->
+      <div class="field edu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#4ecdc418;color:var(--c3)">01</div>
+          <div>
+            <div class="field-title">What are you working on?</div>
+            <div class="field-hint">Multi-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="e-chips-1">
+            <div class="chip" data-val="create a lesson plan">Lesson plan</div>
+            <div class="chip" data-val="write a rubric">Rubric</div>
+            <div class="chip" data-val="draft a parent or guardian email">Parent email</div>
+            <div class="chip" data-val="write student feedback">Student feedback</div>
+            <div class="chip" data-val="design a discussion prompt">Discussion prompt</div>
+            <div class="chip" data-val="build a counseling resource">Counseling resource</div>
+            <div class="chip" data-val="prepare professional development material">Prof. development</div>
+            <div class="chip" data-val="adapt material for differentiated learning">Differentiation</div>
+          </div>
+          <input type="text" id="e-input-1" placeholder="Or describe your task in a full sentence..." />
+        </div>
+      </div>
+
+      <!-- E2: Role -->
+      <div class="field edu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#4ecdc418;color:#6ee7b7">02</div>
+          <div>
+            <div class="field-title">What's your role?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="e-chips-2">
+            <div class="chip" data-val="classroom teacher" data-single="true">Classroom teacher</div>
+            <div class="chip" data-val="subject specialist" data-single="true">Subject specialist</div>
+            <div class="chip" data-val="school counselor" data-single="true">School counselor</div>
+            <div class="chip" data-val="curriculum designer" data-single="true">Curriculum designer</div>
+            <div class="chip" data-val="school administrator" data-single="true">Administrator</div>
+            <div class="chip" data-val="instructional coach" data-single="true">Instructional coach</div>
+          </div>
+          <input type="text" id="e-input-2" placeholder="Or describe your role..." />
+        </div>
+      </div>
+
+      <!-- E3: Students -->
+      <div class="field edu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#5b8dee18;color:var(--c1)">03</div>
+          <div>
+            <div class="field-title">Tell AI about your students.</div>
+            <div class="field-hint">Multi-select · avoid names or identifying details</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="sub-label">Grade Level</div>
+          <div class="chips" id="e-chips-3a">
+            <div class="chip" data-val="elementary school students (K–5)">Elementary (K–5)</div>
+            <div class="chip" data-val="middle school students (6–8)">Middle school</div>
+            <div class="chip" data-val="high school students (9–12)">High school</div>
+            <div class="chip" data-val="post-secondary students">Post-secondary</div>
+          </div>
+          <div class="sub-label">Class Situation</div>
+          <div class="chips" id="e-chips-3b">
+            <div class="chip" data-val="a mixed-ability class">Mixed ability</div>
+            <div class="chip" data-val="an advanced or gifted group">Advanced / gifted</div>
+            <div class="chip" data-val="a class with students needing extra support">Needs extra support</div>
+            <div class="chip" data-val="a class with IEP or 504 accommodations">IEP / 504</div>
+            <div class="chip" data-val="English language learners">ELL students</div>
+          </div>
+          <input type="text" id="e-input-3" placeholder="Or describe your class in a sentence. No identifying details." />
+        </div>
+      </div>
+
+      <!-- E4: Context -->
+      <div class="field edu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
+          <div>
+            <div class="field-title">Any other context AI should know?</div>
+            <div class="field-hint">Multi-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="e-chips-4">
+            <div class="chip" data-val="in a public school setting">Public school</div>
+            <div class="chip" data-val="in a private school setting">Private school</div>
+            <div class="chip" data-val="with limited prep time">Time-constrained</div>
+            <div class="chip" data-val="using a trauma-informed lens">Trauma-informed</div>
+            <div class="chip" data-val="aligned to standardized test prep">Test prep aligned</div>
+            <div class="chip" data-val="for a remote or hybrid classroom">Remote / hybrid</div>
+          </div>
+          <input type="text" id="e-input-4" placeholder="e.g. This is for a unit on climate change using project-based learning." />
+        </div>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="tier-label" style="color:var(--c3)">Tier 2 — Style Preferences</div>
+      <div class="tier2-content open" id="e-tier2">
+        <div class="field-row">
+          <div class="field edu-field">
+            <div class="field-header">
+              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
+              <div><div class="field-title">Tone</div><div class="field-hint">Single-select</div></div>
+            </div>
+            <div class="field-body">
+              <div class="chips" id="e-chips-5a">
+                <div class="chip" data-val="concise" data-single="true">Concise</div>
+                <div class="chip" data-val="detailed" data-single="true">Detailed</div>
+                <div class="chip" data-val="formal" data-single="true">Formal</div>
+                <div class="chip" data-val="conversational" data-single="true">Conversational</div>
+                <div class="chip" data-val="warm and encouraging" data-single="true">Warm & encouraging</div>
+              </div> 
+              <input type="text" id="e-input-5a" placeholder="Or describe your tone preference..." />
+            </div>
+          </div>
+          <div class="field edu-field">
+            <div class="field-header">
+              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
+              <div><div class="field-title">Format</div><div class="field-hint">Single-select</div></div>
+            </div>
+            <div class="field-body">
+              <div class="chips" id="e-chips-5b">
+                <div class="chip" data-val="bullet points" data-single="true">Bullet points</div>
+                <div class="chip" data-val="step-by-step" data-single="true">Step-by-step</div>
+                <div class="chip" data-val="prose" data-single="true">Prose</div>
+                <div class="chip" data-val="a structured template" data-single="true">Template</div>
+                <div class="chip" data-val="a mixed format" data-single="true">Mixed</div>
+              </div> 
+              <input type="text" id="e-input-5b" placeholder="Or describe your format preference..." />
+            </div>
+          </div>
+        </div>
+        <div class="field edu-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
+            <div><div class="field-title">Constraints</div><div class="field-hint">Anything the AI should know or avoid</div></div>
+          </div>
+          <div class="field-body">
+            <textarea id="e-input-6" rows="3" placeholder="e.g. Avoid referencing specific standardized tests by name. Keep language accessible for non-specialist parents."></textarea>
+          </div>
+        </div>
+      </div>
+    </div><!-- /education -->
+
+
+    <!-- ═══════════════════════════════════════════
+         STUDENT THEME
+    ════════════════════════════════════════════ -->
+    <div class="theme-panel" id="panel-student">
+
+      <div class="tier-label" style="color:var(--c4)">Tier 1 — Core Setup</div>
+
+      <!-- S1: Task -->
+      <div class="field stu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#f7c94818;color:var(--c4)">01</div>
+          <div>
+            <div class="field-title">What do you need help with?</div>
+            <div class="field-hint">Multi-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="s-chips-1">
+            <div class="chip" data-val="understand a concept I'm confused about">Understand a concept</div>
+            <div class="chip" data-val="brainstorm ideas for an assignment">Brainstorm ideas</div>
+            <div class="chip" data-val="create an outline for an essay">Outline an essay</div>
+            <div class="chip" data-val="get feedback on my draft">Review my draft</div>
+            <div class="chip" data-val="study for a test or exam">Study for a test</div>
+            <div class="chip" data-val="work through a practice problem">Practice problem</div>
+            <div class="chip" data-val="improve my writing">Improve my writing</div>
+            <div class="chip" data-val="understand my assignment requirements">Understand requirements</div>
+          </div>
+          <input type="text" id="s-input-1" placeholder="Or describe what you need help with..." />
+        </div>
+      </div>
+
+      <!-- S2: How should AI help -->
+      <div class="field stu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#f7c94818;color:#fde68a">02</div>
+          <div>
+            <div class="field-title">How should AI help you?</div>
+            <div class="field-hint">Single-select · pick how you want to be supported</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="s-chips-2">
+            <div class="chip" data-val="explain things clearly like I'm new to this topic" data-single="true">Explain it to me</div>
+            <div class="chip" data-val="ask me questions so I can think it through myself" data-single="true">Ask me questions</div>
+            <div class="chip" data-val="give me honest feedback on my work" data-single="true">Give me feedback</div>
+            <div class="chip" data-val="be a study partner and quiz me" data-single="true">Quiz me</div>
+            <div class="chip" data-val="help me break the task into smaller steps" data-single="true">Break it into steps</div>
+          </div>
+          <input type="text" id="s-input-2" placeholder="Or describe how you'd like AI to help..." />
+        </div>
+      </div>
+
+      <!-- S3: Assignment context -->
+      <div class="field stu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#4ecdc418;color:var(--c3)">03</div>
+          <div>
+            <div class="field-title">Tell AI about your assignment.</div>
+            <div class="field-hint">Multi-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="sub-label">Subject</div>
+          <div class="chips" id="s-chips-3a">
+            <div class="chip" data-val="English / Language Arts">English / ELA</div>
+            <div class="chip" data-val="History or Social Studies">History / Social Studies</div>
+            <div class="chip" data-val="Math">Math</div>
+            <div class="chip" data-val="Science">Science</div>
+            <div class="chip" data-val="a foreign language">Foreign language</div>
+            <div class="chip" data-val="an elective or arts class">Elective / Arts</div>
+          </div>
+          <div class="sub-label">Grade Level</div>
+          <div class="chips" id="s-chips-3b">
+            <div class="chip" data-val="middle school level" data-single="true">Middle school</div>
+            <div class="chip" data-val="high school level" data-single="true">High school</div>
+            <div class="chip" data-val="college or university level" data-single="true">College / University</div>
+          </div>
+          <div class="sub-label">Assignment Type</div>
+          <div class="chips" id="s-chips-3c">
+            <div class="chip" data-val="an essay">Essay</div>
+            <div class="chip" data-val="a problem set">Problem set</div>
+            <div class="chip" data-val="a presentation">Presentation</div>
+            <div class="chip" data-val="a discussion post">Discussion post</div>
+            <div class="chip" data-val="a research paper">Research paper</div>
+            <div class="chip" data-val="a lab report">Lab report</div>
+          </div>
+          <input type="text" id="s-input-3" placeholder="Or describe your assignment. Don't share personal info." />
+        </div>
+      </div>
+
+      <!-- S4: Constraints -->
+      <div class="field stu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#5b8dee18;color:var(--c1)">04</div>
+          <div>
+            <div class="field-title">Any constraints or preferences?</div>
+            <div class="field-hint">Multi-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="s-chips-4">
+            <div class="chip" data-val="don't give me the answer — help me figure it out">No spoilers</div>
+            <div class="chip" data-val="cite credible sources when you reference facts">Cite sources</div>
+            <div class="chip" data-val="keep explanations simple and jargon-free">Keep it simple</div>
+            <div class="chip" data-val="I have a word or page limit">Word / page limit</div>
+            <div class="chip" data-val="this needs to be in my own voice">My own voice</div>
+            <div class="chip" data-val="use examples to help explain">Use examples</div>
+          </div>
+          <input type="text" id="s-input-4" placeholder="e.g. My essay needs to be 500–700 words. MLA format required." />
+        </div>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="tier-label" style="color:var(--c4)">Tier 2 — Style Preferences</div>
+      <div class="tier2-content open" id="s-tier2">
+        <div class="field-row">
+          <div class="field stu-field">
+            <div class="field-header">
+              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
+              <div><div class="field-title">Tone</div><div class="field-hint">Single-select</div></div>
+            </div>
+            <div class="field-body">
+              <div class="chips" id="s-chips-5a">
+                <div class="chip" data-val="concise" data-single="true">Concise</div>
+                <div class="chip" data-val="detailed" data-single="true">Detailed</div>
+                <div class="chip" data-val="conversational" data-single="true">Conversational</div>
+                <div class="chip" data-val="patient and encouraging" data-single="true">Patient & encouraging</div>
+              </div> 
+              <input type="text" id="s-input-5a" placeholder="Or describe your tone preference..." />
+            </div>
+          </div>
+          <div class="field stu-field">
+            <div class="field-header">
+              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
+              <div><div class="field-title">Format</div><div class="field-hint">Single-select</div></div>
+            </div>
+            <div class="field-body">
+              <div class="chips" id="s-chips-5b">
+                <div class="chip" data-val="bullet points" data-single="true">Bullet points</div>
+                <div class="chip" data-val="step-by-step" data-single="true">Step-by-step</div>
+                <div class="chip" data-val="prose" data-single="true">Prose</div>
+                <div class="chip" data-val="examples where possible" data-single="true">Use examples</div>
+              </div> 
+              <input type="text" id="s-input-5b" placeholder="Or describe your format preference..." />
+            </div>
+          </div>
+        </div>
+        <div class="field stu-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
+            <div><div class="field-title">Anything else?</div><div class="field-hint">Extra info or things AI should avoid</div></div>
+          </div>
+          <div class="field-body">
+            <textarea id="s-input-6" rows="3" placeholder="e.g. I struggle with thesis statements. I've already done the research, I just need help organizing."></textarea>
+          </div>
+        </div>
+      </div>
+    </div><!-- /student -->
+
+
+    <!-- ═══════════════════════════════════════════
+         CREATIVE THEME
+    ════════════════════════════════════════════ -->
+    <div class="theme-panel" id="panel-creative">
+
+      <div class="tier-label" style="color:var(--c2)">Tier 1 — Core Setup</div>
+
+      <!-- C1: What are you creating -->
+      <div class="field cre-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#e06c8a18;color:var(--c2)">01</div>
+          <div>
+            <div class="field-title">What are you creating?</div>
+            <div class="field-hint">Multi-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="c-chips-1">
+            <div class="chip" data-val="a short story">Short story</div>
+            <div class="chip" data-val="a novel chapter">Novel chapter</div>
+            <div class="chip" data-val="worldbuilding material">Worldbuilding</div>
+            <div class="chip" data-val="character development">Character development</div>
+            <div class="chip" data-val="dialogue">Dialogue</div>
+            <div class="chip" data-val="poetry">Poetry</div>
+            <div class="chip" data-val="a game narrative">Game narrative</div>
+            <div class="chip" data-val="a screenplay or script">Screenplay / Script</div>
+          </div>
+          <input type="text" id="c-input-1" placeholder="Or describe your creative project..." />
+        </div>
+      </div>
+
+      <!-- C2: What do you need from AI -->
+      <div class="field cre-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#e06c8a18;color:#f9a8d4">02</div>
+          <div>
+            <div class="field-title">What do you need from AI?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="c-chips-2">
+            <div class="chip" data-val="co-write with me — contribute ideas and prose" data-single="true">Co-write with me</div>
+            <div class="chip" data-val="give me honest editorial feedback" data-single="true">Give feedback</div>
+            <div class="chip" data-val="help me get unstuck or past a block" data-single="true">Unstick me</div>
+            <div class="chip" data-val="generate multiple options for me to choose from" data-single="true">Generate options</div>
+            <div class="chip" data-val="act as a developmental editor" data-single="true">Dev editor</div>
+          </div>
+          <input type="text" id="c-input-2" placeholder="Or describe how you'd like AI to help..." />
+        </div>
+      </div>
+
+      <!-- C3: Project context -->
+      <div class="field cre-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#a78bfa18;color:var(--c5)">03</div>
+          <div>
+            <div class="field-title">Tell AI about your project.</div>
+            <div class="field-hint">Multi-select · the more context, the better</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="sub-label">Genre / Style</div>
+          <div class="chips" id="c-chips-3a">
+            <div class="chip" data-val="literary fiction">Literary fiction</div>
+            <div class="chip" data-val="fantasy">Fantasy</div>
+            <div class="chip" data-val="science fiction">Sci-fi</div>
+            <div class="chip" data-val="horror">Horror</div>
+            <div class="chip" data-val="romance">Romance</div>
+            <div class="chip" data-val="thriller or mystery">Thriller / Mystery</div>
+            <div class="chip" data-val="historical fiction">Historical fiction</div>
+            <div class="chip" data-val="experimental or avant-garde">Experimental</div>
+          </div>
+          <div class="sub-label">Intended Audience</div>
+          <div class="chips" id="c-chips-3b">
+            <div class="chip" data-val="a personal or passion project" data-single="true">Personal project</div>
+            <div class="chip" data-val="young adult (YA) readers" data-single="true">YA</div>
+            <div class="chip" data-val="adult readers" data-single="true">Adult</div>
+            <div class="chip" data-val="children" data-single="true">Children</div>
+          </div>
+          <input type="text" id="c-input-3" placeholder="e.g. Dark fantasy set in 1920s New Orleans. Inspired by Octavia Butler." />
+        </div>
+      </div>
+
+      <!-- C4: Where in the process -->
+      <div class="field cre-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
+          <div>
+            <div class="field-title">Where are you in the process?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="c-chips-4">
+            <div class="chip" data-val="starting from a blank page" data-single="true">Blank page</div>
+            <div class="chip" data-val="in the early drafting stage" data-single="true">Early draft</div>
+            <div class="chip" data-val="mid-project and building momentum" data-single="true">Mid-project</div>
+            <div class="chip" data-val="stuck on a specific scene or problem" data-single="true">Stuck</div>
+            <div class="chip" data-val="in the final polish and revision stage" data-single="true">Final polish</div>
+          </div>
+          <input type="text" id="c-input-4" placeholder="Or describe where you are and what you're trying to solve..." />
+        </div>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="tier-label" style="color:var(--c4)">Tier 2 — Style Preferences</div>
+      <div class="tier2-content open" id="c-tier2">
+        <div class="field-row">
+          <div class="field cre-field">
+            <div class="field-header">
+              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
+              <div><div class="field-title">Tone</div><div class="field-hint">Single-select</div></div>
+            </div>
+            <div class="field-body">
+              <div class="chips" id="c-chips-5a">
+                <div class="chip" data-val="concise" data-single="true">Concise</div>
+                <div class="chip" data-val="expansive and exploratory" data-single="true">Expansive</div>
+                <div class="chip" data-val="blunt and direct" data-single="true">Blunt & direct</div>
+                <div class="chip" data-val="encouraging but honest" data-single="true">Encouraging</div>
+              </div> 
+              <input type="text" id="c-input-5a" placeholder="Or describe your tone preference..." />
+            </div>
+          </div>
+          <div class="field cre-field">
+            <div class="field-header">
+              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
+              <div><div class="field-title">Format</div><div class="field-hint">Single-select</div></div>
+            </div>
+            <div class="field-body">
+              <div class="chips" id="c-chips-5b">
+                <div class="chip" data-val="give me options to choose from" data-single="true">Give options</div>
+                <div class="chip" data-val="prose" data-single="true">Prose</div>
+                <div class="chip" data-val="annotated feedback" data-single="true">Annotated feedback</div>
+                <div class="chip" data-val="a mixed format" data-single="true">Mixed</div>
+              </div> 
+              <input type="text" id="c-input-5b" placeholder="Or describe your format preference..." />
+            </div>
+          </div>
+        </div>
+        <div class="field cre-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
+            <div><div class="field-title">Constraints</div><div class="field-hint">POV, tense, style rules, things to avoid</div></div>
+          </div>
+          <div class="field-body">
+            <textarea id="c-input-6" rows="3" placeholder="e.g. First person, present tense. No clichés. Avoid purple prose. The protagonist never uses magic directly."></textarea>
+          </div>
+        </div>
+      </div>
+    </div><!-- /creative -->
+
+  </div><!-- /form-col -->
+
+
+  <!-- ══════════════════════════════════════
+       OUTPUT PANEL
+  ══════════════════════════════════════ -->
   <div class="output-col">
     <div class="output-card">
       <div class="output-header">
         <div class="output-label">
           <div class="live-dot"></div>
+          <span id="output-theme-badge" class="theme-badge" style="background:#5b8dee22;color:var(--c1)">Agency</span>
           Generated Prompt
         </div>
         <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy</button>
       </div>
       <div class="output-body">
-        <div id="prompt-preview"><span class="placeholder-msg">Your prompt will appear here as you fill in the fields above.</span>
-        </div>
+        <div id="prompt-preview"><span class="placeholder-msg">Your prompt will appear here as you fill in the fields above.</span></div>
       </div>
-      <div class="legend">
+      <div class="legend" id="legend-agency">
         <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>AI Role</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Client</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Context</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Style</div>
+      </div>
+      <div class="legend" id="legend-education" style="display:none">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Task</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6ee7b7"></div>Role</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Students</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Context</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Style</div>
+      </div>
+      <div class="legend" id="legend-student" style="display:none">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Task</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fde68a"></div>AI Mode</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Assignment</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Constraints</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Style</div>
+      </div>
+      <div class="legend" id="legend-creative" style="display:none">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>Project</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f9a8d4"></div>AI Mode</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Context</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Stage</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Style</div>
       </div>
       <div class="output-footer">
         <div class="meta" id="meta">— / —</div>
@@ -665,285 +1227,505 @@
     </div>
   </div>
 
-</div>
+</div><!-- /page -->
 
 <script>
-  // ── STATE ──
-  const state = {
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+const themes = ['agency', 'education', 'student', 'creative'];
+let currentTheme = 'agency';
+
+const state = {
+  agency: {
     f1chips: [], f1text: '',
     f2chip: '',  f2text: '',
     f3industry: [], f3size: '', f3situation: [], f3text: '',
     f4chips: [], f4text: '',
-    f5a: '', f5b: '',
-    f6: ''
-  };
-
-  // ── CHIP WIRING ──
-
-  // Field 1 — multi
-  document.getElementById('chips-1').querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      chip.classList.toggle('active');
-      const v = chip.dataset.val;
-      state.f1chips = chip.classList.contains('active')
-        ? [...state.f1chips, v]
-        : state.f1chips.filter(x => x !== v);
-      render();
-    });
-  });
-
-  // Field 2 — single
-  document.getElementById('chips-2').querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const wasActive = chip.classList.contains('active');
-      document.getElementById('chips-2').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      if (!wasActive) { chip.classList.add('active'); state.f2chip = chip.dataset.val; }
-      else state.f2chip = '';
-      render();
-    });
-  });
-
-  // Field 3 — industry (multi)
-  document.getElementById('chips-3a').querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      chip.classList.toggle('active');
-      const v = chip.dataset.val;
-      state.f3industry = chip.classList.contains('active')
-        ? [...state.f3industry, v]
-        : state.f3industry.filter(x => x !== v);
-      render();
-    });
-  });
-
-  // Field 3 — size (single)
-  document.getElementById('chips-3b').querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const wasActive = chip.classList.contains('active');
-      document.getElementById('chips-3b').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      if (!wasActive) { chip.classList.add('active'); state.f3size = chip.dataset.val; }
-      else state.f3size = '';
-      render();
-    });
-  });
-
-  // Field 3 — situation (multi)
-  document.getElementById('chips-3c').querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      chip.classList.toggle('active');
-      const v = chip.dataset.val;
-      state.f3situation = chip.classList.contains('active')
-        ? [...state.f3situation, v]
-        : state.f3situation.filter(x => x !== v);
-      render();
-    });
-  });
-
-  // Field 4 — multi
-  document.getElementById('chips-4').querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      chip.classList.toggle('active');
-      const v = chip.dataset.val;
-      state.f4chips = chip.classList.contains('active')
-        ? [...state.f4chips, v]
-        : state.f4chips.filter(x => x !== v);
-      render();
-    });
-  });
-
-  // Field 5a — single
-  document.getElementById('chips-5a').querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const wasActive = chip.classList.contains('active');
-      document.getElementById('chips-5a').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      if (!wasActive) { chip.classList.add('active'); state.f5a = chip.dataset.val; }
-      else state.f5a = '';
-      render();
-    });
-  });
-
-  // Field 5b — single
-  document.getElementById('chips-5b').querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const wasActive = chip.classList.contains('active');
-      document.getElementById('chips-5b').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      if (!wasActive) { chip.classList.add('active'); state.f5b = chip.dataset.val; }
-      else state.f5b = '';
-      render();
-    });
-  });
-
-  // Text inputs
-  document.getElementById('input-1').addEventListener('input', e => { state.f1text = e.target.value.trim(); render(); });
-  document.getElementById('input-2').addEventListener('input', e => { state.f2text = e.target.value.trim(); render(); });
-  document.getElementById('input-3').addEventListener('input', e => { state.f3text = e.target.value.trim(); render(); });
-  document.getElementById('input-4').addEventListener('input', e => { state.f4text = e.target.value.trim(); render(); });
-  document.getElementById('input-6').addEventListener('input', e => { state.f6 = e.target.value.trim(); render(); });
-
-  // ── HELPERS ──
-  function joinList(arr) {
-    if (!arr.length) return '';
-    if (arr.length === 1) return arr[0];
-    if (arr.length === 2) return arr[0] + ' and ' + arr[1];
-    return arr.slice(0, -1).join(', ') + ', and ' + arr[arr.length - 1];
+    f5a: '', f5a_text: '', f5b: '', f5b_text: '', f6: ''
+  },
+  education: {
+    f1chips: [], f1text: '',
+    f2chip: '',  f2text: '',
+    f3grade: [], f3situation: [], f3text: '',
+    f4chips: [], f4text: '',
+    f5a: '', f5a_text: '', f5b: '', f5b_text: '', f6: ''
+  },
+  student: {
+    f1chips: [], f1text: '',
+    f2chip: '',  f2text: '',
+    f3subject: [], f3level: '', f3type: [], f3text: '',
+    f4chips: [], f4text: '',
+    f5a: '', f5a_text: '', f5b: '', f5b_text: '', f6: ''
+  },
+  creative: {
+    f1chips: [], f1text: '',
+    f2chip: '',  f2text: '',
+    f3genre: [], f3audience: '', f3text: '',
+    f4chip: '',  f4text: '',
+    f5a: '', f5a_text: '', f5b: '', f5b_text: '', f6: ''
   }
+};
 
-  function isFullSentence(str) {
-    return /[.!?]$/.test(str.trim());
-  }
-
-  function wrapFragment(str) {
-    if (!str) return '';
-    str = str.trim();
-    if (isFullSentence(str)) return str;
-    return 'Additional context: ' + str + '.';
-  }
-
-  // ── BUILD PROMPT ──
-  function buildPrompt() {
-    const s = state;
-    const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
-                   s.f3industry.length || s.f3size || s.f3situation.length || s.f3text ||
-                   s.f4chips.length || s.f4text;
-    if (!hasAny) return null;
-
-    const plain = [];
-    const html  = [];
-
-    function add(p, h) { plain.push(p); html.push(h); }
-
-    // F2 — AI Role (sets stage first)
-    const aiRole = s.f2chip || s.f2text;
-    if (aiRole) {
-      const sentence = isFullSentence(aiRole) ? aiRole : 'You are ' + aiRole + '.';
-      add(sentence, '<span class="hl2">' + sentence + '</span>');
-    }
-
-    // F1 — Task
-    if (s.f1chips.length || s.f1text) {
-      let sentence;
-      if (s.f1chips.length && s.f1text) {
-        sentence = 'My goals for this conversation are to ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text);
-      } else if (s.f1chips.length) {
-        sentence = 'My goals for this conversation are to ' + joinList(s.f1chips) + '.';
+// ══════════════════════════════════════════════
+//  CHIP WIRING HELPER
+// ══════════════════════════════════════════════
+function wireChips(containerId, isSingle, onUpdate) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (isSingle || chip.dataset.single === 'true') {
+        const wasActive = chip.classList.contains('active');
+        container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        if (!wasActive) chip.classList.add('active');
+        else { chip.classList.remove('active'); }
       } else {
-        sentence = wrapFragment(s.f1text);
+        chip.classList.toggle('active');
       }
-      add(sentence, '<span class="hl1">' + sentence + '</span>');
-    }
-
-    // F3 — Client
-    if (s.f3industry.length || s.f3size || s.f3situation.length || s.f3text) {
-      let sentence = '';
-      if (s.f3industry.length || s.f3size || s.f3situation.length) {
-        let desc = 'The client is';
-        if (s.f3size) desc += ' ' + s.f3size;
-        if (s.f3industry.length) desc += ' ' + joinList(s.f3industry) + ' company';
-        if (!s.f3size && !s.f3industry.length) desc += ' a company';
-        if (s.f3situation.length) desc += ' currently focused on ' + joinList(s.f3situation);
-        desc += '.';
-        if (s.f3text) desc += ' ' + wrapFragment(s.f3text);
-        sentence = desc;
-      } else {
-        sentence = wrapFragment(s.f3text);
-      }
-      add(sentence, '<span class="hl3">' + sentence + '</span>');
-    }
-
-    // F4 — Context
-    if (s.f4chips.length || s.f4text) {
-      let sentence;
-      if (s.f4chips.length && s.f4text) {
-        sentence = 'Please note this is ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text);
-      } else if (s.f4chips.length) {
-        sentence = 'Please note this is ' + joinList(s.f4chips) + '.';
-      } else {
-        sentence = wrapFragment(s.f4text);
-      }
-      add(sentence, '<span class="hl4">' + sentence + '</span>');
-    }
-
-    // F5a + F5b — Style
-    if (s.f5a || s.f5b) {
-      const parts = [s.f5a, s.f5b].filter(Boolean);
-      const stylePlain = 'Please keep your responses ' + joinList(parts) + '.';
-      const styleHtml  = 'Please keep your responses ' +
-        parts.map(p => '<span class="hl5">' + p + '</span>').join(' and ') + '.';
-      add(stylePlain, styleHtml);
-    }
-
-    // F6 — Constraints
-    if (s.f6) {
-      const sentence = wrapFragment(s.f6);
-      add(sentence, '<span class="hl5">' + sentence + '</span>');
-    }
-
-    // Closing
-    const assumption = '\nWhen sharing insights or recommendations, please acknowledge any analysis that assumptions goes into it, and highlight the limitations of your response.'
-    const rules = '\nCRITICAL RULE: Never fabricate, assume, or infer insights beyond what the data directly supports. When data is limited or absent, conduct web research from credible sources and cite every external insights.'
-    const closing = '\nPlease acknowledge this setup and confirm you\'re ready to help.';
-    add(assumption, assumption);
-    add(rules, rules);
-    add(closing, closing);
-
-    return {
-      plain: plain.join('\n'),
-      highlighted: html.join('\n')
-    };
-  }
-
-  // ── RENDER ──
-  function render() {
-    const preview = document.getElementById('prompt-preview');
-    const copyBtn = document.getElementById('copy-btn');
-    const meta    = document.getElementById('meta');
-
-    const result = buildPrompt();
-    if (!result) {
-      preview.innerHTML = '<span class="placeholder-msg">Your prompt will appear here as you fill in the fields above.</span>';
-      copyBtn.disabled = true;
-      meta.textContent = '— / —';
-      return;
-    }
-
-    preview.innerHTML = result.highlighted;
-    copyBtn.disabled = false;
-    const words = result.plain.trim().split(/\s+/).filter(Boolean).length;
-    meta.textContent = words + ' words · ' + result.plain.length + ' chars';
-  }
-
-  // ── COPY ──
-  function copyPrompt() {
-    const result = buildPrompt();
-    if (!result) return;
-    navigator.clipboard.writeText(result.plain).then(() => {
-      const btn = document.getElementById('copy-btn');
-      btn.textContent = '✓ Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2200);
+      onUpdate();
     });
+  });
+}
+
+function getActiveVals(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return [];
+  return [...container.querySelectorAll('.chip.active')].map(c => c.dataset.val);
+}
+
+function getSingleVal(containerId) {
+  const vals = getActiveVals(containerId);
+  return vals.length ? vals[0] : '';
+}
+
+function wireText(inputId, onUpdate) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  el.addEventListener('input', e => { onUpdate(e.target.value.trim()); render(); });
+}
+
+// ══════════════════════════════════════════════
+//  WIRE ALL FIELDS
+// ══════════════════════════════════════════════
+
+// — AGENCY —
+wireChips('a-chips-1', false, () => { state.agency.f1chips = getActiveVals('a-chips-1'); render(); });
+wireChips('a-chips-2', true,  () => { state.agency.f2chip  = getSingleVal('a-chips-2'); render(); });
+wireChips('a-chips-3a',false, () => { state.agency.f3industry  = getActiveVals('a-chips-3a'); render(); });
+wireChips('a-chips-3b',true,  () => { state.agency.f3size      = getSingleVal('a-chips-3b'); render(); });
+wireChips('a-chips-3c',false, () => { state.agency.f3situation = getActiveVals('a-chips-3c'); render(); });
+wireChips('a-chips-4', false, () => { state.agency.f4chips = getActiveVals('a-chips-4'); render(); });
+wireChips('a-chips-5a',true,  () => { state.agency.f5a = getSingleVal('a-chips-5a'); render(); });
+wireChips('a-chips-5b',true,  () => { state.agency.f5b = getSingleVal('a-chips-5b'); render(); });
+wireText('a-input-1', v => state.agency.f1text = v);
+wireText('a-input-2', v => state.agency.f2text = v);
+wireText('a-input-3', v => state.agency.f3text = v);
+wireText('a-input-4', v => state.agency.f4text = v);
+wireText('a-input-5a', v => state.agency.f5a_text = v);
+wireText('a-input-5b', v => state.agency.f5b_text = v);
+wireText('a-input-6', v => state.agency.f6 = v);
+
+// — EDUCATION —
+wireChips('e-chips-1', false, () => { state.education.f1chips = getActiveVals('e-chips-1'); render(); });
+wireChips('e-chips-2', true,  () => { state.education.f2chip  = getSingleVal('e-chips-2'); render(); });
+wireChips('e-chips-3a',false, () => { state.education.f3grade     = getActiveVals('e-chips-3a'); render(); });
+wireChips('e-chips-3b',false, () => { state.education.f3situation = getActiveVals('e-chips-3b'); render(); });
+wireChips('e-chips-4', false, () => { state.education.f4chips = getActiveVals('e-chips-4'); render(); });
+wireChips('e-chips-5a',true,  () => { state.education.f5a = getSingleVal('e-chips-5a'); render(); });
+wireChips('e-chips-5b',true,  () => { state.education.f5b = getSingleVal('e-chips-5b'); render(); });
+wireText('e-input-1', v => state.education.f1text = v);
+wireText('e-input-2', v => state.education.f2text = v);
+wireText('e-input-3', v => state.education.f3text = v);
+wireText('e-input-4', v => state.education.f4text = v);
+wireText('e-input-5a', v => state.education.f5a_text = v);
+wireText('e-input-5b', v => state.education.f5b_text = v);
+wireText('e-input-6', v => state.education.f6 = v);
+
+// — STUDENT —
+wireChips('s-chips-1', false, () => { state.student.f1chips = getActiveVals('s-chips-1'); render(); });
+wireChips('s-chips-2', true,  () => { state.student.f2chip  = getSingleVal('s-chips-2'); render(); });
+wireChips('s-chips-3a',false, () => { state.student.f3subject = getActiveVals('s-chips-3a'); render(); });
+wireChips('s-chips-3b',true,  () => { state.student.f3level   = getSingleVal('s-chips-3b'); render(); });
+wireChips('s-chips-3c',false, () => { state.student.f3type    = getActiveVals('s-chips-3c'); render(); });
+wireChips('s-chips-4', false, () => { state.student.f4chips = getActiveVals('s-chips-4'); render(); });
+wireChips('s-chips-5a',true,  () => { state.student.f5a = getSingleVal('s-chips-5a'); render(); });
+wireChips('s-chips-5b',true,  () => { state.student.f5b = getSingleVal('s-chips-5b'); render(); });
+wireText('s-input-1', v => state.student.f1text = v);
+wireText('s-input-2', v => state.student.f2text = v);
+wireText('s-input-3', v => state.student.f3text = v);
+wireText('s-input-4', v => state.student.f4text = v);
+wireText('s-input-5a', v => state.student.f5a_text = v);
+wireText('s-input-5b', v => state.student.f5b_text = v);
+wireText('s-input-6', v => state.student.f6 = v);
+
+// — CREATIVE —
+wireChips('c-chips-1', false, () => { state.creative.f1chips = getActiveVals('c-chips-1'); render(); });
+wireChips('c-chips-2', true,  () => { state.creative.f2chip  = getSingleVal('c-chips-2'); render(); });
+wireChips('c-chips-3a',false, () => { state.creative.f3genre    = getActiveVals('c-chips-3a'); render(); });
+wireChips('c-chips-3b',true,  () => { state.creative.f3audience = getSingleVal('c-chips-3b'); render(); });
+wireChips('c-chips-4', true,  () => { state.creative.f4chip  = getSingleVal('c-chips-4'); render(); });
+wireChips('c-chips-5a',true,  () => { state.creative.f5a = getSingleVal('c-chips-5a'); render(); });
+wireChips('c-chips-5b',true,  () => { state.creative.f5b = getSingleVal('c-chips-5b'); render(); });
+wireText('c-input-1', v => state.creative.f1text = v);
+wireText('c-input-2', v => state.creative.f2text = v);
+wireText('c-input-3', v => state.creative.f3text = v);
+wireText('c-input-4', v => state.creative.f4text = v);
+wireText('c-input-5a', v => state.creative.f5a_text = v);
+wireText('c-input-5b', v => state.creative.f5b_text = v);
+wireText('c-input-6', v => state.creative.f6 = v);
+
+// ══════════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════════
+function joinList(arr) {
+  if (!arr.length) return '';
+  if (arr.length === 1) return arr[0];
+  if (arr.length === 2) return arr[0] + ' and ' + arr[1];
+  return arr.slice(0, -1).join(', ') + ', and ' + arr[arr.length - 1];
+}
+
+function isFullSentence(str) { return /[.!?]$/.test(str.trim()); }
+
+function wrapFragment(str) {
+  if (!str) return '';
+  str = str.trim();
+  if (isFullSentence(str)) return str;
+  return 'Additional context: ' + str + '.';
+}
+
+// ══════════════════════════════════════════════
+//  BUILD PROMPTS
+// ══════════════════════════════════════════════
+function buildAgency() {
+  const s = state.agency;
+  const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
+                 s.f3industry.length || s.f3size || s.f3situation.length || s.f3text ||
+                 s.f4chips.length || s.f4text;
+  if (!hasAny) return null;
+
+  const plain = [], html = [];
+  function add(p, h) { plain.push(p); html.push(h); }
+
+  const aiRole = s.f2chip || s.f2text;
+  if (aiRole) {
+    const sentence = isFullSentence(aiRole) ? aiRole : 'You are ' + aiRole + '.';
+    add(sentence, '<span class="hl-a2">' + sentence + '</span>');
   }
 
-  // ── RESET ──
-  function resetAll() {
-    state.f1chips = []; state.f1text = '';
-    state.f2chip  = ''; state.f2text = '';
-    state.f3industry = []; state.f3size = ''; state.f3situation = []; state.f3text = '';
-    state.f4chips = []; state.f4text = '';
-    state.f5a = ''; state.f5b = '';
-    state.f6 = '';
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
-    render();
+  if (s.f1chips.length || s.f1text) {
+    let sentence;
+    if (s.f1chips.length && s.f1text) sentence = 'My goals for this conversation are to ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text);
+    else if (s.f1chips.length) sentence = 'My goals for this conversation are to ' + joinList(s.f1chips) + '.';
+    else sentence = wrapFragment(s.f1text);
+    add(sentence, '<span class="hl-a1">' + sentence + '</span>');
   }
 
-  // ── ACCORDION ──
-  function toggleTier2() {
-    const content = document.getElementById('tier2-content');
-    const icon    = document.getElementById('accordion-icon');
-    const isOpen  = content.classList.contains('open');
-    content.classList.toggle('open');
-    icon.textContent = isOpen ? '+ Expand' : '− Collapse';
+  if (s.f3industry.length || s.f3size || s.f3situation.length || s.f3text) {
+    let desc = 'The client is';
+    if (s.f3size) desc += ' ' + s.f3size;
+    if (s.f3industry.length) desc += ' ' + joinList(s.f3industry) + ' company';
+    if (!s.f3size && !s.f3industry.length) desc += ' a company';
+    if (s.f3situation.length) desc += ' currently focused on ' + joinList(s.f3situation);
+    desc += '.';
+    if (s.f3text) desc += ' ' + wrapFragment(s.f3text);
+    const sentence = (s.f3industry.length || s.f3size || s.f3situation.length) ? desc : wrapFragment(s.f3text);
+    add(sentence, '<span class="hl-a3">' + sentence + '</span>');
   }
+
+  if (s.f4chips.length || s.f4text) {
+    let sentence;
+    if (s.f4chips.length && s.f4text) sentence = 'Please note this is ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text);
+    else if (s.f4chips.length) sentence = 'Please note this is ' + joinList(s.f4chips) + '.';
+    else sentence = wrapFragment(s.f4text);
+    add(sentence, '<span class="hl-a4">' + sentence + '</span>');
+  }
+
+  if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
+    const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
+    add('Please keep your responses ' + joinList(parts) + '.',
+        'Please keep your responses ' + parts.map(p => '<span class="hl-a5">' + p + '</span>').join(' and ') + '.');
+  }
+
+  if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-a5">' + sentence + '</span>'); }
+
+  const closing = '\nWhen sharing insights or recommendations, acknowledge any assumptions that go into the analysis and highlight the limitations of your response.\nCRITICAL RULE: Never fabricate, assume, or infer insights beyond what the data directly supports. When data is limited or absent, conduct web research from credible sources and cite every external insight.\nPlease acknowledge this setup and confirm you\'re ready to help.';
+  add(closing, closing);
+
+  return { plain: plain.join('\n'), highlighted: html.join('\n') };
+}
+
+function buildEducation() {
+  const s = state.education;
+  const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
+                 s.f3grade.length || s.f3situation.length || s.f3text ||
+                 s.f4chips.length || s.f4text;
+  if (!hasAny) return null;
+
+  const plain = [], html = [];
+  function add(p, h) { plain.push(p); html.push(h); }
+
+  const role = s.f2chip || s.f2text;
+  if (role) {
+    const sentence = isFullSentence(role) ? role : 'I am a ' + role + '.';
+    add(sentence, '<span class="hl-e2">' + sentence + '</span>');
+  }
+
+  if (s.f1chips.length || s.f1text) {
+    let sentence;
+    if (s.f1chips.length && s.f1text) sentence = 'I need help to ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text);
+    else if (s.f1chips.length) sentence = 'I need help to ' + joinList(s.f1chips) + '.';
+    else sentence = wrapFragment(s.f1text);
+    add(sentence, '<span class="hl-e1">' + sentence + '</span>');
+  }
+
+  if (s.f3grade.length || s.f3situation.length || s.f3text) {
+    let parts = [];
+    if (s.f3grade.length) parts.push('working with ' + joinList(s.f3grade));
+    if (s.f3situation.length) parts.push('in ' + joinList(s.f3situation));
+    let desc = parts.length ? 'My class context: I am ' + parts.join(', ') + '.' : '';
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text);
+    if (desc) add(desc, '<span class="hl-e3">' + desc + '</span>');
+  }
+
+  if (s.f4chips.length || s.f4text) {
+    let sentence;
+    if (s.f4chips.length && s.f4text) sentence = 'This work is ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text);
+    else if (s.f4chips.length) sentence = 'This work is ' + joinList(s.f4chips) + '.';
+    else sentence = wrapFragment(s.f4text);
+    add(sentence, '<span class="hl-e4">' + sentence + '</span>');
+  }
+
+  if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
+    const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
+    add('Please keep your responses ' + joinList(parts) + '.',
+        'Please keep your responses ' + parts.map(p => '<span class="hl-e5">' + p + '</span>').join(' and ') + '.');
+  }
+
+  if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-e5">' + sentence + '</span>'); }
+
+  const closing = '\nAcknowledge any pedagogical assumptions in your suggestions. If your recommendation touches on student mental health, trauma, or clinical concerns, flag where a licensed professional (counselor, psychologist) should be involved.\nPlease confirm you understand this context and are ready to help.';
+  add(closing, closing);
+
+  return { plain: plain.join('\n'), highlighted: html.join('\n') };
+}
+
+function buildStudent() {
+  const s = state.student;
+  const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
+                 s.f3subject.length || s.f3level || s.f3type.length || s.f3text ||
+                 s.f4chips.length || s.f4text;
+  if (!hasAny) return null;
+
+  const plain = [], html = [];
+  function add(p, h) { plain.push(p); html.push(h); }
+
+  if (s.f1chips.length || s.f1text) {
+    let sentence;
+    if (s.f1chips.length && s.f1text) sentence = 'I need help to ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text);
+    else if (s.f1chips.length) sentence = 'I need help to ' + joinList(s.f1chips) + '.';
+    else sentence = wrapFragment(s.f1text);
+    add(sentence, '<span class="hl-s1">' + sentence + '</span>');
+  }
+
+  const aiMode = s.f2chip || s.f2text;
+  if (aiMode) {
+    const sentence = isFullSentence(aiMode) ? aiMode : 'I want you to ' + aiMode + '.';
+    add(sentence, '<span class="hl-s2">' + sentence + '</span>');
+  }
+
+  if (s.f3subject.length || s.f3level || s.f3type.length || s.f3text) {
+    let parts = [];
+    if (s.f3level) parts.push('This is ' + s.f3level + ' work');
+    if (s.f3subject.length) parts.push('for ' + joinList(s.f3subject));
+    if (s.f3type.length) parts.push('specifically ' + joinList(s.f3type));
+    let desc = parts.length ? parts.join(' ') + '.' : '';
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text);
+    if (desc) add(desc, '<span class="hl-s3">' + desc + '</span>');
+  }
+
+  if (s.f4chips.length || s.f4text) {
+    let sentence;
+    if (s.f4chips.length && s.f4text) sentence = 'Important: please ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text);
+    else if (s.f4chips.length) sentence = 'Important: please ' + joinList(s.f4chips) + '.';
+    else sentence = wrapFragment(s.f4text);
+    add(sentence, '<span class="hl-s4">' + sentence + '</span>');
+  }
+
+  if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
+    const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
+    add('Please keep your responses ' + joinList(parts) + '.',
+        'Please keep your responses ' + parts.map(p => '<span class="hl-s5">' + p + '</span>').join(' and ') + '.');
+  }
+
+  if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-s5">' + sentence + '</span>'); }
+
+  const closing = '\nHelp me learn — don\'t just give me the answer. If you explain something, check my understanding before moving on. If I seem stuck, guide me with questions rather than just solving it for me.\nPlease confirm you\'re ready to help.';
+  add(closing, closing);
+
+  return { plain: plain.join('\n'), highlighted: html.join('\n') };
+}
+
+function buildCreative() {
+  const s = state.creative;
+  const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
+                 s.f3genre.length || s.f3audience || s.f3text ||
+                 s.f4chip || s.f4text;
+  if (!hasAny) return null;
+
+  const plain = [], html = [];
+  function add(p, h) { plain.push(p); html.push(h); }
+
+  if (s.f1chips.length || s.f1text) {
+    let sentence;
+    if (s.f1chips.length && s.f1text) sentence = 'I am working on ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text);
+    else if (s.f1chips.length) sentence = 'I am working on ' + joinList(s.f1chips) + '.';
+    else sentence = wrapFragment(s.f1text);
+    add(sentence, '<span class="hl-c1">' + sentence + '</span>');
+  }
+
+  const aiMode = s.f2chip || s.f2text;
+  if (aiMode) {
+    const sentence = isFullSentence(aiMode) ? aiMode : 'I need you to ' + aiMode + '.';
+    add(sentence, '<span class="hl-c2">' + sentence + '</span>');
+  }
+
+  if (s.f3genre.length || s.f3audience || s.f3text) {
+    let parts = [];
+    if (s.f3genre.length) parts.push('Genre / style: ' + joinList(s.f3genre));
+    if (s.f3audience) parts.push('Intended audience: ' + s.f3audience);
+    let desc = parts.join('. ');
+    if (desc) desc += '.';
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text);
+    if (desc) add(desc, '<span class="hl-c3">' + desc + '</span>');
+  }
+
+  if (s.f4chip || s.f4text) {
+    const stage = s.f4chip || '';
+    let sentence;
+    if (stage && s.f4text) sentence = 'I am currently ' + stage + '. ' + wrapFragment(s.f4text);
+    else if (stage) sentence = 'I am currently ' + stage + '.';
+    else sentence = wrapFragment(s.f4text);
+    add(sentence, '<span class="hl-c4">' + sentence + '</span>');
+  }
+
+  if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
+    const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
+    add('Please keep your responses ' + joinList(parts) + '.',
+        'Please keep your responses ' + parts.map(p => '<span class="hl-c5">' + p + '</span>').join(' and ') + '.');
+  }
+
+  if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-c5">' + sentence + '</span>'); }
+
+  const closing = '\nTreat everything as a starting point, not a final answer. Push back on my ideas if something doesn\'t work narratively or tonally. Prioritize my creative voice over surface-level polish. When you offer options, briefly explain the trade-offs.\nPlease confirm you understand the project and are ready to collaborate.';
+  add(closing, closing);
+
+  return { plain: plain.join('\n'), highlighted: html.join('\n') };
+}
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+function render() {
+  const preview = document.getElementById('prompt-preview');
+  const copyBtn = document.getElementById('copy-btn');
+  const meta    = document.getElementById('meta');
+
+  const builders = { agency: buildAgency, education: buildEducation, student: buildStudent, creative: buildCreative };
+  const result = builders[currentTheme]();
+
+  if (!result) {
+    preview.innerHTML = '<span class="placeholder-msg">Your prompt will appear here as you fill in the fields above.</span>';
+    copyBtn.disabled = true;
+    meta.textContent = '— / —';
+    return;
+  }
+
+  preview.innerHTML = result.highlighted;
+  copyBtn.disabled = false;
+  const words = result.plain.trim().split(/\s+/).filter(Boolean).length;
+  meta.textContent = words + ' words · ' + result.plain.length + ' chars';
+}
+
+// ══════════════════════════════════════════════
+//  THEME SWITCH
+// ══════════════════════════════════════════════
+const badgeConfig = {
+  agency:    { label: 'Agency',    bg: '#5b8dee22', color: 'var(--c1)' },
+  education: { label: 'Education', bg: '#4ecdc422', color: 'var(--c3)' },
+  student:   { label: 'Student',   bg: '#f7c94822', color: 'var(--c4)' },
+  creative:  { label: 'Creative',  bg: '#e06c8a22', color: 'var(--c2)' }
+};
+
+function switchTheme(theme) {
+  currentTheme = theme;
+
+  // Panels
+  themes.forEach(t => {
+    document.getElementById('panel-' + t).classList.toggle('active', t === theme);
+    document.getElementById('legend-' + t).style.display = t === theme ? 'flex' : 'none';
+  });
+
+  // Switcher buttons
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.theme === theme);
+  });
+
+  // Badge
+  const badge = document.getElementById('output-theme-badge');
+  const cfg = badgeConfig[theme];
+  badge.textContent = cfg.label;
+  badge.style.background = cfg.bg;
+  badge.style.color = cfg.color;
+
+  render();
+}
+
+// ══════════════════════════════════════════════
+//  COPY
+// ══════════════════════════════════════════════
+function copyPrompt() {
+  const builders = { agency: buildAgency, education: buildEducation, student: buildStudent, creative: buildCreative };
+  const result = builders[currentTheme]();
+  if (!result) return;
+  navigator.clipboard.writeText(result.plain).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2200);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  RESET
+// ══════════════════════════════════════════════
+function resetAll() {
+  const t = currentTheme;
+  if (t === 'agency') {
+    state.agency = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3industry:[], f3size:'', f3situation:[], f3text:'', f4chips:[], f4text:'', f5a:'', f5b:'', f6:'' };
+  } else if (t === 'education') {
+    state.education = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3grade:[], f3situation:[], f3text:'', f4chips:[], f4text:'', f5a:'', f5b:'', f6:'' };
+  } else if (t === 'student') {
+    state.student = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3subject:[], f3level:'', f3type:[], f3text:'', f4chips:[], f4text:'', f5a:'', f5b:'', f6:'' };
+  } else if (t === 'creative') {
+    state.creative = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3genre:[], f3audience:'', f3text:'', f4chip:'', f4text:'', f5a:'', f5b:'', f6:'' };
+  }
+
+  const prefix = { agency:'a', education:'e', student:'s', creative:'c' }[t];
+  document.getElementById('panel-' + t).querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  document.getElementById('panel-' + t).querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+  render();
+}
+
+// ══════════════════════════════════════════════
+//  ACCORDION
+// ══════════════════════════════════════════════
+
+
+// init legend visibility
+themes.forEach(t => {
+  document.getElementById('legend-' + t).style.display = t === 'agency' ? 'flex' : 'none';
+});
 </script>
 </body>
 </html>

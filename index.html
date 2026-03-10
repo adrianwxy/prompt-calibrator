@@ -1035,7 +1035,7 @@
             <div class="chip" data-val="Science">Science</div>
             <div class="chip" data-val="English / ELA">English / ELA</div>
             <div class="chip" data-val="History ">History </div>
-            <div class="chip" data-val="Arts">Arts</div>
+            <div class="chip" data-val="Art">Art</div>
           </div>          
           <input type="text" id="e-input-3" placeholder="Or describe your class / situation in a sentence. No identifying details." />
         </div>
@@ -1944,9 +1944,9 @@ function render() {
 // ══════════════════════════════════════════════
 const badgeConfig = {
   agency:    { label: 'Agency',    bg: '#5b8dee22', color: 'var(--c1)' },
-  education: { label: 'Education', bg: '#4ecdc422', color: 'var(--c3)' },
-  student:   { label: 'Student',   bg: '#f7c94822', color: 'var(--c4)' },
-  creative:  { label: 'Creative',  bg: '#e06c8a22', color: 'var(--c2)' }
+  education: { label: 'Education', bg: '#5b8dee22', color: 'var(--c1)' },
+  student:   { label: 'Student',   bg: '#5b8dee22', color: 'var(--c1)' },
+  creative:  { label: 'Creative',  bg: '#5b8dee22', color: 'var(--c1)' }
 };
 
 function switchTheme(theme) {
@@ -2051,23 +2051,23 @@ document.addEventListener('keydown', e => {
 const exampleData = {
   agency: {
     subtitle: 'Agency mode · CPG deck scenario',
-    situation: '"I\'m an agency strategist preparing a competitive landscape deck for a CPG client launching a new product. I need the AI to think like a business strategist and keep things tight for an exec audience."',
+    situation: '"I\'m a strategist preparing a competitive landscape deck for a CPG client launching a new product. I need the AI to think like a business strategist and keep things tight for an exec audience."',
     fields: [
-      { color: 'var(--c1)', label: 'Task',    val: 'Conduct market research + Build a deck' },
-      { color: 'var(--c2)', label: 'AI Role', val: 'Business Strategist' },
-      { color: 'var(--c3)', label: 'Client',  val: 'Mid-size CPG company · New product launch' },
-      { color: 'var(--c4)', label: 'Context', val: 'Executive audience · Final deliverable' },
+      { color: 'var(--c1)', label: 'Task',    val: 'Build a deck' },
+      { color: 'var(--c2)', label: 'AI Role', val: 'Business strategist' },
+      { color: 'var(--c3)', label: 'Client',  val: 'CPG company · New product launch' },
+      { color: 'var(--c4)', label: 'Context', val: 'Executive audience' },
       { color: 'var(--c5)', label: 'Style',   val: 'Concise · Bullet points' }
     ]
   },
   education: {
     subtitle: 'Education mode · Differentiated lesson plan',
-    situation: '"I\'m a middle school teacher planning a unit on climate change. I need a differentiated lesson plan that works for a mixed-ability class, including students with IEP accommodations."',
+    situation: '"I\'m a middle school art teacher planning some class activities. I need some ideas that works for a large size class."',
     fields: [
-      { color: 'var(--c1)', label: 'Task',     val: 'Create a lesson plan · Differentiation' },
+      { color: 'var(--c1)', label: 'Task',     val: 'Class activity' },
       { color: 'var(--c2)', label: 'Role',     val: 'Classroom teacher' },
-      { color: 'var(--c3)', label: 'Students', val: 'Middle school (6–8) · Mixed ability · IEP / 504' },
-      { color: 'var(--c4)', label: 'Context',  val: 'Final deliverable · Subject: Science / Climate' },
+      { color: 'var(--c3)', label: 'Students', val: 'Middle school students (6–8) · Art' },
+      { color: 'var(--c4)', label: 'Context',  val: 'Large class size' },
       { color: 'var(--c5)', label: 'Style',    val: 'Detailed · Step-by-step' }
     ]
   },
@@ -2134,17 +2134,15 @@ function loadExample() {
 }
 
 function loadAgencyExample() {
-  activateChip('a-chips-1', 'conduct market research');
   activateChip('a-chips-1', 'build a deck');
   state.agency.f1chips = getActiveVals('a-chips-1');
-  activateChip('a-chips-2', 'a Business Strategist');
+  activateChip('a-chips-2', 'a business strategist');
   state.agency.f2chip = getSingleVal('a-chips-2');
   activateChip('a-chips-3a', 'CPG');
   state.agency.f3industry = getActiveVals('a-chips-3a');
   activateChip('a-chips-3c', 'new product launch');
   state.agency.f3situation = getActiveVals('a-chips-3c');
-  activateChip('a-chips-4', 'for an executive audience');
-  activateChip('a-chips-4', 'this is a final deliverable');
+  activateChip('a-chips-4', 'it\'s for executive audiences');
   state.agency.f4chips = getActiveVals('a-chips-4');
   activateChip('a-chips-5a', 'concise');
   state.agency.f5a = getSingleVal('a-chips-5a');
@@ -2154,18 +2152,17 @@ function loadAgencyExample() {
 
 function loadEducationExample() {
   switchTheme('education');
-  activateChip('e-chips-1', 'create a lesson plan');
-  activateChip('e-chips-1', 'adapt material for differentiated learning');
+  activateChip('e-chips-1', 'plan class activities');
   state.education.f1chips = getActiveVals('e-chips-1');
   activateChip('e-chips-2', 'classroom teacher');
   state.education.f2chip = getSingleVal('e-chips-2');
   activateChip('e-chips-3a', 'middle school students (6–8)');
   state.education.f3grade = getActiveVals('e-chips-3a');
-  activateChip('e-chips-3b', 'a mixed-ability class');
-  state.education.f3situation = getActiveVals('e-chips-3b');
-  activateChip('e-chips-3c', 'a class with IEP or 504 accommodations');
+  // activateChip('e-chips-3b', 'a mixed-ability class');
+  // state.education.f3situation = getActiveVals('e-chips-3b');
+  activateChip('e-chips-3c', 'Art');
   state.education.f3subject = getActiveVals('e-chips-3c');
-  activateChip('e-chips-4', 'this is a final deliverable');
+  activateChip('e-chips-4', 'large class size');
   state.education.f4chips = getActiveVals('e-chips-4');
   activateChip('e-chips-5a', 'detailed');
   state.education.f5a = getSingleVal('e-chips-5a');

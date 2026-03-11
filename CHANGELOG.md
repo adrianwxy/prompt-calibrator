@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.4.0] - 2026-03-10
+
+### Added
+- **Provide Feedback**: provide feature for user to provide feedback via google form.
+
+### Changed
+- Refined chips and closing prmopt for "Student" and "Creative" mode.
+
 ## [0.3.1] - 2026-03-09
 
 ### Added

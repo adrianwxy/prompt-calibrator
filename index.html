@@ -540,6 +540,72 @@
     flex-shrink: 0;
   }
 
+  /* ── "GIVE FEEDBACK" BUTTON — below output card ── */
+  .feedback-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 13.5px;
+    padding: 9px 18px;
+    border-radius: 30px;
+    border: 1px solid var(--border-hover);
+    background: var(--surface2);
+    color: var(--muted2);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+    user-select: none;
+  }
+  .feedback-btn:hover {
+    background: #3dd68c18;
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  /* ── FEEDBACK MODAL iframe wrapper ── */
+  .feedback-iframe-wrap {
+    position: relative;
+    width: 100%;
+    height: 580px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface2);
+  }
+  .feedback-iframe-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+  .feedback-iframe-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .feedback-iframe-loading.hidden { opacity: 0; }
+  .feedback-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
   /* ── MODAL OVERLAY ── */
   .modal-overlay {
     display: none;
@@ -773,10 +839,10 @@
   <header>
     <div>
       <h1>Prompt <em>Calibrator</em></h1>
-      <p class="tagline">A better way to start every AI conversation</p>
+      <p class="tagline">A better way to start every AI conversation - without the noise.</p>
     </div>
     <div class="byline">
-      <span>v0.3.1</span>
+      <span>v0.4.0</span>
       <span>by Adrian Wang</span>
       Data Not Collected · Open Source
     </div>
@@ -1034,7 +1100,7 @@
             <div class="chip" data-val="Math">Math</div>
             <div class="chip" data-val="Science">Science</div>
             <div class="chip" data-val="English / ELA">English / ELA</div>
-            <div class="chip" data-val="History ">History </div>
+            <div class="chip" data-val="History">History </div>
             <div class="chip" data-val="Art">Art</div>
           </div>          
           <input type="text" id="e-input-3" placeholder="Or describe your class / situation in a sentence. No identifying details." />
@@ -1131,13 +1197,12 @@
         </div>
         <div class="field-body">
           <div class="chips" id="s-chips-1">
-            <div class="chip" data-val="understand a concept I'm confused about">Understand a concept</div>
-            <div class="chip" data-val="brainstorm ideas for an assignment">Brainstorm ideas</div>
-            <div class="chip" data-val="create an outline for an essay">Outline an essay</div>
-            <div class="chip" data-val="get feedback on my draft">Review my draft</div>
+            <div class="chip" data-val="help me understand a concept">Understand a concept</div>
+            <div class="chip" data-val="help me brainstorm ideas">Brainstorm ideas</div>
+            <div class="chip" data-val="create an outline for my assignment">Outline assignment</div>
+            <div class="chip" data-val="review my draft">Review draft</div>
             <div class="chip" data-val="study for a test or exam">Study for a test</div>
-            <div class="chip" data-val="work through a practice problem">Practice problem</div>
-            <div class="chip" data-val="improve my writing">Improve my writing</div>
+            <div class="chip" data-val="help me get unstuck on a problem">Get unstuck on a problem</div>
             <div class="chip" data-val="understand my assignment requirements">Understand requirements</div>
           </div>
           <input type="text" id="s-input-1" placeholder="Or describe what you need help with..." />
@@ -1149,17 +1214,19 @@
         <div class="field-header">
           <div class="field-num" style="background:#e06c8a18;color:var(--c2)">02</div>
           <div>
-            <div class="field-title">How should AI help you?</div>
+            <div class="field-title">How should AI support you?</div>
             <div class="field-hint">Single-select · pick how you want to be supported</div>
           </div>
         </div>
         <div class="field-body">
           <div class="chips" id="s-chips-2">
-            <div class="chip" data-val="explain things clearly like I'm new to this topic" data-single="true">Explain it to me</div>
-            <div class="chip" data-val="ask me questions so I can think it through myself" data-single="true">Ask me questions</div>
-            <div class="chip" data-val="give me honest feedback on my work" data-single="true">Give me feedback</div>
+            <div class="chip" data-val="explain things clearly" data-single="true">Explain it to me</div>
+            <div class="chip" data-val="ask me questions to think it through" data-single="true">Ask me questions</div>
+            <div class="chip" data-val="give me critical feedback on my work" data-single="true">Give me critical feedback</div>
             <div class="chip" data-val="be a study partner and quiz me" data-single="true">Quiz me</div>
-            <div class="chip" data-val="help me break the task into smaller steps" data-single="true">Break it into steps</div>
+            <div class="chip" data-val="help me check my work for errors" data-single="true">Check my work</div>
+            <div class="chip" data-val="help me understand feedback I received" data-single="true">Understand feedback</div>
+            <div class="chip" data-val="be my thinking partner" data-single="true">Thinking partner</div>
           </div>
           <input type="text" id="s-input-2" placeholder="Or describe how you'd like AI to help..." />
         </div>
@@ -1178,11 +1245,11 @@
           <div class="sub-label">Subject</div>
           <div class="chips" id="s-chips-3a">
             <div class="chip" data-val="English / Language Arts">English / ELA</div>
-            <div class="chip" data-val="History or Social Studies">History / Social Studies</div>
+            <div class="chip" data-val="History">History</div>
             <div class="chip" data-val="Math">Math</div>
             <div class="chip" data-val="Science">Science</div>
             <div class="chip" data-val="a foreign language">Foreign language</div>
-            <div class="chip" data-val="an elective or arts class">Elective / Arts</div>
+            <div class="chip" data-val="Art">Art</div>
           </div>
           <div class="sub-label">Grade Level</div>
           <div class="chips" id="s-chips-3b">
@@ -1192,12 +1259,13 @@
           </div>
           <div class="sub-label">Assignment Type</div>
           <div class="chips" id="s-chips-3c">
-            <div class="chip" data-val="an essay">Essay</div>
+            <div class="chip" data-val="an essay / research paper">Essay / Research paper</div>
             <div class="chip" data-val="a problem set">Problem set</div>
             <div class="chip" data-val="a presentation">Presentation</div>
-            <div class="chip" data-val="a discussion post">Discussion post</div>
-            <div class="chip" data-val="a research paper">Research paper</div>
+            <div class="chip" data-val="a creative writing">Creative writing</div>
+            <div class="chip" data-val="a reflective journal entry">Reflective journal entry</div>
             <div class="chip" data-val="a lab report">Lab report</div>
+            <div class="chip" data-val="a reading response">Reading response</div>
           </div>
           <input type="text" id="s-input-3" placeholder="Or describe your assignment. Don't share personal info." />
         </div>
@@ -1206,20 +1274,20 @@
       <!-- S4: Constraints -->
       <div class="field stu-field">
         <div class="field-header">
-          <div class="field-num" style="background:#5b8dee18;color:var(--c1)">04</div>
+          <div class="field-num" style="background:#5b8dee18;color:var(--c4)">04</div>
           <div>
-            <div class="field-title">Any constraints or preferences?</div>
+            <div class="field-title">Any academic guardrails AI should know?</div>
             <div class="field-hint">Multi-select · or write your own below</div>
           </div>
         </div>
         <div class="field-body">
           <div class="chips" id="s-chips-4">
-            <div class="chip" data-val="don't give me the answer — help me figure it out">No spoilers</div>
+            <div class="chip" data-val="don't give me the answer — help me figure it out">No answers / spoilers</div>
             <div class="chip" data-val="cite credible sources when you reference facts">Cite sources</div>
-            <div class="chip" data-val="keep explanations simple and jargon-free">Keep it simple</div>
+            <div class="chip" data-val="keep explanations basic and jargon-free">Keep it basic</div>
             <div class="chip" data-val="I have a word or page limit">Word / page limit</div>
             <div class="chip" data-val="this needs to be in my own voice">My own voice</div>
-            <div class="chip" data-val="use examples to help explain">Use examples</div>
+            <div class="chip" data-val="I'm not allowed to use AI for this. Guide me only.">AI-restricted assignment</div>
           </div>
           <input type="text" id="s-input-4" placeholder="e.g. My essay needs to be 500–700 words. MLA format required." />
         </div>
@@ -1294,8 +1362,8 @@
             <div class="chip" data-val="a short story">Short story</div>
             <div class="chip" data-val="a novel chapter">Novel chapter</div>
             <div class="chip" data-val="worldbuilding material">Worldbuilding</div>
-            <div class="chip" data-val="character development">Character development</div>
-            <div class="chip" data-val="dialogue">Dialogue</div>
+            <!-- <div class="chip" data-val="character development">Character development</div>
+            <div class="chip" data-val="dialogue">Dialogue</div> -->
             <div class="chip" data-val="poetry">Poetry</div>
             <div class="chip" data-val="a game narrative">Game narrative</div>
             <div class="chip" data-val="a screenplay or script">Screenplay / Script</div>
@@ -1316,10 +1384,11 @@
         <div class="field-body">
           <div class="chips" id="c-chips-2">
             <div class="chip" data-val="co-write with me — contribute ideas and prose" data-single="true">Co-write with me</div>
-            <div class="chip" data-val="give me honest editorial feedback" data-single="true">Give feedback</div>
+            <div class="chip" data-val="give me honest editorial feedback" data-single="true">Give editorial feedback</div>
             <div class="chip" data-val="help me get unstuck or past a block" data-single="true">Unstick me</div>
             <div class="chip" data-val="generate multiple options for me to choose from" data-single="true">Generate options</div>
-            <div class="chip" data-val="act as a developmental editor" data-single="true">Dev editor</div>
+            <div class="chip" data-val="act as a developmental editor" data-single="true">Developmental editor</div>
+            <div class="chip" data-val="review consistency of my work" data-single="true">Consistency Check</div>
           </div>
           <input type="text" id="c-input-2" placeholder="Or describe how you'd like AI to help..." />
         </div>
@@ -1344,14 +1413,15 @@
             <div class="chip" data-val="romance">Romance</div>
             <div class="chip" data-val="thriller or mystery">Thriller / Mystery</div>
             <div class="chip" data-val="historical fiction">Historical fiction</div>
-            <div class="chip" data-val="experimental or avant-garde">Experimental</div>
+            <div class="chip" data-val="magical realism">Magical realism</div>
           </div>
           <div class="sub-label">Intended Audience</div>
           <div class="chips" id="c-chips-3b">
-            <div class="chip" data-val="a personal or passion project" data-single="true">Personal project</div>
-            <div class="chip" data-val="young adult (YA) readers" data-single="true">YA</div>
+            <div class="chip" data-val="a personal or passion project" data-single="true">Just for me</div>
+            <div class="chip" data-val="young adult readers" data-single="true">Young Adult</div>
             <div class="chip" data-val="adult readers" data-single="true">Adult</div>
             <div class="chip" data-val="children" data-single="true">Children</div>
+            <div class="chip" data-val="middle grade reader (aged 8 to 12)" data-single="true">Middle grade</div>
           </div>
           <input type="text" id="c-input-3" placeholder="e.g. Dark fantasy set in 1920s New Orleans. Inspired by Octavia Butler." />
         </div>
@@ -1369,9 +1439,10 @@
         <div class="field-body">
           <div class="chips" id="c-chips-4">
             <div class="chip" data-val="starting from a blank page" data-single="true">Blank page</div>
+            <div class="chip" data-val="outlining the structure" data-single="true">Outlining</div>
             <div class="chip" data-val="in the early drafting stage" data-single="true">Early draft</div>
             <div class="chip" data-val="mid-project and building momentum" data-single="true">Mid-project</div>
-            <div class="chip" data-val="stuck on a specific scene or problem" data-single="true">Stuck</div>
+            <div class="chip" data-val="mid-project but facing a new section" data-single="true">Starting a new section</div>
             <div class="chip" data-val="in the final polish and revision stage" data-single="true">Final polish</div>
           </div>
           <input type="text" id="c-input-4" placeholder="Or describe where you are and what you're trying to solve..." />
@@ -1392,7 +1463,8 @@
                 <div class="chip" data-val="concise" data-single="true">Concise</div>
                 <div class="chip" data-val="expansive and exploratory" data-single="true">Expansive</div>
                 <div class="chip" data-val="blunt and direct" data-single="true">Blunt & direct</div>
-                <div class="chip" data-val="encouraging but honest" data-single="true">Encouraging</div>
+                <div class="chip" data-val="conversational" data-single="true">Conversational</div>
+                <div class="chip" data-val="precise and craft-focused" data-single="true">Precise and craft-focused</div>
               </div> 
               <input type="text" id="c-input-5a" placeholder="Or describe your tone preference..." />
             </div>
@@ -1404,10 +1476,11 @@
             </div>
             <div class="field-body">
               <div class="chips" id="c-chips-5b">
-                <div class="chip" data-val="give me options to choose from" data-single="true">Give options</div>
+                <div class="chip" data-val="provide options to choose from" data-single="true">Give options</div>
                 <div class="chip" data-val="prose" data-single="true">Prose</div>
                 <div class="chip" data-val="annotated feedback" data-single="true">Annotated feedback</div>
-                <div class="chip" data-val="a mixed format" data-single="true">Mixed</div>
+                <div class="chip" data-val="structured notes" data-single="true">Structured notes</div>
+                <div class="chip" data-val="side-by-side comparison" data-single="true">Side-by-side comparison</div>
               </div> 
               <input type="text" id="c-input-5b" placeholder="Or describe your format preference..." />
             </div>
@@ -1480,7 +1553,11 @@
         <button class="reset-btn" onclick="resetAll()">↺ Reset</button>
       </div>
     </div>
+    <button class="feedback-btn" onclick="openModal('modal-feedback')">
+      <span>💬</span> Give Your Feedback
+    </button>
   </div>
+
 
 </div><!-- /page -->
 
@@ -1656,6 +1733,13 @@ function wrapFragment_task(str) {
   return 'TASK: ' + str + '.';
 }
 
+function wrapFragment_objective(str) {
+  if (!str) return '';
+  str = str.trim();
+  if (isFullSentence(str)) return str;
+  return 'OBJECTIVE: ' + str + '.';
+}
+
 function wrapFragment_context(str) {
   if (!str) return '';
   str = str.trim();
@@ -1676,6 +1760,14 @@ function wrapFragment_classcontext(str) {
   str = str.trim();
   if (isFullSentence(str)) return str;
   return 'CLASS CONTEXT: ' + str + '.';
+}
+
+
+function wrapFragment_academic(str) {
+  if (!str) return '';
+  str = str.trim();
+  if (isFullSentence(str)) return str;
+  return 'ACADEMIC GUARDRAILS: ' + str + '.';
 }
 // ══════════════════════════════════════════════
 //  BUILD PROMPTS
@@ -1726,14 +1818,13 @@ function buildAgency() {
 
   if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
     const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
-    add('OUTPUT FORMAT: ' + joinList(parts) + '.',
-        'OUTPUT FORMAT: ' + parts.map(p => '<span class="hl-a5">' + p + '</span>').join(' and ') + '.');
+    add('OUTPUT TONE & FORMAT: ' + joinList(parts) + '.',
+        'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-a5">' + p + '</span>').join(' and ') + '.');
   }
 
   if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-a5">' + sentence + '</span>'); }
 
-  const closing = `
-  \nWhen sharing insights or recommendations, acknowledge any assumptions that go into the analysis and highlight the limitations of your response.
+  const closing = `\nWhen sharing insights or recommendations, acknowledge any assumptions that go into the analysis and highlight the limitations of your response.
   \nIMPORTANT: Never fabricate, assume, or infer insights beyond what the data directly supports. If you are uncertain, say so clearly rather than guessing.
   \nPlease acknowledge this setup and confirm you\'re ready to help.
   `;
@@ -1786,14 +1877,13 @@ function buildEducation() {
 
   if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
     const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
-    add('OUTPUT FORMAT:  ' + joinList(parts) + '.',
-        'OUTPUT FORMAT:  ' + parts.map(p => '<span class="hl-e5">' + p + '</span>').join(' and ') + '.');
+    add('OUTPUT TONE & FORMAT:  ' + joinList(parts) + '.',
+        'OUTPUT TONE & FORMAT:  ' + parts.map(p => '<span class="hl-e5">' + p + '</span>').join(' and ') + '.');
   }
 
   if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-e5">' + sentence + '</span>'); }
 
-  const closing = `
-  \nWork only with the context that provided by user. 
+  const closing = `\nWork only with the context that provided by user. 
   \nIf you make any assumptions to fill in gaps — about class size, time available, resources, or student needs — state them briefly at the start of your response.
   \nKeep your output practical and immediately usable, not idealized. If something I've described makes a standard approach unrealistic, say so and adjust accordingly.
   `;
@@ -1814,45 +1904,48 @@ function buildStudent() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'I need help to ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text);
-    else if (s.f1chips.length) sentence = 'I need help to ' + joinList(s.f1chips) + '.';
-    else sentence = wrapFragment(s.f1text);
+    if (s.f1chips.length && s.f1text) sentence = 'TASK: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
+    else if (s.f1chips.length) sentence = 'TASK: ' + joinList(s.f1chips) + '.';
+    else sentence = wrapFragment_task(s.f1text);
     add(sentence, '<span class="hl-s1">' + sentence + '</span>');
   }
 
   const aiMode = s.f2chip || s.f2text;
   if (aiMode) {
-    const sentence = isFullSentence(aiMode) ? aiMode : 'I want you to ' + aiMode + '.';
+    const sentence = isFullSentence(aiMode) ? aiMode : 'HOW TO HELP: ' + aiMode + '.';
     add(sentence, '<span class="hl-s2">' + sentence + '</span>');
   }
 
   if (s.f3subject.length || s.f3level || s.f3type.length || s.f3text) {
     let parts = [];
-    if (s.f3level) parts.push('This is ' + s.f3level + ' work');
-    if (s.f3subject.length) parts.push('for ' + joinList(s.f3subject));
-    if (s.f3type.length) parts.push('specifically ' + joinList(s.f3type));
+    if (s.f3level) parts.push('GRADE LEVEL: ' + s.f3level + '.');
+    if (s.f3subject.length) parts.push('SUBJECT: ' + joinList(s.f3subject));
+    if (s.f3type.length) parts.push('ASSIGNMENT: ' + joinList(s.f3type));
     let desc = parts.length ? parts.join(' ') + '.' : '';
-    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text);
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment_context(s.f3text);
     if (desc) add(desc, '<span class="hl-s3">' + desc + '</span>');
   }
 
   if (s.f4chips.length || s.f4text) {
     let sentence;
-    if (s.f4chips.length && s.f4text) sentence = 'Important: please ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text);
-    else if (s.f4chips.length) sentence = 'Important: please ' + joinList(s.f4chips) + '.';
-    else sentence = wrapFragment(s.f4text);
+    if (s.f4chips.length && s.f4text) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '. ' + wrapFragment_academic(s.f4text);
+    else if (s.f4chips.length) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '.';
+    else sentence = wrapFragment_academic(s.f4text);
     add(sentence, '<span class="hl-s4">' + sentence + '</span>');
   }
 
   if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
     const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
-    add('Please keep your responses ' + joinList(parts) + '.',
-        'Please keep your responses ' + parts.map(p => '<span class="hl-s5">' + p + '</span>').join(' and ') + '.');
+    add('OUTPUT TONE & FORMAT: ' + joinList(parts) + '.',
+        'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-s5">' + p + '</span>').join(' and ') + '.');
   }
 
-  if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-s5">' + sentence + '</span>'); }
+  if (s.f6) { const sentence = wrapFragment_addcontext(s.f6); add(sentence, '<span class="hl-s5">' + sentence + '</span>'); }
 
-  const closing = '\nHelp me learn — don\'t just give me the answer. If you explain something, check my understanding before moving on. If I seem stuck, guide me with questions rather than just solving it for me.\nPlease confirm you\'re ready to help.';
+  const closing = `\nTake this one step at a time — don't overwhelm me with everything at once.
+  \nIf I'm confused or wrong, tell me directly and we'll work through it together.
+  \nPlease confirm you\'re ready to help.
+  `;
   add(closing, closing);
 
   return { plain: plain.join('\n'), highlighted: html.join('\n') };
@@ -1870,46 +1963,48 @@ function buildCreative() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'I am working on ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text);
-    else if (s.f1chips.length) sentence = 'I am working on ' + joinList(s.f1chips) + '.';
-    else sentence = wrapFragment(s.f1text);
+    if (s.f1chips.length && s.f1text) sentence = 'OBJECTIVE: ' + joinList(s.f1chips) + '. ' + wrapFragment_objective(s.f1text);
+    else if (s.f1chips.length) sentence = 'OBJECTIVE: ' + joinList(s.f1chips) + '.';
+    else sentence = wrapFragment_objective(s.f1text);
     add(sentence, '<span class="hl-c1">' + sentence + '</span>');
   }
 
   const aiMode = s.f2chip || s.f2text;
   if (aiMode) {
-    const sentence = isFullSentence(aiMode) ? aiMode : 'I need you to ' + aiMode + '.';
+    const sentence = isFullSentence(aiMode) ? aiMode : 'EXPECTATIONS: ' + aiMode + '.';
     add(sentence, '<span class="hl-c2">' + sentence + '</span>');
   }
 
   if (s.f3genre.length || s.f3audience || s.f3text) {
     let parts = [];
-    if (s.f3genre.length) parts.push('Genre / style: ' + joinList(s.f3genre));
-    if (s.f3audience) parts.push('Intended audience: ' + s.f3audience);
+    if (s.f3genre.length) parts.push('GENRE/STYLE: ' + joinList(s.f3genre));
+    if (s.f3audience) parts.push('INTENDED AUDIENCE: ' + s.f3audience);
     let desc = parts.join('. ');
     if (desc) desc += '.';
-    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text);
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment_context(s.f3text);
     if (desc) add(desc, '<span class="hl-c3">' + desc + '</span>');
   }
 
   if (s.f4chip || s.f4text) {
     const stage = s.f4chip || '';
     let sentence;
-    if (stage && s.f4text) sentence = 'I am currently ' + stage + '. ' + wrapFragment(s.f4text);
-    else if (stage) sentence = 'I am currently ' + stage + '.';
-    else sentence = wrapFragment(s.f4text);
+    if (stage && s.f4text) sentence = 'PROCESS STAGE: ' + stage + '. ' + wrapFragment_addcontext(s.f4text);
+    else if (stage) sentence = 'PROCESS STAGE: ' + stage + '.';
+    else sentence = wrapFragment_addcontext(s.f4text);
     add(sentence, '<span class="hl-c4">' + sentence + '</span>');
   }
 
   if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
     const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
-    add('Please keep your responses ' + joinList(parts) + '.',
-        'Please keep your responses ' + parts.map(p => '<span class="hl-c5">' + p + '</span>').join(' and ') + '.');
+    add('OUTPUT TONE & FORMAT: ' + joinList(parts) + '.',
+        'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-c5">' + p + '</span>').join(' and ') + '.');
   }
 
   if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-c5">' + sentence + '</span>'); }
 
-  const closing = '\nTreat everything as a starting point, not a final answer. Push back on my ideas if something doesn\'t work narratively or tonally. Prioritize my creative voice over surface-level polish. When you offer options, briefly explain the trade-offs.\nPlease confirm you understand the project and are ready to collaborate.';
+  const closing = `\nTreat everything as a starting point, not a final answer. Be honest if something isn\'t working, and don\'t soften feedback to be polite. 
+  \nWe\'re iterating, so treat every response as a draft we can push further.
+  `;
   add(closing, closing);
 
   return { plain: plain.join('\n'), highlighted: html.join('\n') };
@@ -2073,23 +2168,23 @@ const exampleData = {
   },
   student: {
     subtitle: 'Student mode · History essay outline',
-    situation: '"I\'m a high schooler starting a history essay on the causes of WWI. I need help outlining my argument — but I don\'t want the AI to just write it for me. No spoilers."',
+    situation: '"I\'m a high schooler starting a history essay on the causes of WWI. I need help outlining it — but I don\'t want the AI to just write it for me. No spoilers."',
     fields: [
-      { color: 'var(--c1)', label: 'Task',        val: 'Write an outline for a history essay' },
-      { color: 'var(--c2)', label: 'AI Mode',     val: 'Guide me with questions, don\'t give answers' },
-      { color: 'var(--c3)', label: 'Assignment',  val: 'High school · History · Argumentative essay' },
+      { color: 'var(--c1)', label: 'Task',        val: 'Outline assignment' },
+      { color: 'var(--c2)', label: 'AI Mode',     val: 'Thinking partner' },
+      { color: 'var(--c3)', label: 'Assignment',  val: 'High school · History · Essay' },
       { color: 'var(--c4)', label: 'Constraints', val: 'No spoilers · My own voice · Cite sources' },
       { color: 'var(--c5)', label: 'Style',       val: 'Patient & encouraging · Step-by-step' }
     ]
   },
   creative: {
     subtitle: 'Creative mode · Fantasy novel, plot hole',
-    situation: '"I\'m a novelist mid-draft on a fantasy story. I\'m stuck on a plot hole — my protagonist has a power that makes the climax too easy. I need honest pushback, not reassurance."',
+    situation: '"I\'m a novelist mid-draft on a fantasy story. My protagonist has a power that makes the climax too easy. I need honest pushback, not reassurance."',
     fields: [
       { color: 'var(--c1)', label: 'Project',  val: 'Novel chapter · Worldbuilding' },
-      { color: 'var(--c2)', label: 'AI Mode',  val: 'Give honest editorial feedback' },
+      { color: 'var(--c2)', label: 'AI Mode',  val: 'Give editorial feedback' },
       { color: 'var(--c3)', label: 'Context',  val: 'Fantasy · Adult readers' },
-      { color: 'var(--c4)', label: 'Stage',    val: 'Mid-project and building momentum · Stuck on a specific scene' },
+      { color: 'var(--c4)', label: 'Stage',    val: 'Mid-project' },
       { color: 'var(--c5)', label: 'Style',    val: 'Blunt & direct · Annotated feedback' }
     ]
   }
@@ -2172,17 +2267,17 @@ function loadEducationExample() {
 
 function loadStudentExample() {
   switchTheme('student');
-  activateChip('s-chips-1', 'write an essay outline');
+  activateChip('s-chips-1', 'create an outline for my assignment');
   state.student.f1chips = getActiveVals('s-chips-1');
-  activateChip('s-chips-2', 'guide me — ask questions, don\'t just give answers');
+  activateChip('s-chips-2', 'be my thinking partner');
   state.student.f2chip = getSingleVal('s-chips-2');
   activateChip('s-chips-3a', 'History');
   state.student.f3subject = getActiveVals('s-chips-3a');
-  activateChip('s-chips-3b', 'high school (9–12)');
+  activateChip('s-chips-3b', 'high school level');
   state.student.f3level = getSingleVal('s-chips-3b');
-  activateChip('s-chips-3c', 'argumentative essay');
+  activateChip('s-chips-3c', 'an essay / research paper');
   state.student.f3type = getActiveVals('s-chips-3c');
-  activateChip('s-chips-4', 'don\'t give me the answer — help me figure it out');
+  activateChip('s-chips-4', 'No answers / spoliers');
   activateChip('s-chips-4', 'this needs to be in my own voice');
   activateChip('s-chips-4', 'cite credible sources when you reference facts');
   state.student.f4chips = getActiveVals('s-chips-4');
@@ -2283,6 +2378,32 @@ function activateChip(containerId, val) {
     </div>
     <div class="modal-body" id="example-modal-body">
       <!-- Populated by JS based on active mode -->
+    </div>
+  </div>
+</div>
+<!-- FEEDBACK MODAL -->
+<div class="modal-overlay" id="modal-feedback">
+  <div class="modal" style="max-width:640px;">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Give Your Feedback</div>
+        <div class="modal-subtitle">Takes ~2 minutes. Your input directly shapes what gets built next.</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-feedback')">&#x2715;</button>
+    </div>
+    <div class="modal-body" style="padding-top:16px;">
+      <div class="feedback-iframe-wrap">
+        <div class="feedback-iframe-loading" id="feedback-loading">
+          <div class="feedback-spinner"></div>
+          Loading form...
+        </div>
+        <iframe
+          id="feedback-iframe"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSf25ObZ73_QlpRl247vRPdkzQHCdFHfzxWBiSfpTc1MamrTHA/viewform?usp=sharing&ouid=104763178639654377158" 
+          onload="document.getElementById('feedback-loading').classList.add('hidden')"
+          title="Prompt Calibrator Feedback Form">
+        </iframe>
+      </div>
     </div>
   </div>
 </div>

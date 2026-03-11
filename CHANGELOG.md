@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.4.1] - 2026-03-11
+
+### Added
+- **GA4 Tagging**: enable GA4 to track web app traffic.
+- **Data & Privacy**: provide privacy disclosure for user.
+
+### Changed
+- Refined chips and closing prmopt 
+- Refined "give your feedback" logic.
+
 ## [0.4.0] - 2026-03-10
 
 ### Added

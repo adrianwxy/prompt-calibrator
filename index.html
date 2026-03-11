@@ -1,10 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4KG0PRPMN9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4KG0PRPMN9');
+</script>
+
 <meta charset="UTF-8">
+
+<!-- SEO & Social -->
+<title>Prompt Calibrator · Build Better AI Prompts, Free & Open Source</title>
+<meta name="description" content="Stop getting vague AI responses. Prompt Calibrator is a free, open-source prompt builder — structured, privacy-first, and built on real prompt engineering best practices.">
+<meta name="keywords" content="AI prompt generator, ChatGPT prompt builder, prompt engineering tool, how to write better AI prompts, prompt tool for non-technical users, privacy-first AI tool, free prompt builder, open source AI tool">
+<meta name="author" content="Adrian Wang">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://promptcalibrator.com">
+
+<!-- Open Graph (LinkedIn, Facebook, iMessage previews) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://promptcalibrator.com">
+<meta property="og:title" content="Prompt Calibrator · Build Better AI Prompts, Free & Open Source">
+<meta property="og:description" content="Stop getting vague AI responses. Prompt Calibrator is a free, open-source prompt builder — structured, privacy-first, and built on real prompt engineering best practices.">
+<!-- og:image: Add a screenshot or branded card here when ready -->
+<!-- <meta property="og:image" content="https://promptcalibrator.com/og-image.png"> -->
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://promptcalibrator.com">
+<meta name="twitter:title" content="Prompt Calibrator · Build Better AI Prompts, Free & Open Source">
+<meta name="twitter:description" content="Stop getting vague AI responses. Prompt Calibrator is a free, open-source prompt builder — structured, privacy-first, and built on real prompt engineering best practices.">
+<!-- twitter:image: Same image as og:image when ready -->
+<!-- <meta name="twitter:image" content="https://promptcalibrator.com/og-image.png"> -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt Calibrator · by Adrian Wang</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 <style>
   :root {
     --bg: #000000;
@@ -842,9 +876,9 @@
       <p class="tagline">A better way to start every AI conversation - without the noise.</p>
     </div>
     <div class="byline">
-      <span>v0.4.0</span>
+      <span>v0.4.1</span>
       <span>by Adrian Wang</span>
-      Data Not Collected · Open Source
+      <button onclick="openModal('modal-privacy')" style="font-family:'DM Mono',monospace;font-size:13.5px;color:var(--muted);letter-spacing:0.08em;background:none;border:none;cursor:pointer;padding:0;transition:color 0.2s;" onmouseover="this.style.color='var(--muted2)'" onmouseout="this.style.color='var(--muted)'">🔒 Data &amp; Privacy</button>
     </div>
   </header>
 
@@ -853,11 +887,11 @@
     <div class="theme-switcher-label">Choose your mode</div>
     <div class="theme-switcher">
       <button class="theme-btn active" data-theme="agency"    onclick="switchTheme('agency')">   <span class="theme-icon">🏢</span> Agency</button>
-      <button class="theme-btn"        data-theme="education" onclick="switchTheme('education')"><span class="theme-icon">🎓</span> Education</button>
+      <button class="theme-btn"        data-theme="education" onclick="switchTheme('education')"><span class="theme-icon">🏫</span> Education</button>
       <button class="theme-btn"        data-theme="student"   onclick="switchTheme('student')">  <span class="theme-icon">📚</span> Student</button>
       <button class="theme-btn"        data-theme="creative"  onclick="switchTheme('creative')"> <span class="theme-icon">✍️</span> Creative</button>
     </div>
-    <button class="see-example-link" onclick="openModal('modal-example')"><span>⚡</span> See an example <span>⚡</span> </button>
+    <button class="see-example-link" onclick="openModal('modal-example')"><span>👉</span> See an example <span>👈</span> </button>
   </div>
 
   <!-- FORM -->
@@ -1518,7 +1552,7 @@
         <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy</button>
       </div>
       <div class="output-body">
-        <div id="prompt-preview"><span class="placeholder-msg">Your prompt will appear here as you fill in the fields above.</span></div>
+        <div id="prompt-preview"><span class="placeholder-msg">Your prompt will appear here as you fill in the fields above. No data is collected — your inputs stay in your browser and go nowhere else.</span></div>
       </div>
       <div class="legend" id="legend-agency">
         <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task</div>
@@ -2022,7 +2056,7 @@ function render() {
   const result = builders[currentTheme]();
 
   if (!result) {
-    preview.innerHTML = '<span class="placeholder-msg">Your prompt will appear here as you fill in the fields above.</span>';
+    preview.innerHTML = '<span class="placeholder-msg">Your prompt will appear here as you fill in the fields above. No data is collected — your inputs stay in your browser and go nowhere else.</span>';
     copyBtn.disabled = true;
     meta.textContent = '— / —';
     return;
@@ -2387,7 +2421,7 @@ function activateChip(containerId, val) {
     <div class="modal-header">
       <div>
         <div class="modal-title">Give Your Feedback</div>
-        <div class="modal-subtitle">Takes ~2 minutes. Your input directly shapes what gets built next.</div>
+        <div class="modal-subtitle">Takes ~2 minutes. Your input directly shapes what gets built next. Please use <a href="https://forms.gle/n9VW7yARd45UyjL98" target="_blank" rel="noopener noreferrer" style="color:var(--c1);">this link</a> if the google form is missing.</div>
       </div>
       <button class="modal-close" onclick="closeModal('modal-feedback')">&#x2715;</button>
     </div>
@@ -2407,6 +2441,59 @@ function activateChip(containerId, val) {
     </div>
   </div>
 </div>
+<!-- DATA & PRIVACY MODAL -->
+<div class="modal-overlay" id="modal-privacy">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Data &amp; Privacy</div>
+        <div class="modal-subtitle">How this tool handles your information.</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-privacy')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step-num" style="background:#5b8dee18;color:var(--c1)">01</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Your prompts never leave your browser</div>
+            <div class="how-step-desc">All prompt generation runs entirely client-side. Nothing you type is stored, transmitted, or collected — by design.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num" style="background:#e06c8a18;color:var(--c2)">02</div>
+          <div class="how-step-content">
+            <div class="how-step-title">No account, no sign-up, anonymous use</div>
+            <div class="how-step-desc">There is no login, no profile, and no way to identify you. You are anonymous by design.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num" style="background:#4ecdc418;color:var(--c3)">03</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Anonymous usage analytics</div>
+            <div class="how-step-desc">This tool will use Google Analytics to understand general usage patterns — no personal data, no cross-site tracking.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num" style="background:#f7c94818;color:var(--c4)">04</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Optional feedback form</div>
+            <div class="how-step-desc">The feedback form is entirely optional and powered by Google Forms. No email required.</div>
+          </div>
+        </div>
+      </div>
+      <div class="how-divider"></div>
+      <div class="how-tip">
+        This tool is built to respect your privacy, and will stay that way.
+      </div>
+      <div class="how-divider"></div>
+      <div style="text-align:center;">
+        <a href="https://github.com/adrianwxy/prompt-calibrator" target="_blank" rel="noopener noreferrer" style="font-family:'DM Mono',monospace;font-size:12.5px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;" onmouseover="this.style.color='var(--muted2)'" onmouseout="this.style.color='var(--muted)'">MIT Licensed · View source on GitHub →</a>
+      </div>
+    </div>
+  </div>
+</div>
 
+</body>
 </body>
 </html>

@@ -97,8 +97,8 @@
   header {
     grid-column: 1 / -1;
     padding: 48px 0 28px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 32px;
+    /* border-bottom: 1px solid var(--border); */
+    margin-bottom: 0px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -123,7 +123,7 @@
 
   .tagline {
     font-family: 'Lato', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 17px;
     color: var(--muted2);
     margin-top: 10px;
@@ -148,13 +148,13 @@
   /* ── THEME SWITCHER ── */
   .theme-switcher-wrap {
     grid-column: 1 / -1;
-    margin-bottom: 44px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
     padding: 8px 0 25px;
-    border-bottom: 1px solid var(--border);
+    /* border-bottom: 1px solid var(--border); */
   }
 
   .theme-switcher-label {
@@ -540,11 +540,40 @@
   }
   .see-example-link:hover { color: var(--muted2); }
 
-  /* ── "WHAT IS THIS" BUTTON — above output card ── */
-  .whatis-btn {
+  /* ── TOP NAV BAR — info & utility buttons ── */
+  .top-nav-wrap {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 0 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  .top-nav-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .top-nav-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .top-nav-btn {
     font-family: 'DM Mono', monospace;
     font-size: 13.5px;
-    padding: 9px 18px;
+    padding: 9px 0;
     border-radius: 30px;
     border: 1px solid var(--border-hover);
     background: var(--surface2);
@@ -554,24 +583,18 @@
     letter-spacing: 0.05em;
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: 100%;
     justify-content: center;
-    margin-bottom: 12px;
+    gap: 8px;
+    flex: 1;
+    min-width: 160px;
+    max-width: 260px;
     user-select: none;
   }
-  .whatis-btn:hover {
+
+  .top-nav-btn:hover {
     background: #5b8dee18;
     border-color: var(--c1);
     color: var(--c1);
-  }
-  .whatis-btn-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--c1);
-    opacity: 0.8;
-    flex-shrink: 0;
   }
 
   /* ── "GIVE FEEDBACK" BUTTON — below output card ── */
@@ -873,14 +896,34 @@
   <header>
     <div>
       <h1>Prompt <em>Calibrator</em></h1>
-      <p class="tagline">A better way to start every AI conversation - without the noise.</p>
+      <p class="tagline">Think first. Prompt better.</p>
     </div>
     <div class="byline">
-      <span>v0.4.1</span>
+      <span>v0.4.2 </span>
       <span>by Adrian Wang</span>
-      <button onclick="openModal('modal-privacy')" style="font-family:'DM Mono',monospace;font-size:13.5px;color:var(--muted);letter-spacing:0.08em;background:none;border:none;cursor:pointer;padding:0;transition:color 0.2s;" onmouseover="this.style.color='var(--muted2)'" onmouseout="this.style.color='var(--muted)'">🔒 Data &amp; Privacy</button>
+      <!-- Think first. Prompt better. -->
     </div>
   </header>
+
+  <!-- HERO TAGLINE SECTION -->
+
+  <!-- <div style="grid-column: 1 / -1; text-align: center; padding: 12px 0 32px;">
+    <span style="font-family:'Orbitron',sans-serif; font-size:18px; font-weight:700; color:var(--text); letter-spacing:-0.3px;">Think first. Prompt better.</span>
+    <span style="font-family:'Lato',sans-serif; font-weight:500; font-size:15px; color:var(--muted2); letter-spacing:0.01em; margin-left:12px;">Structure your AI prompts with a simple framework — private, fast, and noise-free.</span>
+  </div> -->
+
+<!-- TOP NAV BAR -->
+<div style="grid-column: 1 / -1; text-align: center; padding: 0 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 28px;">
+  <div style="display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap;">
+    <button onclick="openModal('modal-privacy')" style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🔒 Data & Privacy</button>
+    <span style="color:var(--border-hover); font-size:13px;">·</span>
+    <button onclick="openModal('modal-whyhow')" style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💡 How It Works</button>
+    <span style="color:var(--border-hover); font-size:13px;">·</span>
+    <button onclick="openModal('modal-philosophy')" style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🧠 The Idea Behind</button>
+    <span style="color:var(--border-hover); font-size:13px;">·</span>
+    <button onclick="openModal('modal-feedback')" style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💬 Give Feedback</button>
+  </div>
+</div>
 
   <!-- THEME SWITCHER -->
   <div class="theme-switcher-wrap">
@@ -1539,9 +1582,6 @@
        OUTPUT PANEL
   ══════════════════════════════════════ -->
   <div class="output-col">
-    <button class="whatis-btn" onclick="openModal('modal-whyhow')">
-      <span>💡</span> What Is This &amp; How It Works
-    </button>
     <div class="output-card">
       <div class="output-header">
         <div class="output-label">
@@ -1587,9 +1627,6 @@
         <button class="reset-btn" onclick="resetAll()">↺ Reset</button>
       </div>
     </div>
-    <button class="feedback-btn" onclick="openModal('modal-feedback')">
-      <span>💬</span> Give Your Feedback
-    </button>
   </div>
 
 
@@ -2441,6 +2478,72 @@ function activateChip(containerId, val) {
     </div>
   </div>
 </div>
+<!-- PROMPT CALIBRATOR PHILOSOPHY MODAL -->
+<div class="modal-overlay" id="modal-philosophy">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">The idea behind Prompt Calibrator</div>
+        <div class="modal-subtitle">What makes this tool different — and why it was built this way.</div>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-philosophy')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step-num" style="background:#5b8dee18;color:var(--c1)">01</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Think before you ask</div>
+            <div class="how-step-desc">
+              Most people open AI and type whatever comes to mind.<br>
+              This tool slows that down — on purpose.<br>
+              A few simple fields help you clarify what you actually want.</div>
+              <!-- Clear thinking in → better answers out.</div> -->
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num" style="background:#e06c8a18;color:var(--c2)">02</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Prompts are situational</div>
+            <div class="how-step-desc">
+              A teacher, a consultant, and a student don't need the same prompt.<br>
+              Each mode highlights the fields that matter for that situation — instead of giving everyone a generic template.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num" style="background:#4ecdc418;color:var(--c3)">03</div>
+          <div class="how-step-content">
+            <div class="how-step-title">AI shouldn't write your prompt</div>
+            <div class="how-step-desc">Many tools use AI to generate prompts for you.<br>
+              Prompt Calibrator doesn't.<br>
+              AI should answer your prompt — not write it. Your thinking stays in the loop.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num" style="background:#f7c94818;color:var(--c4)">04</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Private by design</div>
+            <div class="how-step-desc">
+              Everything runs in your browser.<br>
+              No login. No storage. No tracking of what you write.<br>
+              Your ideas and prompts stay on your device.</div>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num" style="background:#a78bfa18;color:var(--c5)">05</div>
+          <div class="how-step-content">
+            <div class="how-step-title">Build prompt literacy</div>
+            <div class="how-step-desc">The goal isn't just one good prompt.<br>
+              <!-- That's the point: learning to  -->
+              <em style="color:var(--text);font-style:italic;">It's learning how to structure your thinking before talking to AI — until it becomes a habit.</em></div>
+              <!-- , not just talk at it.</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- DATA & PRIVACY MODAL -->
 <div class="modal-overlay" id="modal-privacy">
   <div class="modal">

@@ -1,5 +1,5 @@
 <!-- 
-  Prompt Calibrator
+  Prompt Calibrator™
   Built by Adrian Wang
   github.com/adrianwxy/prompt-calibrator
   
@@ -99,12 +99,87 @@
     padding: 0 32px;
     gap: 0 40px;
   }
-
+/* 
   @media (max-width: 900px) {
     .page { grid-template-columns: 1fr; padding: 0 16px; }
     .output-col { position: static; padding-bottom: 60px; }
-  }
+  } */
+   
+  @media (max-width: 900px) {
+      /* 1. Switch to flex column layout to control stacking order */
+      .page { 
+        display: flex; 
+        flex-direction: column; 
+        padding: 0 16px; 
+      }
 
+      /* 2. Define the exact vertical order */
+      header { order: 1; padding: 32px 0 20px; }
+      .top-nav-wrap-mobile { order: 2; width: 100%; }
+      .theme-switcher-wrap { order: 3; padding-bottom: 15px; }
+      
+      /* 3. Sticky Top Preview (Output Box) */
+      .output-col { 
+        order: 4; 
+        position: sticky; 
+        top: 16px; 
+        z-index: 100;
+        padding-bottom: 24px;
+      }
+      
+      /* Constrain the output height and add a shadow so it floats cleanly */
+      .output-body {
+        min-height: 100px;
+        max-height: 25vh; /* Max 25% of viewport height */
+        overflow-y: auto;
+      }
+      .output-card {
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border);
+      }
+
+      /* 4. Form sits below output and scrolls normally */
+      .form-col { 
+        order: 5; 
+        padding-bottom: 80px; 
+      }
+
+      /* 5. Horizontal Scroll for Theme Buttons */
+      .theme-switcher {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 8px; /* Safe space for swiping */
+        -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
+        scrollbar-width: none; /* Hide scrollbar Firefox */
+      }
+      .theme-switcher::-webkit-scrollbar {
+        display: none; /* Hide scrollbar Chrome/Safari */
+      }
+      .theme-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      /* 6. Horizontal Scroll for Top Nav Links */
+      .mobile-scroll-nav {
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .mobile-scroll-nav::-webkit-scrollbar {
+        display: none;
+      }
+      .mobile-scroll-nav button {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+    }
+    
   header {
     grid-column: 1 / -1;
     padding: 48px 0 28px;
@@ -143,7 +218,7 @@
 
   .byline {
     font-family: 'DM Mono', monospace;
-    font-size: 12.5px;
+    font-size: 11px;
     color: var(--muted);
     letter-spacing: 0.08em;
     text-align: right;
@@ -153,7 +228,7 @@
   .byline span {
     display: block;
     color: var(--muted2);
-    font-size: 13px;
+    font-size: 10px;
   }
 
   /* ── THEME SWITCHER ── */
@@ -910,7 +985,7 @@
       <p class="tagline">Think first. Prompt better.</p>
     </div>
     <div class="byline">
-      <span>v0.4.3 </span>
+      <span>Prompt Calibrator™ v0.4.4</span>
       <span>by Adrian Wang</span>
       <!-- Think first. Prompt better. -->
     </div>
@@ -924,8 +999,8 @@
   </div> -->
 
 <!-- TOP NAV BAR -->
-<div style="grid-column: 1 / -1; text-align: center; padding: 0 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 28px;">
-  <div style="display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap;">
+<div class="top-nav-wrap-mobile" style="grid-column: 1 / -1; text-align: center; padding: 0 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 28px;">
+  <div class="mobile-scroll-nav" style="display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap;">
     <button onclick="openModal('modal-privacy')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🔒 Data & Privacy</button>
     <span style="color:var(--border-hover); font-size:13px;"> </span>
     <button onclick="openModal('modal-whyhow')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💡 How It Works</button>
@@ -1640,7 +1715,7 @@
 <!-- FOOTER -->
 <div style="grid-column: 1 / -1; text-align: center; padding: 32px 0 24px; border-top: 1px solid var(--border); margin-top: 40px;">
   <span style="font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); letter-spacing:0.06em;">
-    © 2026 Prompt Calibrator &nbsp;·&nbsp; Designed & Engineered by <a href="https://github.com/adrianwxy" target="_blank" rel="noopener noreferrer" style="color:var(--muted2); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted2)'">Adrian Wang</a>
+    © 2026 Prompt Calibrator™ &nbsp;·&nbsp; Designed & Engineered by <a href="https://github.com/adrianwxy" target="_blank" rel="noopener noreferrer" style="color:var(--muted2); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted2)'">Adrian Wang</a>
   </span>
 </div>
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.4.2] - 2026-03-12
+
+### Added
+- **The idea behined**: share some idea why this tool exist and designed.
+
+### Changed
+- Refined UI and improve the UX. 
+
 ## [0.4.1] - 2026-03-11
 
 ### Added

@@ -134,8 +134,18 @@
         overflow-y: auto;
       }
       .output-card {
-        height: 220px;
+        height: 360px;
+        display: flex;
+        flex-direction: column;
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border);
+      }
+
+      .output-body {
+      flex: 1;           /* Fills the 360px card perfectly */
+      min-height: 0;     /* Resets the desktop min-height */
+      max-height: none;  /* Resets the desktop max-height */
+      overflow-y: auto;  /* Allows scrolling inside the locked box */
+      padding-bottom: 12px;
       }
 
       /* 4. Form sits below output and scrolls normally */
@@ -178,6 +188,13 @@
       .mobile-scroll-nav button {
         flex-shrink: 0;
         white-space: nowrap;
+      }
+
+      .output-body textarea, 
+      .output-body #final-prompt {
+        height: 100% !important; 
+        max-height: 100% !important;
+        overflow-y: auto !important;
       }
     }
     
@@ -533,7 +550,7 @@
     padding: 22px;
     min-height: 160px; /* Starts slim when empty */
     height: auto;      /* Tells the box to expand as text is generated */
-    max-height: calc(100vh - 250px); /* Stops expanding before it hits the bottom of the screen */
+    max-height: calc(160vh - 300px); /* Stops expanding before it hits the bottom of the screen */
     overflow-y: auto;
   }
 

@@ -1,3 +1,15 @@
+<!-- 
+  Prompt Calibrator
+  Built by Adrian Wang
+  github.com/adrianwxy/prompt-calibrator
+  
+  If you're reading this — nice to see you here. 
+  This tool was built with the belief that thinking 
+  clearly is a skill worth protecting.
+  
+  Use it well :) 
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,9 +25,9 @@
 <meta charset="UTF-8">
 
 <!-- SEO & Social -->
-<title>Prompt Calibrator · Build Better AI Prompts, Free & Open Source</title>
-<meta name="description" content="Stop getting vague AI responses. Prompt Calibrator is a free, open-source prompt builder — structured, privacy-first, and built on real prompt engineering best practices.">
-<meta name="keywords" content="AI prompt generator, ChatGPT prompt builder, prompt engineering tool, how to write better AI prompts, prompt tool for non-technical users, privacy-first AI tool, free prompt builder, open source AI tool">
+<title>Prompt Calibrator · Write Better AI Prompts | Free, Private Prompt Builder</title>
+<meta name="description" content="Stop getting vague AI answers. Prompt Calibrator helps you write clear, structured prompts for ChatGPT, Claude, and Gemini — private, simple, and fully client-side.">
+<meta name="keywords" content="AI prompt builder, prompt engineering tool, how to write better AI prompts, ChatGPT prompt guide, prompt framework, structured prompts, prompt engineering for beginners, privacy-first AI tool, free prompt builder, open source AI tool">
 <meta name="author" content="Adrian Wang">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://promptcalibrator.com">
@@ -23,17 +35,15 @@
 <!-- Open Graph (LinkedIn, Facebook, iMessage previews) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://promptcalibrator.com">
-<meta property="og:title" content="Prompt Calibrator · Build Better AI Prompts, Free & Open Source">
-<meta property="og:description" content="Stop getting vague AI responses. Prompt Calibrator is a free, open-source prompt builder — structured, privacy-first, and built on real prompt engineering best practices.">
-<!-- og:image: Add a screenshot or branded card here when ready -->
+<meta property="og:title" content="Prompt Calibrator · Write Better AI Prompts | Free, Private Prompt Builder">
+<meta property="og:description" content="Stop getting vague AI answers. Prompt Calibrator helps you write clear, structured prompts for ChatGPT, Claude, and Gemini — private, simple, and fully client-side.">
 <meta property="og:image" content="https://promptcalibrator.com/og-image.jpg">
 
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://promptcalibrator.com">
-<meta name="twitter:title" content="Prompt Calibrator · Build Better AI Prompts, Free & Open Source">
-<meta name="twitter:description" content="Stop getting vague AI responses. Prompt Calibrator is a free, open-source prompt builder — structured, privacy-first, and built on real prompt engineering best practices.">
-<!-- twitter:image: Same image as og:image when ready -->
+<meta name="twitter:title" content="Prompt Calibrator · Write Better AI Prompts | Free, Private Prompt Builder">
+<meta name="twitter:description" content="Stop getting vague AI answers. Prompt Calibrator helps you write clear, structured prompts for ChatGPT, Claude, and Gemini — private, simple, and fully client-side.">
 <meta name="twitter:image" content="https://promptcalibrator.com/og-image.jpg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt Calibrator · by Adrian Wang</title>
@@ -900,7 +910,7 @@
       <p class="tagline">Think first. Prompt better.</p>
     </div>
     <div class="byline">
-      <span>v0.4.2 </span>
+      <span>v0.4.3 </span>
       <span>by Adrian Wang</span>
       <!-- Think first. Prompt better. -->
     </div>
@@ -916,13 +926,13 @@
 <!-- TOP NAV BAR -->
 <div style="grid-column: 1 / -1; text-align: center; padding: 0 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 28px;">
   <div style="display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap;">
-    <button onclick="openModal('modal-privacy')" style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🔒 Data & Privacy</button>
-    <span style="color:var(--border-hover); font-size:13px;">·</span>
-    <button onclick="openModal('modal-whyhow')" style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💡 How It Works</button>
-    <span style="color:var(--border-hover); font-size:13px;">·</span>
-    <button onclick="openModal('modal-philosophy')" style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🧠 The Idea Behind</button>
-    <span style="color:var(--border-hover); font-size:13px;">·</span>
-    <button onclick="openModal('modal-feedback')" style="font-family:'DM Mono',monospace; font-size:13px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💬 Give Feedback</button>
+    <button onclick="openModal('modal-privacy')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🔒 Data & Privacy</button>
+    <span style="color:var(--border-hover); font-size:13px;"> </span>
+    <button onclick="openModal('modal-whyhow')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💡 How It Works</button>
+    <span style="color:var(--border-hover); font-size:13px;"> </span>
+    <button onclick="openModal('modal-philosophy')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🧠 The Idea Behind</button>
+    <span style="color:var(--border-hover); font-size:13px;"> </span>
+    <button onclick="openModal('modal-feedback')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💬 Give Feedback</button>
   </div>
 </div>
 
@@ -946,7 +956,7 @@
     ════════════════════════════════════════════ -->
     <div class="theme-panel active" id="panel-agency">
 
-      <div class="tier-label">Tier 1 — Core Setup</div>
+      <div class="tier-label">Core Setup</div>
 
       <!-- A1: Task -->
       <div class="field agency-field">
@@ -959,13 +969,13 @@
         </div>
         <div class="field-body">
           <div class="chips" id="a-chips-1">
-            <div class="chip" data-val="analyze data">Analyze data</div>
-            <div class="chip" data-val="build a deck">Build deck</div>
-            <div class="chip" data-val="draft an email">Draft email</div>
-            <div class="chip" data-val="draft an analysis framework">Draft framework</div>
-            <div class="chip" data-val="present findings">Present findings</div>
-            <div class="chip" data-val="summarize findings">Summarize findings</div>
-            <div class="chip" data-val="write recommendations">Write recommendations</div>
+            <div class="chip" data-val="Analyze the data and surface key insights">Analyze data</div>
+            <div class="chip" data-val="Build a deck that communicates findings clearly">Build deck</div>
+            <div class="chip" data-val="Draft a professional email">Draft email</div>
+            <div class="chip" data-val="Draft an analysis framework for this problem">Draft framework</div>
+            <div class="chip" data-val="Present findings in a clear, structured way">Present findings</div>
+            <div class="chip" data-val="Summarize the key findings concisely">Summarize findings</div>
+            <div class="chip" data-val="Write actionable recommendations based on the findings">Write recommendations</div>
           </div>
           <input type="text" id="a-input-1" placeholder="Or describe your task..." />
         </div>
@@ -982,12 +992,12 @@
         </div>
         <div class="field-body">
           <div class="chips" id="a-chips-2">
-            <div class="chip" data-val="a business strategist">Business Strategist</div>
-            <div class="chip" data-val="a critical reviewer">Critical Reviewer</div>
-            <div class="chip" data-val="an executive coach">Executive Coach</div>
-            <div class="chip" data-val="a senior analyst">Senior Analyst</div>
-            <div class="chip" data-val="a thought partner">Thought Partner</div>
-            <div class="chip" data-val="a writing coach">Writing Coach</div>
+            <div class="chip" data-val="Act as a business strategist — think in terms of trade-offs, priorities, and outcomes">Business Strategist</div>
+            <div class="chip" data-val="Act as a critical reviewer — challenge assumptions and flag weak reasoning">Critical Reviewer</div>
+            <div class="chip" data-val="Act as an executive coach — push for clarity, accountability, and decisive thinking">Executive Coach</div>
+            <div class="chip" data-val="Act as a senior analyst — be rigorous, evidence-based, and precise">Senior Analyst</div>
+            <div class="chip" data-val="Act as a thought partner — ask good questions and help think the problem through">Thought Partner</div>
+            <div class="chip" data-val="Act as a writing coach — focus on clarity, structure, and impact">Writing Coach</div>
           </div>
           <input type="text" id="a-input-2" placeholder="Or describe the AI's role..." />
         </div>
@@ -1014,12 +1024,12 @@
           </div>
           <div class="sub-label">Situation</div>
           <div class="chips" id="a-chips-3c">
-            <div class="chip" data-val="business review">Business review</div>
-            <div class="chip" data-val="campaign analysis">Campaign analysis</div>
-            <div class="chip" data-val="data-driven storytelling">Data-driven storytelling</div>
-            <div class="chip" data-val="kickoff planning">Kickoff planning</div>
-            <div class="chip" data-val="new product launch">New product launch</div>
-            <div class="chip" data-val="performance review">Performance review</div>
+            <div class="chip" data-val="preparing for a business review">Business review</div>
+            <div class="chip" data-val="running a campaign analysis">Campaign analysis</div>
+            <div class="chip" data-val="building a data-driven story">Data-driven storytelling</div>
+            <div class="chip" data-val="planning a project kickoff">Kickoff planning</div>
+            <div class="chip" data-val="launching a new product">New product launch</div>
+            <div class="chip" data-val="conducting a performance review">Performance review</div>
           </div>
           <input type="text" id="a-input-3" placeholder="Or describe the client... Avoid real names." />
         </div>
@@ -1036,19 +1046,19 @@
         </div>
         <div class="field-body">
           <div class="chips" id="a-chips-4">
-            <div class="chip" data-val="it's for executive audiences">Executive audiences</div>
-            <div class="chip" data-val="it's for non-technical audiences">Non-technical audiences</div>
-            <div class="chip" data-val="it's early-stage thinking">Early-stage thinking</div>
-            <div class="chip" data-val="it's a first draft">First draft</div>
-            <div class="chip" data-val="it's a final deliverable">Final deliverable</div>
-            <div class="chip" data-val="it supported by data">Supported by data</div>
+            <div class="chip" data-val="this is for an executive audience — be concise and lead with the so-what">Executive audiences</div>
+            <div class="chip" data-val="this is for a non-technical audience — avoid jargon and explain concepts plainly">Non-technical audiences</div>
+            <div class="chip" data-val="this is early-stage thinking — treat it as exploratory, not final">Early-stage thinking</div>
+            <div class="chip" data-val="this is a first draft — prioritize structure and direction over polish">First draft</div>
+            <div class="chip" data-val="this is a final deliverable — hold it to a high standard">Final deliverable</div>
+            <div class="chip" data-val="this is supported by data — ground your response in evidence, not assumption">Supported by data</div>
           </div>
           <input type="text" id="a-input-4" placeholder="Or add any other context..." />
         </div>
       </div>
 
       <!-- Tier 2 -->
-      <div class="tier-label">Tier 2 — Fine-tune your output</div>
+      <div class="tier-label">Fine-tune your output</div>
       <div class="tier2-content open" id="a-tier2">
         <div class="field-row">
           <div class="field agency-field">
@@ -1115,13 +1125,13 @@
         </div>
         <div class="field-body">
           <div class="chips" id="e-chips-1">
-            <div class="chip" data-val="create a lesson plan">Lesson plan</div>
-            <div class="chip" data-val="write a rubric">Rubric</div>
-            <div class="chip" data-val="draft a parent or guardian email">Parent email</div>
-            <div class="chip" data-val="write student feedback">Student feedback</div>
-            <div class="chip" data-val="build a counseling resource">Counseling resource</div>
-            <div class="chip" data-val="adapt material for personalized learning">Personalized learning</div>
-            <div class="chip" data-val="plan class activities">Class activity</div>
+            <div class="chip" data-val="Design a lesson plan that is ready to use in the classroom">Lesson plan</div>
+            <div class="chip" data-val="Write a clear, criteria-based rubric for student assessment">Rubric</div>
+            <div class="chip" data-val="Draft a professional email to a parent or guardian">Parent email</div>
+            <div class="chip" data-val="Write constructive, specific feedback for a student">Student feedback</div>
+            <div class="chip" data-val="Build a practical counseling resource for student support">Counseling resource</div>
+            <div class="chip" data-val="Adapt existing material to support differentiated or personalized learning">Personalized learning</div>
+            <div class="chip" data-val="Plan a classroom activity that is engaging and curriculum-aligned">Class activity</div>
           </div>
           <input type="text" id="e-input-1" placeholder="Or describe your task..." />
         </div>
@@ -1138,7 +1148,7 @@
         </div>
         <div class="field-body">
           <div class="chips" id="e-chips-2">
-            <div class="chip" data-val="classroom teacher" data-single="true">Classroom teacher</div>
+            <div class="chip" data-val="classroom teacher / professor" data-single="true">Classroom teacher / professor</div>
             <div class="chip" data-val="subject specialist" data-single="true">Subject specialist</div>
             <div class="chip" data-val="school counselor" data-single="true">School counselor</div>
             <div class="chip" data-val="curriculum designer" data-single="true">Curriculum designer</div>
@@ -1167,11 +1177,11 @@
           </div>
           <div class="sub-label">Class Situation</div>
           <div class="chips" id="e-chips-3b">
-            <div class="chip" data-val="a mixed-ability class">Mixed ability</div>
-            <div class="chip" data-val="an advanced or gifted group">Advanced / gifted</div>
-            <div class="chip" data-val="a class with students needing extra support">Needs extra support</div>
-            <div class="chip" data-val="a class with accommodations">Students with accommodations</div>
-            <div class="chip" data-val="English language learners">English language learners</div>
+            <div class="chip" data-val="with mixed ability levels">Mixed ability</div>
+            <div class="chip" data-val="with advanced or gifted students">Advanced / gifted</div>
+            <div class="chip" data-val="with students who need additional academic support">Needs extra support</div>
+            <div class="chip" data-val="with students who have documented accommodations or IEPs">Students with accommodations</div>
+            <div class="chip" data-val="with English language learners">English language learners</div>
           </div>
           <div class="sub-label">Subject</div>
           <div class="chips" id="e-chips-3c">
@@ -1196,12 +1206,12 @@
         </div>
         <div class="field-body">
           <div class="chips" id="e-chips-4">
-            <div class="chip" data-val="limited resources">Limited resources</div>
-            <div class="chip" data-val="large class size">Large class size</div>
-            <div class="chip" data-val="with limited prep time">Time-constrained</div>
-            <div class="chip" data-val="using a trauma-informed lens">Trauma-informed</div>
-            <div class="chip" data-val="aligned to standardized test prep">Test prep aligned</div>
-            <div class="chip" data-val="for a remote or hybrid classroom">Remote / hybrid</div>
+            <div class="chip" data-val="resources are limited — keep suggestions low-cost and easy to source">Limited resources</div>
+            <div class="chip" data-val="this is a large class — prioritize scalable, manageable approaches">Large class size</div>
+            <div class="chip" data-val="prep time is limited — keep the output practical and ready to use with minimal adaptation">Time-constrained</div>
+            <div class="chip" data-val="apply a trauma-informed lens — avoid activities or language that may be activating">Trauma-informed</div>
+            <div class="chip" data-val="this needs to align with standardized test preparation — connect content to tested skills and formats">Test prep aligned</div>
+            <div class="chip" data-val="this is for a remote or hybrid classroom — account for async participation and digital access constraints">Remote / hybrid</div>
           </div>
           <input type="text" id="e-input-4" placeholder="e.g. This is for a parent-teacher conference. The student has been struggling with focus." />
         </div>
@@ -1275,13 +1285,13 @@
         </div>
         <div class="field-body">
           <div class="chips" id="s-chips-1">
-            <div class="chip" data-val="help me understand a concept">Understand a concept</div>
-            <div class="chip" data-val="help me brainstorm ideas">Brainstorm ideas</div>
-            <div class="chip" data-val="create an outline for my assignment">Outline assignment</div>
-            <div class="chip" data-val="review my draft">Review draft</div>
-            <div class="chip" data-val="study for a test or exam">Study for a test</div>
-            <div class="chip" data-val="help me get unstuck on a problem">Get unstuck on a problem</div>
-            <div class="chip" data-val="understand my assignment requirements">Understand requirements</div>
+            <div class="chip" data-val="Help me understand a concept — explain it clearly and check that I actually get it">Understand a concept</div>
+            <div class="chip" data-val="Help me brainstorm ideas — ask me questions to draw out my own thinking first">Brainstorm ideas</div>
+            <div class="chip" data-val="Help me build an outline for my assignment — guide me through the structure, don't just hand it to me">Outline assignment</div>
+            <div class="chip" data-val="Review my draft and give me specific, actionable feedback I can actually use">Review draft</div>
+            <div class="chip" data-val="Help me study for a test — quiz me, identify gaps, and help me focus on what matters most">Study for a test</div>
+            <div class="chip" data-val="Help me get unstuck — ask me what I've already tried before jumping to a solution">Get unstuck on a problem</div>
+            <div class="chip" data-val="Help me understand what my assignment is actually asking me to do">Understand requirements</div>
           </div>
           <input type="text" id="s-input-1" placeholder="Or describe what you need help with..." />
         </div>
@@ -1298,13 +1308,13 @@
         </div>
         <div class="field-body">
           <div class="chips" id="s-chips-2">
-            <div class="chip" data-val="explain things clearly" data-single="true">Explain it to me</div>
-            <div class="chip" data-val="ask me questions to think it through" data-single="true">Ask me questions</div>
-            <div class="chip" data-val="give me critical feedback on my work" data-single="true">Give me critical feedback</div>
-            <div class="chip" data-val="be a study partner and quiz me" data-single="true">Quiz me</div>
-            <div class="chip" data-val="help me check my work for errors" data-single="true">Check my work</div>
-            <div class="chip" data-val="help me understand feedback I received" data-single="true">Understand feedback</div>
-            <div class="chip" data-val="be my thinking partner" data-single="true">Thinking partner</div>
+            <div class="chip" data-val="Explain this to me clearly — use simple language and real examples, then check that I understand" data-single="true">Explain it to me</div>
+            <div class="chip" data-val="Don't explain yet — ask me questions and help me think it through myself" data-single="true">Ask me questions</div>
+            <div class="chip" data-val="Give me honest, critical feedback on my work — don't soften it" data-single="true">Give me critical feedback</div>
+            <div class="chip" data-val="Quiz me on this material — start easy, then push harder as I get things right" data-single="true">Quiz me</div>
+            <div class="chip" data-val="Help me check my work for errors — point out mistakes but let me fix them myself" data-single="true">Check my work</div>
+            <div class="chip" data-val="Help me understand feedback I received — break it down so I know exactly what to act on" data-single="true">Understand feedback</div>
+            <div class="chip" data-val="Be my thinking partner — push back on my ideas and help me stress-test my reasoning" data-single="true">Thinking partner</div>
           </div>
           <input type="text" id="s-input-2" placeholder="Or describe how you'd like AI to help..." />
         </div>
@@ -1360,12 +1370,12 @@
         </div>
         <div class="field-body">
           <div class="chips" id="s-chips-4">
-            <div class="chip" data-val="don't give me the answer — help me figure it out">No answers / spoilers</div>
-            <div class="chip" data-val="cite credible sources when you reference facts">Cite sources</div>
-            <div class="chip" data-val="keep explanations basic and jargon-free">Keep it basic</div>
-            <div class="chip" data-val="I have a word or page limit">Word / page limit</div>
-            <div class="chip" data-val="this needs to be in my own voice">My own voice</div>
-            <div class="chip" data-val="I'm not allowed to use AI for this. Guide me only.">AI-restricted assignment</div>
+            <div class="chip" data-val="Don't give me the answer — help me figure it out myself">No answers / spoilers</div>
+            <div class="chip" data-val="Cite credible sources whenever you reference facts or claims">Cite sources</div>
+            <div class="chip" data-val="Keep explanations simple and jargon-free — I'm still building my understanding">Keep it basic</div>
+            <div class="chip" data-val="I have a word or page limit — don't give me more than I need">Word / page limit</div>
+            <div class="chip" data-val="This needs to sound like me — don't write in a way I couldn't have written myself">My own voice</div>
+            <div class="chip" data-val="I'm not allowed to use AI to write this. Don't produce any content I could paste in — guide me only">AI-restricted assignment</div>
           </div>
           <input type="text" id="s-input-4" placeholder="e.g. My essay needs to be 500–700 words. MLA format required." />
         </div>
@@ -1437,14 +1447,12 @@
         </div>
         <div class="field-body">
           <div class="chips" id="c-chips-1">
-            <div class="chip" data-val="a short story">Short story</div>
-            <div class="chip" data-val="a novel chapter">Novel chapter</div>
-            <div class="chip" data-val="worldbuilding material">Worldbuilding</div>
-            <!-- <div class="chip" data-val="character development">Character development</div>
-            <div class="chip" data-val="dialogue">Dialogue</div> -->
-            <div class="chip" data-val="poetry">Poetry</div>
-            <div class="chip" data-val="a game narrative">Game narrative</div>
-            <div class="chip" data-val="a screenplay or script">Screenplay / Script</div>
+            <div class="chip" data-val="I'm working on a short story">Short story</div>
+            <div class="chip" data-val="I'm working on a novel chapter">Novel chapter</div>
+            <div class="chip" data-val="I'm building out worldbuilding material — setting, lore, rules of the world">Worldbuilding</div>
+            <div class="chip" data-val="I'm working on a poem">Poetry</div>
+            <div class="chip" data-val="I'm developing a game narrative — story, characters, world, branching choices">Game narrative</div>
+            <div class="chip" data-val="I'm writing a screenplay or script">Screenplay / Script</div>
           </div>
           <input type="text" id="c-input-1" placeholder="Or describe your creative project..." />
         </div>
@@ -1461,12 +1469,12 @@
         </div>
         <div class="field-body">
           <div class="chips" id="c-chips-2">
-            <div class="chip" data-val="co-write with me — contribute ideas and prose" data-single="true">Co-write with me</div>
-            <div class="chip" data-val="give me honest editorial feedback" data-single="true">Give editorial feedback</div>
-            <div class="chip" data-val="help me get unstuck or past a block" data-single="true">Unstick me</div>
-            <div class="chip" data-val="generate multiple options for me to choose from" data-single="true">Generate options</div>
-            <div class="chip" data-val="act as a developmental editor" data-single="true">Developmental editor</div>
-            <div class="chip" data-val="review consistency of my work" data-single="true">Consistency Check</div>
+            <div class="chip" data-val="Co-write with me — contribute ideas and prose that match my voice and vision, not yours" data-single="true">Co-write with me</div>
+            <div class="chip" data-val="Give me honest editorial feedback — tell me what isn't working and why, not just what is" data-single="true">Give editorial feedback</div>
+            <div class="chip" data-val="I'm stuck. Don't write for me — ask me questions until I find my own way through" data-single="true">Unstick me</div>
+            <div class="chip" data-val="Generate multiple options for me to react to — I'll tell you what's working and we'll iterate" data-single="true">Generate options</div>
+            <div class="chip" data-val="Act as a developmental editor — look at the big picture: structure, pacing, character, stakes. Not line edits" data-single="true">Developmental editor</div>
+            <div class="chip" data-val="Review my work for consistency — flag contradictions in character, plot, timeline, or world rules" data-single="true">Consistency Check</div>
           </div>
           <input type="text" id="c-input-2" placeholder="Or describe how you'd like AI to help..." />
         </div>
@@ -1629,9 +1637,15 @@
       </div>
     </div>
   </div>
+<!-- FOOTER -->
+<div style="grid-column: 1 / -1; text-align: center; padding: 32px 0 24px; border-top: 1px solid var(--border); margin-top: 40px;">
+  <span style="font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); letter-spacing:0.06em;">
+    © 2026 Prompt Calibrator &nbsp;·&nbsp; Designed & Engineered by <a href="https://github.com/adrianwxy" target="_blank" rel="noopener noreferrer" style="color:var(--muted2); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted2)'">Adrian Wang</a>
+  </span>
+</div>
 
-
-</div><!-- /page -->
+</div>
+<!-- /page -->
 
 <script>
 // ══════════════════════════════════════════════
@@ -1802,7 +1816,7 @@ function wrapFragment_task(str) {
   if (!str) return '';
   str = str.trim();
   if (isFullSentence(str)) return str;
-  return 'TASK: ' + str + '.';
+  return 'YOUR TASK TODAY: ' + str + '.';
 }
 
 function wrapFragment_objective(str) {
@@ -1862,8 +1876,8 @@ function buildAgency() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'TASK: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
-    else if (s.f1chips.length) sentence = 'TASK: ' + joinList(s.f1chips) + '.';
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
+    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
     else sentence = wrapFragment_task(s.f1text);
     add(sentence, '<span class="hl-a1">' + sentence + '</span>');
   }
@@ -1923,8 +1937,8 @@ function buildEducation() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'TASK: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
-    else if (s.f1chips.length) sentence = 'TASK: ' + joinList(s.f1chips) + '.';
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
+    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
     else sentence = wrapFragment_task(s.f1text);
     add(sentence, '<span class="hl-e1">' + sentence + '</span>');
   }
@@ -1976,8 +1990,8 @@ function buildStudent() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'TASK: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
-    else if (s.f1chips.length) sentence = 'TASK: ' + joinList(s.f1chips) + '.';
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
+    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
     else sentence = wrapFragment_task(s.f1text);
     add(sentence, '<span class="hl-s1">' + sentence + '</span>');
   }
@@ -2301,15 +2315,15 @@ function loadExample() {
 }
 
 function loadAgencyExample() {
-  activateChip('a-chips-1', 'build a deck');
+  activateChip('a-chips-1', 'Build a deck that communicates findings clearly');
   state.agency.f1chips = getActiveVals('a-chips-1');
-  activateChip('a-chips-2', 'a business strategist');
+  activateChip('a-chips-2', 'Act as a business strategist — think in terms of trade-offs, priorities, and outcomes');
   state.agency.f2chip = getSingleVal('a-chips-2');
   activateChip('a-chips-3a', 'CPG');
   state.agency.f3industry = getActiveVals('a-chips-3a');
   activateChip('a-chips-3c', 'new product launch');
   state.agency.f3situation = getActiveVals('a-chips-3c');
-  activateChip('a-chips-4', 'it\'s for executive audiences');
+  activateChip('a-chips-4', 'this is for an executive audience — be concise and lead with the so-what');
   state.agency.f4chips = getActiveVals('a-chips-4');
   activateChip('a-chips-5a', 'concise');
   state.agency.f5a = getSingleVal('a-chips-5a');
@@ -2319,9 +2333,9 @@ function loadAgencyExample() {
 
 function loadEducationExample() {
   switchTheme('education');
-  activateChip('e-chips-1', 'plan class activities');
+  activateChip('e-chips-1', 'Plan a classroom activity that is engaging and curriculum-aligned');
   state.education.f1chips = getActiveVals('e-chips-1');
-  activateChip('e-chips-2', 'classroom teacher');
+  activateChip('e-chips-2', 'classroom teacher / professor');
   state.education.f2chip = getSingleVal('e-chips-2');
   activateChip('e-chips-3a', 'middle school students (6–8)');
   state.education.f3grade = getActiveVals('e-chips-3a');
@@ -2329,7 +2343,7 @@ function loadEducationExample() {
   // state.education.f3situation = getActiveVals('e-chips-3b');
   activateChip('e-chips-3c', 'Art');
   state.education.f3subject = getActiveVals('e-chips-3c');
-  activateChip('e-chips-4', 'large class size');
+  activateChip('e-chips-4', 'this is a large class — prioritize scalable, manageable approaches');
   state.education.f4chips = getActiveVals('e-chips-4');
   activateChip('e-chips-5a', 'detailed');
   state.education.f5a = getSingleVal('e-chips-5a');
@@ -2339,9 +2353,9 @@ function loadEducationExample() {
 
 function loadStudentExample() {
   switchTheme('student');
-  activateChip('s-chips-1', 'create an outline for my assignment');
+  activateChip('s-chips-1', 'Help me build an outline for my assignment — guide me through the structure, don\'t just hand it to me');
   state.student.f1chips = getActiveVals('s-chips-1');
-  activateChip('s-chips-2', 'be my thinking partner');
+  activateChip('s-chips-2', 'Be my thinking partner — push back on my ideas and help me stress-test my reasoning');
   state.student.f2chip = getSingleVal('s-chips-2');
   activateChip('s-chips-3a', 'History');
   state.student.f3subject = getActiveVals('s-chips-3a');
@@ -2351,7 +2365,7 @@ function loadStudentExample() {
   state.student.f3type = getActiveVals('s-chips-3c');
   activateChip('s-chips-4', 'No answers / spoliers');
   activateChip('s-chips-4', 'this needs to be in my own voice');
-  activateChip('s-chips-4', 'cite credible sources when you reference facts');
+  activateChip('s-chips-4', 'Cite credible sources whenever you reference facts or claims');
   state.student.f4chips = getActiveVals('s-chips-4');
   activateChip('s-chips-5a', 'patient and encouraging');
   state.student.f5a = getSingleVal('s-chips-5a');
@@ -2361,10 +2375,10 @@ function loadStudentExample() {
 
 function loadCreativeExample() {
   switchTheme('creative');
-  activateChip('c-chips-1', 'a novel chapter');
-  activateChip('c-chips-1', 'worldbuilding material');
+  activateChip('c-chips-1', 'I\'m working on a short story');
+  activateChip('c-chips-1', 'I\'m building out worldbuilding material — setting, lore, rules of the world');
   state.creative.f1chips = getActiveVals('c-chips-1');
-  activateChip('c-chips-2', 'give me honest editorial feedback');
+  activateChip('c-chips-2', 'Give me honest editorial feedback — tell me what isn\'t working and why, not just what is');
   state.creative.f2chip = getSingleVal('c-chips-2');
   activateChip('c-chips-3a', 'fantasy');
   state.creative.f3genre = getActiveVals('c-chips-3a');
@@ -2598,6 +2612,16 @@ function activateChip(containerId, val) {
   </div>
 </div>
 
+<script>
+  console.log(`
+  Prompt Calibrator — built by Adrian Wang
+  github.com/adrianwxy/prompt-calibrator
+  
+  Hey developer 👋 — if you're reading this, 
+  hope are are doing well :)
+  `);
+</script>
+
 </body>
-</body>
+
 </html>

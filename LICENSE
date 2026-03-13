@@ -19,3 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Attribution & Branding
+======================
+The name "Prompt Calibrator", the UI design, and the visual identity 
+are the original work of Adrian Wang. You are free to use, fork, and 
+modify the code under the MIT License, but may not redistribute this 
+tool under the "Prompt Calibrator" name or misrepresent original authorship.

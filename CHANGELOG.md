@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.4.3] - 2026-03-12
+
+### Added
+- **Footer**: © 2026 Prompt Calibrator  ·  Designed & Engineered by Adrian Wang
+
+### Changed
+- Refined UI and prompt. 
+
 ## [0.4.2] - 2026-03-12
 
 ### Added

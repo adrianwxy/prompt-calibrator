@@ -2013,7 +2013,6 @@ function buildAgency() {
 
   const closing = `\nWhen sharing insights or recommendations, acknowledge any assumptions that go into the analysis and highlight the limitations of your response.
   \nIMPORTANT: Never fabricate, assume, or infer insights beyond what the data directly supports. If you are uncertain, say so clearly rather than guessing.
-  \nPlease acknowledge this setup and confirm you\'re ready to help.
   `;
   add(closing, closing);
 
@@ -2070,8 +2069,7 @@ function buildEducation() {
 
   if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-e5">' + sentence + '</span>'); }
 
-  const closing = `\nWork only with the context that provided by user. 
-  \nIf you make any assumptions to fill in gaps — about class size, time available, resources, or student needs — state them briefly at the start of your response.
+  const closing = `\nWork only with the context that provided by me. If you make any assumptions to fill in gaps — about class size, time available, resources, or student needs — state them briefly at the start of your response.
   \nKeep your output practical and immediately usable, not idealized. If something I've described makes a standard approach unrealistic, say so and adjust accordingly.
   `;
   add(closing, closing);
@@ -2129,9 +2127,8 @@ function buildStudent() {
 
   if (s.f6) { const sentence = wrapFragment_addcontext(s.f6); add(sentence, '<span class="hl-s5">' + sentence + '</span>'); }
 
-  const closing = `\nTake this one step at a time — don't overwhelm me with everything at once.
-  \nIf I'm confused or wrong, tell me directly and we'll work through it together.
-  \nPlease confirm you\'re ready to help.
+  const closing = `\nAsk before you assume — if my request is vague or missing context, ask one focused question before responding. 
+  \nDon't front-load everything — let me react, push back, or redirect before you move forward. If my thinking is off, say so directly. Don't soften it to be polite.
   `;
   add(closing, closing);
 
@@ -2189,8 +2186,7 @@ function buildCreative() {
 
   if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-c5">' + sentence + '</span>'); }
 
-  const closing = `\nTreat everything as a starting point, not a final answer. Be honest if something isn\'t working, and don\'t soften feedback to be polite. 
-  \nWe\'re iterating, so treat every response as a draft we can push further.
+  const closing = `\nTreat everything as a starting point, not a final answer. Be honest if something isn\'t working, and don\'t soften feedback to be polite. We\'re iterating, so treat every response as a draft we can push further.
   `;
   add(closing, closing);
 

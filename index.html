@@ -204,7 +204,9 @@
         max-height: 100% !important;
         overflow-y: auto !important;
       }
-      .comparison-grid { grid-template-columns: 1fr; }
+      .comparison-body { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .comparison-body::-webkit-scrollbar { display: none; }
+      .comparison-grid { grid-template-columns: 1fr 1fr; min-width: 560px; }
     }
     
   header {
@@ -785,7 +787,6 @@
     border-radius: 10px 10px 10px 2px;
   }
   .chat-paste-note { font-style: italic; opacity: 0.75; font-size: 11.5px; }
-  .chat-msg.user .chat-msg-bubble.prompt-bubble { font-family: 'DM Mono', monospace; font-size: 11.5px; }
 
   /* ── TOP NAV BAR — info & utility buttons ── */
   .top-nav-wrap {
@@ -1189,7 +1190,7 @@
       <div class="comparison-title">⚡ <span id="comparison-title-text">See why it matters</span></div>
       <div class="comparison-header-actions">
         <button class="comparison-header-btn" onclick="openModal('modal-example')">SEE AN EXAMPLE</button>
-        <button class="comparison-header-btn btn-primary" id="comparison-toggle-btn" onclick="toggleComparison()">HIDE</button>
+        <button class="comparison-header-btn btn-primary" id="comparison-toggle-btn" onclick="toggleComparison()">COLLAPSE</button>
       </div>
     </div>
     <div class="comparison-body" id="comparison-body">
@@ -2703,7 +2704,7 @@ Don't front-load everything — let me react, push back, or redirect before you 
 renderComparison();
 if (localStorage.getItem('comparisonCollapsed') === 'true') {
   document.getElementById('comparison-body').classList.add('collapsed');
-  document.getElementById('comparison-toggle-btn').textContent = 'SHOW';
+  document.getElementById('comparison-toggle-btn').textContent = 'EXPAND';
 }
 
 // ══════════════════════════════════════════════
@@ -2715,7 +2716,7 @@ function renderComparison() {
     'See why it matters &middot; <span class="comparison-title-theme">' + d.themeLabel + '</span>';
 
   function truncatePrompt(text, max) {
-    if (!max) max = 240;
+    if (!max) max = 165;
     const flat = text.replace(/\n+/g, ' ').trim();
     return flat.length > max ? flat.slice(0, max).trimEnd() + '……' : flat;
   }
@@ -2753,7 +2754,7 @@ function toggleComparison() {
   const body = document.getElementById('comparison-body');
   const btn  = document.getElementById('comparison-toggle-btn');
   const isCollapsed = body.classList.toggle('collapsed');
-  btn.textContent = isCollapsed ? 'SHOW' : 'HIDE';
+  btn.textContent = isCollapsed ? 'EXPAND' : 'COLLAPSE';
   localStorage.setItem('comparisonCollapsed', isCollapsed ? 'true' : 'false');
 }
 

@@ -3,11 +3,19 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.5.1] - 2026-03-29
+
+### Added
+- **Flow Chart**: guide new user to understand the workflow
+
+### Changed
+- Refined UI and prompt. 
+
 ## [0.5.0] - 2026-03-25
 
 ### Added
-- **Comparison Section **: actually shows the difference side by side
-- **College/Grad Mode **: aiming to support college student better
+- **Comparison Section**: actually shows the difference side by side
+- **College/Grad Mode**: aiming to support college student better
 
 ### Changed
 - Refine the mode, example, closing prompt. 

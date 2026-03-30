@@ -46,7 +46,6 @@
 <meta name="twitter:description" content="Think first, prompt better. Prompt Calibrator helps you write clear, structured AI prompts — free, private, and fully client-side. No login, no data collected.">
 <meta name="twitter:image" content="https://promptcalibrator.com/og-image.jpg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prompt Calibrator · by Adrian Wang</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Lato:wght@300;400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <!-- <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>"> -->
 <link rel="icon" href="favicon.png" sizes="144x144" type="image/png">
@@ -118,12 +117,18 @@
       /* 2. Define the exact vertical order */
       header { order: 1; padding: 32px 0 20px; }
       .top-nav-wrap-mobile { order: 2; width: 100%; }
-      .theme-switcher-wrap { order: 3; padding-bottom: 15px; }
-      #comparison-section { order: 4; }
+      .flow-bar { order: 3; }
+      .flow-bar-card { margin-bottom: 12px; padding: 7px 14px; }
+      .flow-bar-inner { flex-direction: column; align-items: center; gap: 2px; font-size: 11.5px; }
+      .flow-step { padding: 2px 10px; }
+      .flow-arrow { transform: rotate(90deg); display: inline-block; font-size: 10px; line-height: 1; }
+      .flow-divider { display: none; }
+      .theme-switcher-wrap { order: 4; padding-bottom: 15px; }
+      #comparison-section { order: 5; }
 
       /* 3. Sticky Top Preview (Output Box) */
       .output-col {
-        order: 5;
+        order: 6;
         position: sticky; 
         top: 16px; 
         z-index: 100;
@@ -137,7 +142,7 @@
         overflow-y: auto;
       }
       .output-card {
-        height: 360px;
+        height: 432px;
         display: flex;
         flex-direction: column;
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border);
@@ -153,10 +158,10 @@
 
       /* 4. Form sits below output and scrolls normally */
       .form-col {
-        order: 6;
+        order: 7;
         padding-bottom: 80px;
       }
-      #page-footer { order: 7; }
+      #page-footer { order: 8; }
 
       /* Comparison header stacks on mobile */
       .comparison-header { flex-direction: column; align-items: center; gap: 8px; }
@@ -243,6 +248,82 @@
     color: var(--muted2);
     margin-top: 10px;
     letter-spacing: 0.01em;
+  }
+
+  .tagline-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FLOW BAR ── */
+  .flow-bar-card {
+    grid-column: 1 / -1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-bottom: 24px;
+  }
+  .flow-bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted2);
+  }
+  .flow-bar-label {
+    font-family: 'DM Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .flow-divider {
+    color: var(--border-hover);
+    font-size: 14px;
+    user-select: none;
+  }
+  .flow-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 13px;
+  }
+  .flow-step-active {
+    background: linear-gradient(90deg, var(--c1), var(--c2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border-image: linear-gradient(90deg, var(--c1), var(--c2)) 1;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background-origin: border-box;
+    /* fallback: outline the chip with a gradient border */
+    box-shadow: inset 0 0 0 1px transparent;
+    position: relative;
+  }
+  .flow-step-active::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    padding: 1px;
+    background: linear-gradient(90deg, var(--c1), var(--c2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .flow-arrow {
+    color: var(--border-hover);
+    font-size: 16px;
   }
 
   .byline {
@@ -440,32 +521,7 @@
   input[type="text"]:focus, textarea:focus { border-color: var(--border-hover); }
   input::placeholder, textarea::placeholder { color: var(--muted); font-style: italic; }
 
-  .tier2-toggle {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    user-select: none;
-  }
-
-  .tier2-toggle .tier-label { margin-bottom: 0; flex: 1; cursor: pointer; }
-
-  .accordion-icon {
-    font-family: 'DM Mono', monospace;
-    font-size: 12.5px;
-    color: var(--muted);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 3px 10px;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
-  .tier2-toggle:hover .accordion-icon { border-color: var(--border-hover); color: var(--text); }
   .tier2-content { display: block; }
-  .tier2-content.open { display: block; }
 
   .field-row {
     display: grid;
@@ -540,6 +596,25 @@
   .copy-btn.copied { background: var(--green); border-color: var(--green); color: #0d0f14; }
   .copy-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
+  .copy-btn-wrap { position: relative; display: inline-block; }
+  .copy-btn-wrap .copy-tooltip {
+    display: none;
+    position: absolute;
+    top: calc(100% + 7px);
+    right: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border-hover);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted2);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .copy-btn-wrap:hover .copy-tooltip { display: block; }
+
   .theme-badge {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -550,16 +625,9 @@
     margin-right: 6px;
   }
 
-  /* .output-body {
-    padding: 22px;
-    min-height: 160px;
-    max-height: calc(100vh - 320px);
-    overflow-y: auto;
-  } */
-
   .output-body {
     padding: 22px;
-    min-height: 160px; /* Starts slim when empty */
+    min-height: 192px; /* Starts slim when empty */
     height: auto;      /* Tells the box to expand as text is generated */
     max-height: calc(160vh - 300px); /* Stops expanding before it hits the bottom of the screen */
     overflow-y: auto;
@@ -715,10 +783,21 @@
     background: var(--c1);
     border-color: var(--c1);
     color: #000;
+    padding: 6px 18px;
+    font-weight: 700;
   }
   .comparison-header-btn.btn-primary:hover { background: #4a7de0; border-color: #4a7de0; }
   .comparison-body { padding: 20px; }
   .comparison-body.collapsed { display: none; }
+  .comparison-cta {
+    text-align: center;
+    padding: 18px 0 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--muted2);
+  }
   .comparison-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -749,7 +828,7 @@
   .chat-container {
     border: 1px solid var(--border);
     border-radius: 8px;
-    height: 300px;
+    height: 540px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -1145,9 +1224,10 @@
     <div>
       <h1>Prompt <em>Calibrator</em></h1>
       <p class="tagline">Think first. Prompt better.</p>
+      <p class="tagline-sub">Most people never see what AI is actually capable of.</p>
     </div>
     <div class="byline">
-      <span>Prompt Calibrator™  v0.5.0</span>
+      <span>Prompt Calibrator™  v0.5.1</span>
       <span>by Adrian Wang</span>
       <!-- Think first. Prompt better. -->
     </div>
@@ -1165,13 +1245,26 @@
   <div class="mobile-scroll-nav" style="display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap;">
     <button onclick="openModal('modal-privacy')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🔒 Data & Privacy</button>
     <span style="color:var(--border-hover); font-size:13px;"> </span>
-    <button onclick="openModal('modal-whyhow')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💡 How It Works</button>
+    <button onclick="openModal('modal-whyhow')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💡 What is this?</button>
     <span style="color:var(--border-hover); font-size:13px;"> </span>
     <button onclick="openModal('modal-philosophy')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">🧠 The Idea Behind</button>
     <span style="color:var(--border-hover); font-size:13px;"> </span>
     <button onclick="openModal('modal-feedback')" style="font-family:'DM Mono',monospace; font-size:13.5px; color:var(--muted); background:none; border:none; cursor:pointer; padding:4px 6px; letter-spacing:0.06em; transition:color 0.2s;" onmouseover="this.style.color='var(--c1)'" onmouseout="this.style.color='var(--muted)'">💬 Give Feedback</button>
   </div>
 </div>
+
+  <!-- FLOW BAR -->
+  <div class="flow-bar flow-bar-card">
+    <div class="flow-bar-inner">
+      <span class="flow-bar-label">How it works</span>
+      <span class="flow-divider">|</span>
+      <span class="flow-step flow-step-active">Fill in the fields</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Copy your prompt</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step">Paste into any AI you use</span>
+    </div>
+  </div>
 
   <!-- THEME SWITCHER -->
   <div class="theme-switcher-wrap">
@@ -1190,13 +1283,14 @@
       <div class="comparison-title">⚡ <span id="comparison-title-text">See why it matters</span></div>
       <div class="comparison-header-actions">
         <button class="comparison-header-btn" onclick="openModal('modal-example')">SEE AN EXAMPLE</button>
-        <button class="comparison-header-btn btn-primary" id="comparison-toggle-btn" onclick="toggleComparison()">COLLAPSE</button>
+        <button class="comparison-header-btn btn-primary" id="comparison-toggle-btn" onclick="toggleComparison()">↑ COLLAPSE</button>
       </div>
     </div>
     <div class="comparison-body" id="comparison-body">
       <div class="comparison-grid" id="comparison-grid">
         <!-- populated by renderComparison() -->
       </div>
+      <div class="comparison-cta">Now it&rsquo;s your turn. ⬇️</div>
     </div>
   </div>
 
@@ -1900,7 +1994,10 @@
           <span id="output-theme-badge" class="theme-badge" style="background:#5b8dee22;color:var(--c1)">Agency</span>
           Generated Prompt
         </div>
-        <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy</button>
+        <div class="copy-btn-wrap">
+          <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy Prompt</button>
+          <span class="copy-tooltip">Paste into any AI you use</span>
+        </div>
       </div>
       <div class="output-body">
         <div id="prompt-preview"><span class="placeholder-msg">Your prompt will appear here as you fill in the fields above. No data is collected — your inputs stay in your browser and go nowhere else.</span></div>
@@ -2144,55 +2241,11 @@ function joinList(arr) {
 
 function isFullSentence(str) { return /[.!?]$/.test(str.trim()); }
 
-function wrapFragment(str) {
+function wrapFragment(str, label) {
   if (!str) return '';
   str = str.trim();
   if (isFullSentence(str)) return str;
-  return 'CONSTRAINTS: ' + str + '.';
-}
-
-function wrapFragment_task(str) {
-  if (!str) return '';
-  str = str.trim();
-  if (isFullSentence(str)) return str;
-  return 'YOUR TASK TODAY: ' + str + '.';
-}
-
-function wrapFragment_objective(str) {
-  if (!str) return '';
-  str = str.trim();
-  if (isFullSentence(str)) return str;
-  return 'OBJECTIVE: ' + str + '.';
-}
-
-function wrapFragment_context(str) {
-  if (!str) return '';
-  str = str.trim();
-  if (isFullSentence(str)) return str;
-  return 'CONTEXT: ' + str + '.';
-}
-
-function wrapFragment_addcontext(str) {
-  if (!str) return '';
-  str = str.trim();
-  if (isFullSentence(str)) return str;
-  return 'ADDITIONAL CONTEXT: ' + str + '.';
-}
-
-
-function wrapFragment_classcontext(str) {
-  if (!str) return '';
-  str = str.trim();
-  if (isFullSentence(str)) return str;
-  return 'CLASS CONTEXT: ' + str + '.';
-}
-
-
-function wrapFragment_academic(str) {
-  if (!str) return '';
-  str = str.trim();
-  if (isFullSentence(str)) return str;
-  return 'ACADEMIC GUARDRAILS: ' + str + '.';
+  return label + ': ' + str + '.';
 }
 // ══════════════════════════════════════════════
 //  BUILD PROMPTS
@@ -2215,9 +2268,9 @@ function buildAgency() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
     else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
-    else sentence = wrapFragment_task(s.f1text);
+    else sentence = wrapFragment(s.f1text, 'YOUR TASK TODAY');
     add(sentence, '<span class="hl-a1">' + sentence + '</span>');
   }
 
@@ -2228,16 +2281,16 @@ function buildAgency() {
     if (!s.f3industry.length) desc += '';
     if (s.f3situation.length) desc += ' currently focused on ' + joinList(s.f3situation);
     desc += '.';
-    if (s.f3text) desc += ' ' + wrapFragment_context(s.f3text);
-    const sentence = (s.f3industry.length || s.f3situation.length) ? desc : wrapFragment_context(s.f3text);
+    if (s.f3text) desc += ' ' + wrapFragment(s.f3text, 'CONTEXT');
+    const sentence = (s.f3industry.length || s.f3situation.length) ? desc : wrapFragment(s.f3text, 'CONTEXT');
     add(sentence, '<span class="hl-a3">' + sentence + '</span>');
   }
 
   if (s.f4chips.length || s.f4text) {
     let sentence;
-    if (s.f4chips.length && s.f4text) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '. ' + wrapFragment_addcontext(s.f4text);
+    if (s.f4chips.length && s.f4text) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text, 'ADDITIONAL CONTEXT');
     else if (s.f4chips.length) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '.';
-    else sentence = wrapFragment_addcontext(s.f4text);
+    else sentence = wrapFragment(s.f4text, 'ADDITIONAL CONTEXT');
     add(sentence, '<span class="hl-a4">' + sentence + '</span>');
   }
 
@@ -2247,7 +2300,7 @@ function buildAgency() {
         'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-a5">' + p + '</span>').join(' and ') + '.');
   }
 
-  if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-a5">' + sentence + '</span>'); }
+  if (s.f6) { const sentence = wrapFragment(s.f6, 'CONSTRAINTS'); add(sentence, '<span class="hl-a5">' + sentence + '</span>'); }
 
   const closing = `\nWhen sharing insights or recommendations, acknowledge any assumptions that go into the analysis and highlight the limitations of your response.
   \nIMPORTANT: Never fabricate, assume, or infer insights beyond what the data directly supports. If you are uncertain, say so clearly rather than guessing.
@@ -2275,9 +2328,9 @@ function buildEducation() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
     else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
-    else sentence = wrapFragment_task(s.f1text);
+    else sentence = wrapFragment(s.f1text, 'YOUR TASK TODAY');
     add(sentence, '<span class="hl-e1">' + sentence + '</span>');
   }
 
@@ -2287,15 +2340,15 @@ function buildEducation() {
     if (s.f3situation.length) parts.push('' + joinList(s.f3situation));
     if (s.f3subject.length) parts.push('the subject is ' + joinList(s.f3subject));
     let desc = parts.length ? 'CLASS CONTEXT: ' + parts.join(', ') + '.' : '';
-    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment_classcontext(s.f3text);
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text, 'CLASS CONTEXT');
     if (desc) add(desc, '<span class="hl-e3">' + desc + '</span>');
   }
 
   if (s.f4chips.length || s.f4text) {
     let sentence;
-    if (s.f4chips.length && s.f4text) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '. ' + wrapFragment_addcontext(s.f4text);
+    if (s.f4chips.length && s.f4text) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text, 'ADDITIONAL CONTEXT');
     else if (s.f4chips.length) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '.';
-    else sentence = wrapFragment_addcontext(s.f4text);
+    else sentence = wrapFragment(s.f4text, 'ADDITIONAL CONTEXT');
     add(sentence, '<span class="hl-e4">' + sentence + '</span>');
   }
 
@@ -2305,7 +2358,7 @@ function buildEducation() {
         'OUTPUT TONE & FORMAT:  ' + parts.map(p => '<span class="hl-e5">' + p + '</span>').join(' and ') + '.');
   }
 
-  if (s.f6) { const sentence = wrapFragment(s.f6); add(sentence, '<span class="hl-e5">' + sentence + '</span>'); }
+  if (s.f6) { const sentence = wrapFragment(s.f6, 'CONSTRAINTS'); add(sentence, '<span class="hl-e5">' + sentence + '</span>'); }
 
   const closing = `\nWork only with the context that provided by me. If you make any assumptions to fill in gaps — about class size, time available, resources, or student needs — state them briefly at the start of your response.
   \nKeep your output practical and immediately usable, not idealized. If something I've described makes a standard approach unrealistic, say so and adjust accordingly.
@@ -2327,9 +2380,9 @@ function buildStudent() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
     else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
-    else sentence = wrapFragment_task(s.f1text);
+    else sentence = wrapFragment(s.f1text, 'YOUR TASK TODAY');
     add(sentence, '<span class="hl-s1">' + sentence + '</span>');
   }
 
@@ -2345,15 +2398,15 @@ function buildStudent() {
     if (s.f3subject.length) parts.push('SUBJECT: ' + joinList(s.f3subject));
     if (s.f3type.length) parts.push('ASSIGNMENT: ' + joinList(s.f3type));
     let desc = parts.length ? parts.join(' ') + '.' : '';
-    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment_context(s.f3text);
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text, 'CONTEXT');
     if (desc) add(desc, '<span class="hl-s3">' + desc + '</span>');
   }
 
   if (s.f4chips.length || s.f4text) {
     let sentence;
-    if (s.f4chips.length && s.f4text) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '. ' + wrapFragment_academic(s.f4text);
+    if (s.f4chips.length && s.f4text) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text, 'ACADEMIC GUARDRAILS');
     else if (s.f4chips.length) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '.';
-    else sentence = wrapFragment_academic(s.f4text);
+    else sentence = wrapFragment(s.f4text, 'ACADEMIC GUARDRAILS');
     add(sentence, '<span class="hl-s4">' + sentence + '</span>');
   }
 
@@ -2363,7 +2416,7 @@ function buildStudent() {
         'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-s5">' + p + '</span>').join(' and ') + '.');
   }
 
-  if (s.f6) { const sentence = wrapFragment_addcontext(s.f6); add(sentence, '<span class="hl-s5">' + sentence + '</span>'); }
+  if (s.f6) { const sentence = wrapFragment(s.f6, 'ADDITIONAL CONTEXT'); add(sentence, '<span class="hl-s5">' + sentence + '</span>'); }
 
   const closing = `\nAsk before you assume — if my request is vague or missing context, ask one focused question before responding. 
   \nDon't front-load everything — let me react, push back, or redirect before you move forward. If my thinking is off, say so directly. Don't soften it to be polite.
@@ -2385,9 +2438,9 @@ function buildCollege() {
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment_task(s.f1text);
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
     else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
-    else sentence = wrapFragment_task(s.f1text);
+    else sentence = wrapFragment(s.f1text, 'YOUR TASK TODAY');
     add(sentence, '<span class="hl-c1">' + sentence + '</span>');
   }
 
@@ -2405,15 +2458,15 @@ function buildCollege() {
     if (s.f3type.length) parts.push('ASSIGNMENT: ' + joinList(s.f3type));
     let desc = parts.join('. ');
     if (desc) desc += '.';
-    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment_context(s.f3text);
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text, 'CONTEXT');
     if (desc) add(desc, '<span class="hl-c3">' + desc + '</span>');
   }
 
   if (s.f4chips.length || s.f4text) {
     let sentence;
-    if (s.f4chips.length && s.f4text) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '. ' + wrapFragment_academic(s.f4text);
+    if (s.f4chips.length && s.f4text) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text, 'ACADEMIC GUARDRAILS');
     else if (s.f4chips.length) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '.';
-    else sentence = wrapFragment_academic(s.f4text);
+    else sentence = wrapFragment(s.f4text, 'ACADEMIC GUARDRAILS');
     add(sentence, '<span class="hl-c4">' + sentence + '</span>');
   }
 
@@ -2423,7 +2476,7 @@ function buildCollege() {
         'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-c5">' + p + '</span>').join(' and ') + '.');
   }
 
-  if (s.f6) { const sentence = wrapFragment_addcontext(s.f6); add(sentence, '<span class="hl-c5">' + sentence + '</span>'); }
+  if (s.f6) { const sentence = wrapFragment(s.f6, 'ADDITIONAL CONTEXT'); add(sentence, '<span class="hl-c5">' + sentence + '</span>'); }
 
   const closing = `\nAsk before you assume — if my request is vague or missing key context, ask one focused question before responding.
   \nBe intellectually honest — if my argument has gaps or my reasoning is weak, say so directly. Don't soften critique.
@@ -2504,7 +2557,7 @@ function copyPrompt() {
     const btn = document.getElementById('copy-btn');
     btn.textContent = '✓ Copied!';
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2200);
+    setTimeout(() => { btn.innerHTML = 'Copy Prompt'; btn.classList.remove('copied'); }, 2200);
   });
 }
 
@@ -2704,7 +2757,7 @@ Don't front-load everything — let me react, push back, or redirect before you 
 renderComparison();
 if (localStorage.getItem('comparisonCollapsed') === 'true') {
   document.getElementById('comparison-body').classList.add('collapsed');
-  document.getElementById('comparison-toggle-btn').textContent = 'EXPAND';
+  document.getElementById('comparison-toggle-btn').textContent = '↓ EXPAND';
 }
 
 // ══════════════════════════════════════════════
@@ -2721,10 +2774,11 @@ function renderComparison() {
     return flat.length > max ? flat.slice(0, max).trimEnd() + '……' : flat;
   }
 
-  function msgHTML(prompt, messages) {
+  function msgHTML(prompt, messages, side) {
+    const promptMax = side === 'right' ? 275 : 165;
     const promptBubble = `<div class="chat-msg user">
       <div class="chat-msg-label">You</div>
-      <div class="chat-msg-bubble prompt-bubble">${truncatePrompt(prompt)}</div>
+      <div class="chat-msg-bubble prompt-bubble">${truncatePrompt(prompt, promptMax)}</div>
     </div>`;
     const rest = messages.map(m => {
       const label = m.role === 'user' ? 'You' : 'AI';
@@ -2742,7 +2796,7 @@ function renderComparison() {
     const headerText  = side === 'left' ? '&#10060; Without Prompt Calibrator' : '&#9989; With Prompt Calibrator';
     return `<div class="comparison-col">
       <div class="comparison-col-header ${headerClass}">${headerText}</div>
-      <div class="chat-container">${msgHTML(data.prompt, data.messages)}</div>
+      <div class="chat-container">${msgHTML(data.prompt, data.messages, side)}</div>
     </div>`;
   }
 
@@ -2754,7 +2808,7 @@ function toggleComparison() {
   const body = document.getElementById('comparison-body');
   const btn  = document.getElementById('comparison-toggle-btn');
   const isCollapsed = body.classList.toggle('collapsed');
-  btn.textContent = isCollapsed ? 'EXPAND' : 'COLLAPSE';
+  btn.textContent = isCollapsed ? '↓ EXPAND' : '↑ COLLAPSE';
   localStorage.setItem('comparisonCollapsed', isCollapsed ? 'true' : 'false');
 }
 
@@ -3004,7 +3058,6 @@ function activateChip(containerId, val) {
               Most people open AI and type whatever comes to mind.<br>
               This tool slows that down — on purpose.<br>
               A few simple fields help you clarify what you actually want.</div>
-              <!-- Clear thinking in → better answers out.</div> -->
           </div>
         </div>
         <div class="how-step">
@@ -3040,9 +3093,7 @@ function activateChip(containerId, val) {
           <div class="how-step-content">
             <div class="how-step-title">Build prompt literacy</div>
             <div class="how-step-desc">The goal isn't just one good prompt.<br>
-              <!-- That's the point: learning to  -->
               <em style="color:var(--text);font-style:italic;">It's learning how to structure your thinking before talking to AI — until it becomes a habit.</em></div>
-              <!-- , not just talk at it.</div> -->
           </div>
         </div>
       </div>
@@ -3109,7 +3160,7 @@ function activateChip(containerId, val) {
   github.com/adrianwxy/prompt-calibrator
   
   Hey developer 👋 — if you're reading this, 
-  hope are are doing well :)
+  hope you are doing well :)
   `);
 </script>
 

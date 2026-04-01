@@ -10,14 +10,6 @@ Most people open ChatGPT, Claude, or Gemini and type a quick sentence. They get 
 
 ---
 
-## What's New in v0.5.0
-
-v0.5.0 is a major expansion. The tool now supports **four context-aware modes**, a live **side-by-side comparison panel**, and a fully redesigned modal system.
-
-See [`CHANGELOG.md`](./CHANGELOG.md) for the full history.
-
----
-
 ## Modes
 
 Each mode surfaces the fields that actually matter for that context — instead of giving everyone a generic template.
@@ -101,7 +93,6 @@ prompt-calibrator/
 - [ ] Additional modes (job seekers, researchers, small business owners)
 - [ ] Prompt history panel
 
-Have a suggestion? [Open an issue](https://forms.gle/swowCCqR3K2ULhzn9) or use the in-app feedback form.
 
 ---
 

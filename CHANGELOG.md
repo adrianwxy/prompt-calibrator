@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.5.2] - 2026-05-06
+
+### Added
+- **Creative**: support creative related work
+- **Inputs**: new tab inside output window
+
+### Changed
+- Refined UI and prompt. 
+- Removed pre-college mode.
+
 ## [0.5.1] - 2026-03-29
 
 ### Added

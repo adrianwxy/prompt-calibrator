@@ -651,11 +651,33 @@
   }
 
   /* Unified highlight classes — same color = same meaning across all modes */
-  .hl-a1, .hl-e1, .hl-s1, .hl-c1 { color: var(--c1); } /* Task / Project */
+  .hl-a1, .hl-e1, .hl-s1, .hl-c1 { color: var(--c1); } /* Task */
   .hl-a2, .hl-e2, .hl-s2, .hl-c2 { color: var(--c2); } /* AI Role / Mode */
   .hl-a3, .hl-e3, .hl-s3, .hl-c3 { color: var(--c3); } /* Client / Students / Assignment / Context */
-  .hl-a4, .hl-e4, .hl-s4, .hl-c4 { color: var(--c4); } /* Context / Stage / Constraints */
-  .hl-a5, .hl-e5, .hl-s5, .hl-c5 { color: var(--c5); } /* Style */
+  .hl-a4, .hl-e4, .hl-s4, .hl-c4 { color: var(--c4); } /* Audience / Stage / Constraints */
+  .hl-a5, .hl-e5, .hl-s5, .hl-c5 { color: var(--c5); } /* Stage / Style */
+  .hl-a6  { color: var(--c1); } /* Starting Material */
+  .hl-a7  { color: var(--c2); } /* Specific Challenge */
+  .hl-a8  { color: var(--c3); } /* Tone */
+  .hl-a9  { color: var(--c4); } /* Format */
+  .hl-a10 { color: var(--c5); } /* Constraints */
+  .hl-e6  { color: var(--c1); } /* Starting Material */
+  .hl-e7  { color: var(--c2); } /* Specific Challenge */
+  .hl-e8  { color: var(--c3); } /* Tone & Format */
+  .hl-e9  { color: var(--c5); } /* Constraints */
+  .hl-c6  { color: var(--c1); } /* Guardrails at position 06 */
+  .hl-c7  { color: var(--c2); } /* Specific Challenge */
+  .hl-c8  { color: var(--c3); } /* Tone & Format */
+  .hl-c9  { color: var(--c5); } /* Constraints */
+  .hl-cr1 { color: var(--c1); } /* Task */
+  .hl-cr2 { color: var(--c2); } /* Content Type */
+  .hl-cr3 { color: var(--c3); } /* Audience & Channel */
+  .hl-cr4 { color: var(--c4); } /* Stage */
+  .hl-cr5 { color: var(--c5); } /* Material */
+  .hl-cr6 { color: var(--c1); } /* Voice & Tone */
+  .hl-cr7 { color: var(--c2); } /* Specific Challenge */
+  .hl-cr8 { color: var(--c3); } /* Output Format */
+  .hl-cr9 { color: var(--c5); } /* Constraints */
 
   .legend {
     display: flex;
@@ -709,6 +731,85 @@
   }
 
   .reset-btn:hover { color: #ff6b6b; }
+
+  /* ── OUTPUT TABS ── */
+  .output-tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2px;
+  }
+
+  .output-tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 11px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .output-tab.active {
+    background: var(--surface2);
+    color: var(--text);
+  }
+
+  .output-tab:hover:not(.active) { color: var(--muted2); }
+
+  /* ── INPUTS SUMMARY PANEL ── */
+  .inputs-summary-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .inputs-summary-row:last-child { border-bottom: none; }
+
+  .inputs-summary-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-width: 72px;
+    padding-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .inputs-summary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .inputs-summary-chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted2);
+  }
+
+  .inputs-summary-freetext {
+    font-family: 'Lato', sans-serif;
+    font-size: 11.5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px dashed var(--border-hover);
+    color: var(--muted2);
+    font-style: italic;
+  }
 
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -1227,7 +1328,7 @@
       <p class="tagline-sub">Most people never see what AI is actually capable of.</p>
     </div>
     <div class="byline">
-      <span>Prompt Calibrator™  v0.5.1</span>
+      <span>Prompt Calibrator™  v0.5.2</span>
       <span>by Adrian Wang</span>
       <!-- Think first. Prompt better. -->
     </div>
@@ -1270,10 +1371,10 @@
   <div class="theme-switcher-wrap">
     <div class="theme-switcher-label">Choose your mode</div>
     <div class="theme-switcher">
-      <button class="theme-btn active" data-theme="agency"    onclick="switchTheme('agency')">   <span class="theme-icon">🏢</span> Agency</button>
+      <button class="theme-btn active" data-theme="consulting"    onclick="switchTheme('consulting')">   <span class="theme-icon">🏢</span> Consulting</button>
       <button class="theme-btn"        data-theme="education" onclick="switchTheme('education')"><span class="theme-icon">🏫</span> Education</button>
-      <button class="theme-btn"        data-theme="student"   onclick="switchTheme('student')">  <span class="theme-icon">📚</span> Pre-college</button>
       <button class="theme-btn"        data-theme="college"   onclick="switchTheme('college')">  <span class="theme-icon">🎓</span> College/Grad</button>
+      <button class="theme-btn"        data-theme="creative"  onclick="switchTheme('creative')"> <span class="theme-icon">✏️</span> Creative</button>
     </div>
   </div>
 
@@ -1298,14 +1399,14 @@
   <div class="form-col">
 
     <!-- ═══════════════════════════════════════════
-         AGENCY THEME
+         CONSULTING THEME
     ════════════════════════════════════════════ -->
-    <div class="theme-panel active" id="panel-agency">
+    <div class="theme-panel active" id="panel-consulting">
 
       <div class="tier-label">Core Setup</div>
 
       <!-- A1: Task -->
-      <div class="field agency-field">
+      <div class="field consulting-field">
         <div class="field-header">
           <div class="field-num" style="background:#5b8dee18;color:var(--c1)">01</div>
           <div>
@@ -1315,20 +1416,20 @@
         </div>
         <div class="field-body">
           <div class="chips" id="a-chips-1">
-            <div class="chip" data-val="Analyze the data and surface key insights">Analyze data</div>
-            <div class="chip" data-val="Build a deck that communicates findings clearly">Build deck</div>
-            <div class="chip" data-val="Draft a professional email">Draft email</div>
-            <div class="chip" data-val="Draft an analysis framework for this problem">Draft framework</div>
-            <div class="chip" data-val="Present findings in a clear, structured way">Present findings</div>
-            <div class="chip" data-val="Summarize the key findings concisely">Summarize findings</div>
-            <div class="chip" data-val="Write actionable recommendations based on the findings">Write recommendations</div>
+            <div class="chip" data-val="Analyze the data. Surface key insights, quantify where possible, and flag gaps that could affect the conclusion.">Analyze data</div>
+            <div class="chip" data-val="Build a slide-by-slide outline. Each slide: clear headline, supporting bullets, one so-what takeaway. Prioritize executive clarity.">Build deck</div>
+            <div class="chip" data-val="Draft a professional email. Lead with the key point, close with a clear ask or next step.">Draft email</div>
+            <div class="chip" data-val="Draft an analytical framework. Define the key dimensions, show how components connect, and make the structure testable.">Draft framework</div>
+            <div class="chip" data-val="Present findings as a logical narrative. Lead with the most important insight, support with evidence, close with a direct recommendation.">Present findings</div>
+            <div class="chip" data-val="Summarize the key findings. Extract the signal, not just data points. Highlight what matters most and why.">Summarize findings</div>
+            <div class="chip" data-val="Write actionable recommendations. For each: what to do, why it matters, what success looks like.">Write recommendations</div>
           </div>
           <input type="text" id="a-input-1" placeholder="Or describe your task..." />
         </div>
       </div>
 
       <!-- A2: AI Role -->
-      <div class="field agency-field">
+      <div class="field consulting-field">
         <div class="field-header">
           <div class="field-num" style="background:#e06c8a18;color:var(--c2)">02</div>
           <div>
@@ -1338,23 +1439,23 @@
         </div>
         <div class="field-body">
           <div class="chips" id="a-chips-2">
-            <div class="chip" data-val="Act as a business strategist — think in terms of trade-offs, priorities, and outcomes">Business Strategist</div>
-            <div class="chip" data-val="Act as a critical reviewer — challenge assumptions and flag weak reasoning">Critical Reviewer</div>
-            <div class="chip" data-val="Act as an executive coach — push for clarity, accountability, and decisive thinking">Executive Coach</div>
-            <div class="chip" data-val="Act as a senior analyst — be rigorous, evidence-based, and precise">Senior Analyst</div>
-            <div class="chip" data-val="Act as a thought partner — ask good questions and help think the problem through">Thought Partner</div>
-            <div class="chip" data-val="Act as a writing coach — focus on clarity, structure, and impact">Writing Coach</div>
+            <div class="chip" data-val="You are a business strategist. Prioritize trade-offs, not comprehensiveness. Push for a clear so-what. Flag assumptions that would change the recommendation.">Business Strategist</div>
+            <div class="chip" data-val="You are a critical reviewer. Challenge every assumption, flag weak logic, and call out conclusions that outpace the evidence. Be direct.">Critical Reviewer</div>
+            <div class="chip" data-val="You are an executive coach. Push for clarity and decisiveness. When thinking is fuzzy, sharpen it. When the argument is weak, name it.">Executive Coach</div>
+            <div class="chip" data-val="You are a senior analyst. Separate facts from interpretations. State confidence levels. Do not extrapolate beyond what the data supports.">Senior Analyst</div>
+            <div class="chip" data-val="You are a thinking partner. Challenge the framing, ask probing questions, and explore multiple angles before converging on an approach.">Thought Partner</div>
+            <div class="chip" data-val="You are a writing coach. Prioritize clarity, structure, and impact. Cut anything that doesn't earn its place. Lead with the most important point.">Writing Coach</div>
           </div>
           <input type="text" id="a-input-2" placeholder="Or describe the AI's role..." />
         </div>
       </div>
 
-      <!-- A3: Client -->
-      <div class="field agency-field">
+      <!-- A3: Stakeholder -->
+      <div class="field consulting-field">
         <div class="field-header">
           <div class="field-num" style="background:#4ecdc418;color:var(--c3)">03</div>
           <div>
-            <div class="field-title">Tell AI about the client or audience.</div>
+            <div class="field-title">Tell AI about the stakeholder.</div>
             <div class="field-hint">Multi-select · avoid using real names</div>
           </div>
         </div>
@@ -1370,87 +1471,156 @@
           </div>
           <div class="sub-label">Situation</div>
           <div class="chips" id="a-chips-3c">
-            <div class="chip" data-val="preparing for a business review">Business review</div>
-            <div class="chip" data-val="running a campaign analysis">Campaign analysis</div>
-            <div class="chip" data-val="building a data-driven story">Data-driven storytelling</div>
-            <div class="chip" data-val="planning a project kickoff">Kickoff planning</div>
-            <div class="chip" data-val="launching a new product">New product launch</div>
-            <div class="chip" data-val="conducting a performance review">Performance review</div>
+            <div class="chip" data-val="preparing for a business review — they need clear, defensible answers backed by data">Business review</div>
+            <div class="chip" data-val="running a campaign analysis — they need to know what worked, what didn't, and why">Campaign analysis</div>
+            <div class="chip" data-val="building a data-driven narrative — insights need to translate into a story their audience can act on">Data-driven storytelling</div>
+            <div class="chip" data-val="planning a project kickoff — they need clear scope, structure, and stakeholder alignment">Kickoff planning</div>
+            <div class="chip" data-val="launching a new product — they need sharp positioning, clear differentiation, and a credible go-to-market plan">New product launch</div>
+            <div class="chip" data-val="conducting a performance review — they need objective, evidence-backed assessments">Performance review</div>
+            <div class="chip" data-val="validating a hypothesis — they need a rigorous test of whether the evidence supports the claim">Hypothesis validation</div>
+            <div class="chip" data-val="working through a complex, ambiguous problem — decompose it into clear, testable components before proposing solutions">Problem structuring</div>
           </div>
-          <input type="text" id="a-input-3" placeholder="Or describe the client... Avoid real names." />
+          <input type="text" id="a-input-3" placeholder="Or describe the stakeholder... Avoid real names." />
         </div>
       </div>
 
-      <!-- A4: Context -->
-      <div class="field agency-field">
+      <!-- A4: Audience -->
+      <div class="field consulting-field">
         <div class="field-header">
           <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
           <div>
-            <div class="field-title">Any other context AI should know?</div>
+            <div class="field-title">Who is the audience?</div>
             <div class="field-hint">Multi-select · or write your own below</div>
           </div>
         </div>
         <div class="field-body">
           <div class="chips" id="a-chips-4">
-            <div class="chip" data-val="this is for an executive audience — be concise and lead with the so-what">Executive audiences</div>
-            <div class="chip" data-val="this is for a non-technical audience — avoid jargon and explain concepts plainly">Non-technical audiences</div>
-            <div class="chip" data-val="this is early-stage thinking — treat it as exploratory, not final">Early-stage thinking</div>
-            <div class="chip" data-val="this is a first draft — prioritize structure and direction over polish">First draft</div>
-            <div class="chip" data-val="this is a final deliverable — hold it to a high standard">Final deliverable</div>
-            <div class="chip" data-val="this is supported by data — ground your response in evidence, not assumption">Supported by data</div>
+            <div class="chip" data-val="Internal audience that knows the context. Skip the background — get to the point. Prioritize speed and clarity.">Internal team</div>
+            <div class="chip" data-val="Client-facing. Make it polished, professional, and free of internal jargon.">Client-facing</div>
+            <div class="chip" data-val="Senior executive audience. Lead with the so-what. They want the recommendation and rationale — not the full analysis trail.">Executive stakeholder</div>
+            <div class="chip" data-val="Mixed audience — technical and non-technical. Explain the logic without drowning in methodology.">Technical &amp; Non-technical</div>
+            <div class="chip" data-val="Cross-functional audience with different priorities. Frame outputs around shared goals and anticipate where perspectives will diverge.">Cross-functional</div>
           </div>
-          <input type="text" id="a-input-4" placeholder="Or add any other context..." />
+          <input type="text" id="a-input-4" placeholder="Or describe the audience..." />
+        </div>
+      </div>
+
+      <!-- A5: Stage of Work -->
+      <div class="field consulting-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#a78bfa18;color:var(--c5)">05</div>
+          <div>
+            <div class="field-title">Where are you in the work?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="a-chips-5">
+            <div class="chip" data-val="Early-stage exploration. Treat outputs as hypotheses, not conclusions. Flag assumptions and ask clarifying questions." data-single="true">Exploratory / hypothesis forming</div>
+            <div class="chip" data-val="Analysis is underway. Build toward a clear, defensible recommendation. Flag anything that could weaken the final argument." data-single="true">Mid-project analysis</div>
+            <div class="chip" data-val="Synthesis stage. Pull threads into a coherent narrative — not a longer list of findings." data-single="true">Synthesizing findings</div>
+            <div class="chip" data-val="Final deliverable. Must be polished, internally consistent, and ready to defend." data-single="true">Final deliverable / client-ready</div>
+            <div class="chip" data-val="Internal review. Stress-test the logic. Flag weak arguments, unsupported claims, and anything a skeptic would push back on." data-single="true">Internal review / stress test</div>
+          </div>
+          <input type="text" id="a-input-5" placeholder="Or describe where you are in the work..." />
+        </div>
+      </div>
+
+      <!-- A6: Starting Material -->
+      <div class="field consulting-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#5b8dee18;color:var(--c1)">06</div>
+          <div>
+            <div class="field-title">What are you starting from?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="a-chips-6">
+            <div class="chip" data-val="Starting from scratch. Structure your response as a solid foundation the team can build on." data-single="true">Starting from scratch</div>
+            <div class="chip" data-val="A dataset will be provided. Stay grounded in the data — do not assume beyond what it supports." data-single="true">Working from a dataset</div>
+            <div class="chip" data-val="A brief or transcript will be provided. Treat it as the primary source. Do not fill gaps with assumptions." data-single="true">Have a brief or transcript</div>
+            <div class="chip" data-val="Refining an existing draft. Sharpen language, tighten logic, clarify structure. Not a full rewrite." data-single="true">Refining a previous draft</div>
+            <div class="chip" data-val="Responding to feedback that will be provided. Address each point directly. Be clear about what changed and why." data-single="true">Responding to feedback</div>
+          </div>
+          <input type="text" id="a-input-6" placeholder="Or describe what you're starting from..." />
         </div>
       </div>
 
       <!-- Tier 2 -->
       <div class="tier-label">Fine-tune your output</div>
       <div class="tier2-content open" id="a-tier2">
-        <div class="field-row">
-          <div class="field agency-field">
-            <div class="field-header">
-              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
-              <div><div class="field-title">Tone</div><div class="field-hint">Single-select</div></div>
-            </div>
-            <div class="field-body">
-              <div class="chips" id="a-chips-5a">
-                <div class="chip" data-val="concise" data-single="true">Concise</div>
-                <div class="chip" data-val="detailed" data-single="true">Detailed</div>
-                <div class="chip" data-val="formal" data-single="true">Formal</div>
-                <div class="chip" data-val="conversational" data-single="true">Conversational</div>
-                <div class="chip" data-val="easy to understand, avoid technical jargon" data-single="true">No jargon</div>
-              </div> 
-              <input type="text" id="a-input-5a" placeholder="Or describe your tone preference..." />
+
+        <!-- A7: Specific Challenge -->
+        <div class="field consulting-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#e06c8a18;color:var(--c2)">07</div>
+            <div>
+              <div class="field-title">Any specific challenge to flag?</div>
+              <div class="field-hint">Multi-select · or write your own below</div>
             </div>
           </div>
-          <div class="field agency-field">
-            <div class="field-header">
-              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
-              <div><div class="field-title">Format</div><div class="field-hint">Single-select</div></div>
+          <div class="field-body">
+            <div class="chips" id="a-chips-7">
+              <div class="chip" data-val="Conflicting data sources exist. Identify which is more reliable, surface the gaps, and represent uncertainty honestly.">Conflicting data sources</div>
+              <div class="chip" data-val="Stakeholders are skeptical. Every claim must be backed, every assumption surfaced, every likely objection anticipated.">Skeptical stakeholders</div>
+              <div class="chip" data-val="Push beyond what the data shows — get to what it means and what we should do about it.">Translating analysis to strategy</div>
+              <div class="chip" data-val="Mixed analytical expertise in the audience. Calibrate depth — rigorous but accessible to non-analysts.">Mixed audience</div>
+              <div class="chip" data-val="Tight deadline. Lead with the highest-impact elements. Structure so critical pieces can stand alone.">Tight deadline</div>
+              <div class="chip" data-val="Competing hypotheses on the table. Evaluate each against the evidence objectively. Follow where the evidence leads.">Competing hypotheses</div>
             </div>
-            <div class="field-body">
-              <div class="chips" id="a-chips-5b">
-                <div class="chip" data-val="bullet points" data-single="true">Bullet points</div>
-                <div class="chip" data-val="step-by-step" data-single="true">Step-by-step</div>
-                <div class="chip" data-val="prose" data-single="true">Prose</div>
-                <div class="chip" data-val="examples where possible" data-single="true">Use examples</div>
-                <div class="chip" data-val="slide-ready" data-single="true">Slide-ready</div>
-              </div> 
-              <input type="text" id="a-input-5b" placeholder="Or describe your format preference..." />
-            </div>
+            <input type="text" id="a-input-7" placeholder="Or describe the specific challenge..." />
           </div>
         </div>
-        <div class="field agency-field">
+
+        <!-- A8: Tone -->
+        <div class="field consulting-field">
           <div class="field-header">
-            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
+            <div class="field-num" style="background:#4ecdc418;color:var(--c3)">08</div>
+            <div><div class="field-title">Tone</div><div class="field-hint">Single-select · or write your own below</div></div>
+          </div>
+          <div class="field-body">
+            <div class="chips" id="a-chips-8a">
+              <div class="chip" data-val="concise — lead with the point, cut everything that doesn't add to it" data-single="true">Concise</div>
+              <div class="chip" data-val="detailed — show the reasoning, not just the conclusion" data-single="true">Detailed</div>
+              <div class="chip" data-val="formal — precise language, no colloquialisms" data-single="true">Formal</div>
+              <div class="chip" data-val="conversational — clear and direct, as if explaining to a sharp colleague" data-single="true">Conversational</div>
+              <div class="chip" data-val="plain language — no technical jargon; define any necessary terms in context" data-single="true">No jargon</div>
+            </div>
+            <input type="text" id="a-input-8a" placeholder="Or describe your tone preference..." />
+          </div>
+        </div>
+
+        <!-- A9: Format -->
+        <div class="field consulting-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#f7c94818;color:var(--c4)">09</div>
+            <div><div class="field-title">Format</div><div class="field-hint">Single-select · or write your own below</div></div>
+          </div>
+          <div class="field-body">
+            <div class="chips" id="a-chips-8b">
+              <div class="chip" data-val="bullet points — brief framing sentence, then tight bullets" data-single="true">Bullet points</div>
+              <div class="chip" data-val="numbered steps — make the sequence explicit" data-single="true">Step-by-step</div>
+              <div class="chip" data-val="flowing prose — well-structured paragraphs, no bullets" data-single="true">Prose</div>
+              <div class="chip" data-val="include concrete examples — ground every abstract claim with a specific illustration" data-single="true">Use examples</div>
+              <div class="chip" data-val="slide-ready — one headline per section, tight supporting bullets, one so-what takeaway" data-single="true">Slide-ready</div>
+            </div>
+            <input type="text" id="a-input-8b" placeholder="Or describe your format preference..." />
+          </div>
+        </div>
+
+        <!-- A10: Constraints -->
+        <div class="field consulting-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">10</div>
             <div><div class="field-title">Constraints</div><div class="field-hint">Anything the AI should know or avoid</div></div>
           </div>
           <div class="field-body">
-            <textarea id="a-input-6" rows="3" placeholder="e.g. Keep it under 300 words. Avoid technical jargon. Do not suggest Python solutions."></textarea>
+            <textarea id="a-input-9" rows="3" placeholder="e.g. Keep it under 300 words. Avoid technical jargon. Do not suggest Python solutions."></textarea>
           </div>
         </div>
       </div>
-    </div><!-- /agency -->
+    </div><!-- /consulting -->
 
 
     <!-- ═══════════════════════════════════════════
@@ -1458,7 +1628,7 @@
     ════════════════════════════════════════════ -->
     <div class="theme-panel" id="panel-education">
 
-      <div class="tier-label">Tier 1 — Core Setup</div>
+      <div class="tier-label">Core Setup</div>
 
       <!-- E1: Task -->
       <div class="field edu-field">
@@ -1471,13 +1641,13 @@
         </div>
         <div class="field-body">
           <div class="chips" id="e-chips-1">
-            <div class="chip" data-val="Design a lesson plan that is ready to use in the classroom">Lesson plan</div>
-            <div class="chip" data-val="Write a clear, criteria-based rubric for student assessment">Rubric</div>
-            <div class="chip" data-val="Draft a professional email to a parent or guardian">Parent email</div>
-            <div class="chip" data-val="Write constructive, specific feedback for a student">Student feedback</div>
-            <div class="chip" data-val="Build a practical counseling resource for student support">Counseling resource</div>
-            <div class="chip" data-val="Adapt existing material to support differentiated or personalized learning">Personalized learning</div>
-            <div class="chip" data-val="Plan a classroom activity that is engaging and curriculum-aligned">Class activity</div>
+            <div class="chip" data-val="Design a ready-to-use lesson plan. Include learning objectives, activity sequence, and any materials needed.">Lesson plan</div>
+            <div class="chip" data-val="Write a clear, criteria-based rubric. Define performance levels and make expectations explicit for students.">Rubric</div>
+            <div class="chip" data-val="Draft a professional email to a parent or guardian. Keep it clear, respectful, and focused on the key message.">Parent email</div>
+            <div class="chip" data-val="Write constructive feedback for a student. Be specific, actionable, and frame it to motivate improvement.">Student feedback</div>
+            <div class="chip" data-val="Build a practical counseling resource. Keep it accessible, trauma-aware, and immediately usable.">Counseling resource</div>
+            <div class="chip" data-val="Adapt the provided material for differentiated learning. Address different ability levels without lowering expectations.">Personalized learning</div>
+            <div class="chip" data-val="Plan a curriculum-aligned classroom activity. Make it engaging, manageable to run, and tied to clear learning goals.">Class activity</div>
           </div>
           <input type="text" id="e-input-1" placeholder="Or describe your task..." />
         </div>
@@ -1494,22 +1664,22 @@
         </div>
         <div class="field-body">
           <div class="chips" id="e-chips-2">
-            <div class="chip" data-val="classroom teacher / professor" data-single="true">Classroom teacher / professor</div>
-            <div class="chip" data-val="subject specialist" data-single="true">Subject specialist</div>
-            <div class="chip" data-val="school counselor" data-single="true">School counselor</div>
-            <div class="chip" data-val="curriculum designer" data-single="true">Curriculum designer</div>
-            <div class="chip" data-val="special education teacher" data-single="true">Special education teacher</div>
+            <div class="chip" data-val="classroom teacher or professor. Prioritize practical, classroom-ready output." data-single="true">Classroom teacher / professor</div>
+            <div class="chip" data-val="subject specialist. Prioritize depth and accuracy — don't oversimplify." data-single="true">Subject specialist</div>
+            <div class="chip" data-val="school counselor — prioritize student wellbeing, use trauma-informed language, and avoid clinical overreach" data-single="true">School counselor</div>
+            <div class="chip" data-val="curriculum designer. Build structured, standards-aligned material." data-single="true">Curriculum designer</div>
+            <div class="chip" data-val="special education teacher — center accessibility, IEP alignment, and individualized approaches" data-single="true">Special education teacher</div>
           </div>
           <input type="text" id="e-input-2" placeholder="Or describe your role..." />
         </div>
       </div>
 
-      <!-- E3: Students -->
+      <!-- E3: Classroom Context -->
       <div class="field edu-field">
         <div class="field-header">
           <div class="field-num" style="background:#4ecdc418;color:var(--c3)">03</div>
           <div>
-            <div class="field-title">Tell AI about your classroom and situation</div>
+            <div class="field-title">Tell AI about your classroom</div>
             <div class="field-hint">Multi-select · avoid names or identifying details</div>
           </div>
         </div>
@@ -1523,87 +1693,158 @@
           </div>
           <div class="sub-label">Class Situation</div>
           <div class="chips" id="e-chips-3b">
-            <div class="chip" data-val="with mixed ability levels">Mixed ability</div>
-            <div class="chip" data-val="with advanced or gifted students">Advanced / gifted</div>
-            <div class="chip" data-val="with students who need additional academic support">Needs extra support</div>
-            <div class="chip" data-val="with students who have documented accommodations or IEPs">Students with accommodations</div>
-            <div class="chip" data-val="with English language learners">English language learners</div>
+            <div class="chip" data-val="with mixed ability levels — differentiate across levels without creating separate tracks">Mixed ability</div>
+            <div class="chip" data-val="with advanced or gifted students — push for depth, complexity, and extension opportunities">Advanced / gifted</div>
+            <div class="chip" data-val="with students who need additional academic support — scaffold carefully and build confidence">Needs extra support</div>
+            <div class="chip" data-val="with students who have documented accommodations or IEPs — ensure output can be adapted to meet them">Students with accommodations</div>
+            <div class="chip" data-val="with English language learners — prioritize clear language, visual supports, and accessible explanations">English language learners</div>
           </div>
           <div class="sub-label">Subject</div>
           <div class="chips" id="e-chips-3c">
             <div class="chip" data-val="Math">Math</div>
-            <div class="chip" data-val="Physics">Physics</div>
+            <div class="chip" data-val="Science">Science</div>
+            <div class="chip" data-val="Biology">Biology</div>
             <div class="chip" data-val="Chemistry">Chemistry</div>
+            <div class="chip" data-val="Physics">Physics</div>
             <div class="chip" data-val="English / ELA">English / ELA</div>
-            <div class="chip" data-val="History">History </div>
+            <div class="chip" data-val="History / Social Studies">History / Social Studies</div>
             <div class="chip" data-val="Art">Art</div>
-          </div>          
+            <div class="chip" data-val="Music">Music</div>
+          </div>
           <input type="text" id="e-input-3" placeholder="Or describe your class / situation in a sentence. No identifying details." />
         </div>
       </div>
 
-      <!-- E4: Context -->
+      <!-- E4: Stage of Work -->
       <div class="field edu-field">
         <div class="field-header">
           <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
           <div>
-            <div class="field-title">Any other context AI should know?</div>
+            <div class="field-title">Where are you in the work?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="e-chips-stage">
+            <div class="chip" data-val="Starting from scratch with no existing material. Build something structured and ready to use." data-single="true">Starting from scratch</div>
+            <div class="chip" data-val="Adapting existing material that will be provided. Improve it — don't rebuild from scratch." data-single="true">Adapting existing material</div>
+            <div class="chip" data-val="Refining a draft that will be provided. Strengthen clarity, structure, and usability." data-single="true">Refining a draft</div>
+            <div class="chip" data-val="Responding to specific feedback that will be provided. Address each point directly." data-single="true">Responding to feedback</div>
+            <div class="chip" data-val="Preparing for a specific upcoming event. Make the output targeted and directly usable for it." data-single="true">Preparing for an event</div>
+          </div>
+          <input type="text" id="e-input-stage" placeholder="Or describe where you are in the work..." />
+        </div>
+      </div>
+
+      <!-- E5: Starting Material -->
+      <div class="field edu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#a78bfa18;color:var(--c5)">05</div>
+          <div>
+            <div class="field-title">What are you starting from?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="e-chips-material">
+            <div class="chip" data-val="No prior material. Build from first principles based on the context provided." data-single="true">No prior material</div>
+            <div class="chip" data-val="A textbook chapter or curriculum standard will be provided. Align the output closely to it." data-single="true">Textbook / curriculum standard</div>
+            <div class="chip" data-val="A student's draft or work sample will be provided. Treat it as the primary input." data-single="true">Student's draft or work</div>
+            <div class="chip" data-val="A previous lesson or resource will be provided. Build on it rather than starting over." data-single="true">Previous lesson / resource</div>
+            <div class="chip" data-val="Teacher's notes or an outline will be provided. Develop it into a complete, ready-to-use resource." data-single="true">Teacher's notes / outline</div>
+          </div>
+          <input type="text" id="e-input-material" placeholder="Or describe what you're starting from..." />
+        </div>
+      </div>
+
+      <!-- E6: Practical Constraints -->
+      <div class="field edu-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#5b8dee18;color:var(--c1)">06</div>
+          <div>
+            <div class="field-title">Any practical constraints?</div>
             <div class="field-hint">Multi-select · or write your own below</div>
           </div>
         </div>
         <div class="field-body">
           <div class="chips" id="e-chips-4">
-            <div class="chip" data-val="resources are limited — keep suggestions low-cost and easy to source">Limited resources</div>
-            <div class="chip" data-val="this is a large class — prioritize scalable, manageable approaches">Large class size</div>
-            <div class="chip" data-val="prep time is limited — keep the output practical and ready to use with minimal adaptation">Time-constrained</div>
-            <div class="chip" data-val="apply a trauma-informed lens — avoid activities or language that may be activating">Trauma-informed</div>
-            <div class="chip" data-val="this needs to align with standardized test preparation — connect content to tested skills and formats">Test prep aligned</div>
-            <div class="chip" data-val="this is for a remote or hybrid classroom — account for async participation and digital access constraints">Remote / hybrid</div>
+            <div class="chip" data-val="Resources are limited. Keep everything low-cost and easy to source without specialized materials.">Limited resources</div>
+            <div class="chip" data-val="Large class. Prioritize scalable, manageable approaches that work without one-on-one attention.">Large class size</div>
+            <div class="chip" data-val="Limited prep time. Output must be ready to use with minimal adaptation.">Time-constrained</div>
+            <div class="chip" data-val="Apply a trauma-informed lens. Avoid activities or language that could be activating or harmful.">Trauma-informed</div>
+            <div class="chip" data-val="Must align with standardized test prep. Connect content directly to tested skills and formats.">Test prep aligned</div>
+            <div class="chip" data-val="Remote or hybrid setting. Design for async participation and uneven digital access.">Remote / hybrid</div>
           </div>
-          <input type="text" id="e-input-4" placeholder="e.g. This is for a parent-teacher conference. The student has been struggling with focus." />
+          <input type="text" id="e-input-4" placeholder="Or describe any practical constraints..." />
         </div>
       </div>
 
       <!-- Tier 2 -->
-      <div class="tier-label" >Tier 2 — Fine-tune your output</div>
+      <div class="tier-label">Fine-tune your output</div>
       <div class="tier2-content open" id="e-tier2">
+
+        <!-- E7: Specific Challenge -->
+        <div class="field edu-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#e06c8a18;color:var(--c2)">07</div>
+            <div>
+              <div class="field-title">Any specific challenge to flag?</div>
+              <div class="field-hint">Multi-select · or write your own below</div>
+            </div>
+          </div>
+          <div class="field-body">
+            <div class="chips" id="e-chips-challenge">
+              <div class="chip" data-val="Students are disengaged or resistant. Build in engagement hooks — avoid passive, one-way formats.">Disengaged students</div>
+              <div class="chip" data-val="There are significant learning gaps in this topic. Scaffold carefully and address prerequisite knowledge first.">Learning gaps</div>
+              <div class="chip" data-val="Differentiation is difficult in this class. Suggest one core approach that works across levels with clear extension options.">Hard to differentiate</div>
+              <div class="chip" data-val="The topic is sensitive or potentially contentious. Handle with care — prioritize psychological safety.">Sensitive topic</div>
+              <div class="chip" data-val="Parent or guardian communication has been challenging. Use a neutral, collaborative tone — avoid language that could escalate.">Difficult parent communication</div>
+              <div class="chip" data-val="There is an upcoming observation or review. Ensure the output demonstrates strong, defensible pedagogical practice.">Upcoming observation</div>
+            </div>
+            <input type="text" id="e-input-challenge" placeholder="Or describe the specific challenge..." />
+          </div>
+        </div>
+
+        <!-- E8: Tone / Format -->
         <div class="field-row">
           <div class="field edu-field">
             <div class="field-header">
-              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
+              <div class="field-num" style="background:#4ecdc418;color:var(--c3)">8a</div>
               <div><div class="field-title">Tone</div><div class="field-hint">Single-select</div></div>
             </div>
             <div class="field-body">
               <div class="chips" id="e-chips-5a">
-                <div class="chip" data-val="concise" data-single="true">Concise</div>
-                <div class="chip" data-val="detailed" data-single="true">Detailed</div>
-                <div class="chip" data-val="formal" data-single="true">Formal</div>
-                <div class="chip" data-val="conversational" data-single="true">Conversational</div>
-                <div class="chip" data-val="warm and encouraging" data-single="true">Warm & encouraging</div>
-              </div> 
+                <div class="chip" data-val="concise — clear and to the point, nothing extra" data-single="true">Concise</div>
+                <div class="chip" data-val="detailed — include full rationale and enough context to adapt independently" data-single="true">Detailed</div>
+                <div class="chip" data-val="formal — professional register appropriate for administration or parents" data-single="true">Formal</div>
+                <div class="chip" data-val="conversational — approachable tone suitable for direct use with students or colleagues" data-single="true">Conversational</div>
+                <div class="chip" data-val="warm and encouraging — prioritize a supportive, affirming voice" data-single="true">Warm & encouraging</div>
+              </div>
               <input type="text" id="e-input-5a" placeholder="Or describe your tone preference..." />
             </div>
           </div>
           <div class="field edu-field">
             <div class="field-header">
-              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
+              <div class="field-num" style="background:#f7c94818;color:var(--c4)">8b</div>
               <div><div class="field-title">Format</div><div class="field-hint">Single-select</div></div>
             </div>
             <div class="field-body">
               <div class="chips" id="e-chips-5b">
-                <div class="chip" data-val="bullet points" data-single="true">Bullet points</div>
-                <div class="chip" data-val="step-by-step" data-single="true">Step-by-step</div>
-                <div class="chip" data-val="prose" data-single="true">Prose</div>
-                <div class="chip" data-val="a structured template" data-single="true">Template</div>
-                <div class="chip" data-val="a Handout ready format" data-single="true">Handout ready</div>
-              </div> 
+                <div class="chip" data-val="bullet points — scannable, structured, easy to pull from" data-single="true">Bullet points</div>
+                <div class="chip" data-val="numbered steps — sequence is explicit and easy to follow" data-single="true">Step-by-step</div>
+                <div class="chip" data-val="flowing prose — paragraph form, suitable for emails and narratives" data-single="true">Prose</div>
+                <div class="chip" data-val="structured template — headers and placeholders, easy to customize" data-single="true">Template</div>
+                <div class="chip" data-val="handout-ready — formatted for direct print or sharing with students" data-single="true">Handout ready</div>
+              </div>
               <input type="text" id="e-input-5b" placeholder="Or describe your format preference..." />
             </div>
           </div>
         </div>
+
+        <!-- E9: Constraints -->
         <div class="field edu-field">
           <div class="field-header">
-            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">09</div>
             <div><div class="field-title">Constraints</div><div class="field-hint">Anything the AI should know or avoid</div></div>
           </div>
           <div class="field-body">
@@ -1615,165 +1856,212 @@
 
 
     <!-- ═══════════════════════════════════════════
-         STUDENT THEME
+         CREATIVE THEME
     ════════════════════════════════════════════ -->
-    <div class="theme-panel" id="panel-student">
+    <div class="theme-panel" id="panel-creative">
 
-      <div class="tier-label" >Tier 1 — Core Setup</div>
+      <div class="tier-label">Core Setup</div>
 
-      <!-- S1: Task -->
-      <div class="field stu-field">
+      <!-- CR1: Task -->
+      <div class="field creative-field">
         <div class="field-header">
           <div class="field-num" style="background:#5b8dee18;color:var(--c1)">01</div>
           <div>
-            <div class="field-title">What do you need help with?</div>
+            <div class="field-title">What are you working on?</div>
             <div class="field-hint">Multi-select · or write your own below</div>
           </div>
         </div>
         <div class="field-body">
-          <div class="chips" id="s-chips-1">
-            <div class="chip" data-val="Help me understand a concept — explain it clearly and check that I actually get it">Understand a concept</div>
-            <div class="chip" data-val="Help me brainstorm ideas — ask me questions to draw out my own thinking first">Brainstorm ideas</div>
-            <div class="chip" data-val="Help me build an outline for my assignment — guide me through the structure, don't just hand it to me">Outline assignment</div>
-            <div class="chip" data-val="Review my draft and give me specific, actionable feedback I can actually use">Review draft</div>
-            <div class="chip" data-val="Help me study for a test — quiz me, identify gaps, and help me focus on what matters most">Study for a test</div>
-            <div class="chip" data-val="Help me get unstuck — ask me what I've already tried before jumping to a solution">Get unstuck on a problem</div>
-            <div class="chip" data-val="Help me understand what my assignment is actually asking me to do">Understand requirements</div>
+          <div class="chips" id="cr-chips-1">
+            <div class="chip" data-val="Write a first draft from the brief or idea I'll share. Match the tone and stay within scope.">Write a first draft</div>
+            <div class="chip" data-val="Improve the draft I'll share. Strengthen the opening, sharpen the language, tighten the structure — don't rewrite from scratch.">Improve my draft</div>
+            <div class="chip" data-val="Generate multiple headline or hook options. Make each one distinct — different angles, not variations on the same idea.">Write headlines / hooks</div>
+            <div class="chip" data-val="Brainstorm angles or concepts. Push past the obvious — each option should feel genuinely distinct.">Brainstorm angles</div>
+            <div class="chip" data-val="Repurpose the content I'll share for a new format or channel. Adapt the message — don't just reformat it.">Repurpose content</div>
+            <div class="chip" data-val="Critique this piece honestly. Tell me what's not landing and why — don't soften it.">Critique my work</div>
+            <div class="chip" data-val="Write a clear creative brief. Define the objective, audience, key message, tone, and deliverable.">Write a brief</div>
           </div>
-          <input type="text" id="s-input-1" placeholder="Or describe what you need help with..." />
+          <input type="text" id="cr-input-1" placeholder="Or describe what you're working on..." />
         </div>
       </div>
 
-      <!-- S2: How should AI help -->
-      <div class="field stu-field">
+      <!-- CR2: Content Type -->
+      <div class="field creative-field">
         <div class="field-header">
           <div class="field-num" style="background:#e06c8a18;color:var(--c2)">02</div>
           <div>
-            <div class="field-title">How should AI support you?</div>
-            <div class="field-hint">Single-select · pick how you want to be supported</div>
+            <div class="field-title">What type of content?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
           </div>
         </div>
         <div class="field-body">
-          <div class="chips" id="s-chips-2">
-            <div class="chip" data-val="Explain this to me clearly — use simple language and real examples, then check that I understand" data-single="true">Explain it to me</div>
-            <div class="chip" data-val="Don't explain yet — ask me questions and help me think it through myself" data-single="true">Ask me questions</div>
-            <div class="chip" data-val="Give me honest, critical feedback on my work — don't soften it" data-single="true">Give me critical feedback</div>
-            <div class="chip" data-val="Quiz me on this material — start easy, then push harder as I get things right" data-single="true">Quiz me</div>
-            <div class="chip" data-val="Help me check my work for errors — point out mistakes but let me fix them myself" data-single="true">Check my work</div>
-            <div class="chip" data-val="Help me understand feedback I received — break it down so I know exactly what to act on" data-single="true">Understand feedback</div>
-            <div class="chip" data-val="Be my thinking partner — push back on my ideas and help me stress-test my reasoning" data-single="true">Thinking partner</div>
+          <div class="chips" id="cr-chips-2">
+            <div class="chip" data-val="blog post or article" data-single="true">Blog / Article</div>
+            <div class="chip" data-val="social media post" data-single="true">Social media</div>
+            <div class="chip" data-val="email or newsletter" data-single="true">Email / Newsletter</div>
+            <div class="chip" data-val="advertising or campaign copy" data-single="true">Ad copy / Campaign</div>
+            <div class="chip" data-val="video or podcast script" data-single="true">Video / Podcast script</div>
+            <div class="chip" data-val="short-form creative fiction or storytelling" data-single="true">Creative fiction</div>
+            <div class="chip" data-val="product or marketing copy" data-single="true">Product / Marketing copy</div>
+            <div class="chip" data-val="pitch or proposal" data-single="true">Pitch / Proposal</div>
           </div>
-          <input type="text" id="s-input-2" placeholder="Or describe how you'd like AI to help..." />
+          <input type="text" id="cr-input-2" placeholder="Or describe the content type..." />
         </div>
       </div>
 
-      <!-- S3: Assignment context -->
-      <div class="field stu-field">
+      <!-- CR3: Audience & Channel -->
+      <div class="field creative-field">
         <div class="field-header">
           <div class="field-num" style="background:#4ecdc418;color:var(--c3)">03</div>
           <div>
-            <div class="field-title">Tell AI about your assignment.</div>
+            <div class="field-title">Who is the audience and where does this live?</div>
             <div class="field-hint">Multi-select · or write your own below</div>
           </div>
         </div>
         <div class="field-body">
-          <div class="sub-label">Subject</div>
-          <div class="chips" id="s-chips-3a">
-            <div class="chip" data-val="English / Language Arts">English / ELA</div>
-            <div class="chip" data-val="History">History</div>
-            <div class="chip" data-val="Math">Math</div>
-            <div class="chip" data-val="Chemistry">Chemistry</div>
-            <div class="chip" data-val="Physics">Physics</div>
-            <div class="chip" data-val="a foreign language">Foreign language</div>
-            <div class="chip" data-val="Art">Art</div>
+          <div class="sub-label">Channel / Platform</div>
+          <div class="chips" id="cr-chips-3a">
+            <div class="chip" data-val="website or blog">Website / Blog</div>
+            <div class="chip" data-val="Instagram">Instagram</div>
+            <div class="chip" data-val="LinkedIn">LinkedIn</div>
+            <div class="chip" data-val="email">Email</div>
+            <div class="chip" data-val="YouTube">YouTube</div>
+            <div class="chip" data-val="TikTok">TikTok</div>
+            <div class="chip" data-val="Twitter / X">Twitter / X</div>
           </div>
-          <div class="sub-label">Grade Level</div>
-          <div class="chips" id="s-chips-3b">
-            <div class="chip" data-val="middle school level" data-single="true">Middle school</div>
-            <div class="chip" data-val="high school level" data-single="true">High school</div>
+          <div class="sub-label">Audience Type</div>
+          <div class="chips" id="cr-chips-3b">
+            <div class="chip" data-val="a broad general audience — write for clarity and wide appeal, avoid niche jargon">General audience</div>
+            <div class="chip" data-val="industry professionals who know the space — use technical language and skip the basics">Industry professionals</div>
+            <div class="chip" data-val="potential customers or consumers — focus on value, relevance, and what's in it for them">Customers / consumers</div>
+            <div class="chip" data-val="decision-makers or executives — lead with impact, be concise, no fluff">Decision-makers</div>
+            <div class="chip" data-val="a niche community with shared knowledge and culture — lean into the in-group voice">Niche community</div>
           </div>
-          <div class="sub-label">Assignment Type</div>
-          <div class="chips" id="s-chips-3c">
-            <div class="chip" data-val="an essay / research paper">Essay / Research paper</div>
-            <div class="chip" data-val="a problem set">Problem set</div>
-            <div class="chip" data-val="a presentation">Presentation</div>
-            <div class="chip" data-val="a creative writing">Creative writing</div>
-            <div class="chip" data-val="a reflective journal entry">Reflective journal entry</div>
-            <div class="chip" data-val="a lab report">Lab report</div>
-            <div class="chip" data-val="a reading response">Reading response</div>
-          </div>
-          <input type="text" id="s-input-3" placeholder="Or describe your assignment. Don't share personal info." />
+          <input type="text" id="cr-input-3" placeholder="Or describe the audience and where this will be published..." />
         </div>
       </div>
 
-      <!-- S4: Constraints -->
-      <div class="field stu-field">
+      <!-- CR4: Stage of Work -->
+      <div class="field creative-field">
         <div class="field-header">
-          <div class="field-num" style="background:#5b8dee18;color:var(--c4)">04</div>
+          <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
           <div>
-            <div class="field-title">Any academic guardrails AI should know?</div>
+            <div class="field-title">Where are you in the work?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="cr-chips-stage">
+            <div class="chip" data-val="Starting from a blank page. Build from the brief or idea I'll share." data-single="true">Blank page</div>
+            <div class="chip" data-val="I have a brief or concept but nothing written. Develop it into content." data-single="true">Have a brief / concept</div>
+            <div class="chip" data-val="I have a rough draft. Improve the structure, voice, and impact." data-single="true">Have a rough draft</div>
+            <div class="chip" data-val="I have a near-final draft. Make targeted refinements — sharpen language, fix flow, nothing radical." data-single="true">Polishing final draft</div>
+            <div class="chip" data-val="I have existing content to repurpose. Adapt the message for the new format or channel." data-single="true">Repurposing content</div>
+          </div>
+          <input type="text" id="cr-input-stage" placeholder="Or describe where you are in the work..." />
+        </div>
+      </div>
+
+      <!-- CR5: Starting Material -->
+      <div class="field creative-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#a78bfa18;color:var(--c5)">05</div>
+          <div>
+            <div class="field-title">What are you starting from?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="cr-chips-material">
+            <div class="chip" data-val="No prior content. Build from the direction and context provided in this prompt." data-single="true">No prior content</div>
+            <div class="chip" data-val="A brief or creative direction will be provided. Treat it as the primary guide." data-single="true">Have a brief</div>
+            <div class="chip" data-val="A draft will be provided. Work from it directly — preserve the intent." data-single="true">Have a draft</div>
+            <div class="chip" data-val="Reference content or examples will be provided. Use them to calibrate style and direction." data-single="true">Have reference content</div>
+            <div class="chip" data-val="Brand or style guidelines will be provided. Adhere to them without exception." data-single="true">Have brand guidelines</div>
+          </div>
+          <input type="text" id="cr-input-material" placeholder="Or describe what you're starting from..." />
+        </div>
+      </div>
+
+      <!-- CR6: Voice & Tone -->
+      <div class="field creative-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#5b8dee18;color:var(--c1)">06</div>
+          <div>
+            <div class="field-title">What's the voice and tone?</div>
             <div class="field-hint">Multi-select · or write your own below</div>
           </div>
         </div>
         <div class="field-body">
-          <div class="chips" id="s-chips-4">
-            <div class="chip" data-val="Don't give me the answer — help me figure it out myself">No answers / spoilers</div>
-            <div class="chip" data-val="Cite credible sources whenever you reference facts or claims">Cite sources</div>
-            <div class="chip" data-val="Keep explanations simple and jargon-free — I'm still building my understanding">Keep it basic</div>
-            <div class="chip" data-val="I have a word or page limit — don't give me more than I need">Word / page limit</div>
-            <div class="chip" data-val="This needs to sound like me — don't write in a way I couldn't have written myself">My own voice</div>
-            <div class="chip" data-val="I'm not allowed to use AI to write this. Don't produce any content I could paste in — guide me only">AI-restricted assignment</div>
+          <div class="chips" id="cr-chips-voice">
+            <div class="chip" data-val="conversational and approachable — write like you're talking to a person, not publishing a press release">Conversational</div>
+            <div class="chip" data-val="witty and playful — allow personality and lightness without being frivolous">Witty / Playful</div>
+            <div class="chip" data-val="authoritative and confident — establish credibility, don't hedge">Authoritative</div>
+            <div class="chip" data-val="inspiring and motivational — build toward a feeling, not just information">Inspiring</div>
+            <div class="chip" data-val="direct and no-fluff — cut everything that doesn't earn its place, get to the point fast">Direct / No-fluff</div>
+            <div class="chip" data-val="warm and human — write with empathy and authenticity, avoid corporate language">Warm / Human</div>
+            <div class="chip" data-val="narrative and story-driven — use structure, tension, and detail to carry the message">Storytelling</div>
           </div>
-          <input type="text" id="s-input-4" placeholder="e.g. My essay needs to be 500–700 words. MLA format required." />
+          <input type="text" id="cr-input-voice" placeholder="Or describe the voice and tone..." />
         </div>
       </div>
 
       <!-- Tier 2 -->
-      <div class="tier-label" >Tier 2 — Fine-tune your output</div>
-      <div class="tier2-content open" id="s-tier2">
-        <div class="field-row">
-          <div class="field stu-field">
-            <div class="field-header">
-              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
-              <div><div class="field-title">Tone</div><div class="field-hint">Single-select</div></div>
-            </div>
-            <div class="field-body">
-              <div class="chips" id="s-chips-5a">
-                <div class="chip" data-val="concise" data-single="true">Concise</div>
-                <div class="chip" data-val="detailed" data-single="true">Detailed</div>
-                <div class="chip" data-val="conversational" data-single="true">Conversational</div>
-                <div class="chip" data-val="patient and encouraging" data-single="true">Patient & encouraging</div>
-              </div> 
-              <input type="text" id="s-input-5a" placeholder="Or describe your tone preference..." />
-            </div>
-          </div>
-          <div class="field stu-field">
-            <div class="field-header">
-              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
-              <div><div class="field-title">Format</div><div class="field-hint">Single-select</div></div>
-            </div>
-            <div class="field-body">
-              <div class="chips" id="s-chips-5b">
-                <div class="chip" data-val="bullet points" data-single="true">Bullet points</div>
-                <div class="chip" data-val="step-by-step" data-single="true">Step-by-step</div>
-                <div class="chip" data-val="prose" data-single="true">Prose</div>
-                <div class="chip" data-val="examples where possible" data-single="true">Use examples</div>
-              </div> 
-              <input type="text" id="s-input-5b" placeholder="Or describe your format preference..." />
-            </div>
-          </div>
-        </div>
-        <div class="field stu-field">
+      <div class="tier-label">Fine-tune your output</div>
+      <div class="tier2-content open" id="cr-tier2">
+
+        <!-- CR7: Specific Challenge -->
+        <div class="field creative-field">
           <div class="field-header">
-            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
-            <div><div class="field-title">Anything else?</div><div class="field-hint">Extra info or things AI should avoid</div></div>
+            <div class="field-num" style="background:#e06c8a18;color:var(--c2)">07</div>
+            <div>
+              <div class="field-title">Any specific challenge to flag?</div>
+              <div class="field-hint">Multi-select · or write your own below</div>
+            </div>
           </div>
           <div class="field-body">
-            <textarea id="s-input-6" rows="3" placeholder="e.g. I struggle with thesis statements. I've already done the research, I just need help organizing."></textarea>
+            <div class="chips" id="cr-chips-challenge">
+              <div class="chip" data-val="I'm stuck at the blank page. Give me a strong opening I can react to and build from.">Blank page paralysis</div>
+              <div class="chip" data-val="The hook or angle isn't clear yet. Help me find the most compelling entry point before writing.">Unclear angle / hook</div>
+              <div class="chip" data-val="There's too much to say. Help me identify the essential message and cut everything else.">Too much to say</div>
+              <div class="chip" data-val="This needs to stand out in a crowded space. Push for something unexpected — not the safe, obvious option.">Needs to stand out</div>
+              <div class="chip" data-val="Preserving voice is critical. Don't sand down the personality or make it sound generic.">Must preserve my voice</div>
+              <div class="chip" data-val="There is a strict word or character limit. Every word must earn its place — no filler, no padding.">Strict word limit</div>
+            </div>
+            <input type="text" id="cr-input-challenge" placeholder="Or describe the specific challenge..." />
+          </div>
+        </div>
+
+        <!-- CR8: Output Format -->
+        <div class="field creative-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#4ecdc418;color:var(--c3)">08</div>
+            <div><div class="field-title">Output format</div><div class="field-hint">Single-select · or write your own below</div></div>
+          </div>
+          <div class="field-body">
+            <div class="chips" id="cr-chips-8b">
+              <div class="chip" data-val="full draft — complete, ready-to-publish content" data-single="true">Full draft</div>
+              <div class="chip" data-val="structured outline — main sections and key points, nothing written out yet" data-single="true">Outline only</div>
+              <div class="chip" data-val="multiple variations — at least 3 distinct options, each with a different angle or approach" data-single="true">Multiple variations</div>
+              <div class="chip" data-val="annotated draft — write the content and add brief notes explaining key creative choices" data-single="true">Annotated draft</div>
+              <div class="chip" data-val="opening options only — 3–5 strong hooks or opening paragraphs to choose from" data-single="true">Opening options</div>
+            </div>
+            <input type="text" id="cr-input-8b" placeholder="Or describe the output format..." />
+          </div>
+        </div>
+
+        <!-- CR9: Constraints -->
+        <div class="field creative-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">09</div>
+            <div><div class="field-title">Constraints</div><div class="field-hint">Anything the AI should know or avoid</div></div>
+          </div>
+          <div class="field-body">
+            <textarea id="cr-input-9" rows="3" placeholder="e.g. Max 300 words. No buzzwords. Avoid passive voice. Must include a CTA."></textarea>
           </div>
         </div>
       </div>
-    </div><!-- /student -->
+    </div><!-- /creative -->
 
 
     <!-- ═══════════════════════════════════════════
@@ -1781,7 +2069,7 @@
     ════════════════════════════════════════════ -->
     <div class="theme-panel" id="panel-college">
 
-      <div class="tier-label">Tier 1 — Core Setup</div>
+      <div class="tier-label">Core Setup</div>
 
       <!-- CG1: Task -->
       <div class="field cre-field">
@@ -1794,13 +2082,13 @@
         </div>
         <div class="field-body">
           <div class="chips" id="cg-chips-1">
-            <div class="chip" data-val="Help me understand a difficult concept — explain it clearly and connect it to what I already know">Understand a concept</div>
-            <div class="chip" data-val="Help me develop a thesis or research angle — push back until I have something defensible">Develop a thesis / argument</div>
-            <div class="chip" data-val="Help me build a structure or outline for my paper — guide me through it, don't hand it to me">Outline a paper</div>
-            <div class="chip" data-val="Review my draft and give me specific, actionable feedback I can use">Review my draft</div>
-            <div class="chip" data-val="Help me prepare for an exam or oral defense — quiz me, find my gaps, and push harder as I improve">Prep for exam / defense</div>
-            <div class="chip" data-val="Help me understand and critically engage with an academic source or reading">Engage with a source</div>
-            <div class="chip" data-val="Help me get unstuck — ask what I've already tried before jumping to a solution">Get unstuck</div>
+            <div class="chip" data-val="Help me understand a difficult concept. Explain it clearly, connect it to what I already know, and check that I actually follow.">Understand a concept</div>
+            <div class="chip" data-val="Help me develop a thesis or research argument. Push back until I have something specific and defensible.">Develop a thesis / argument</div>
+            <div class="chip" data-val="Help me build a structure or outline for this paper. Guide me through it — don't just hand it to me.">Outline a paper</div>
+            <div class="chip" data-val="Review my draft and give specific, actionable feedback I can actually use.">Review my draft</div>
+            <div class="chip" data-val="Help me prepare for an exam or oral defense. Quiz me, identify gaps, and push harder as I improve.">Prep for exam / defense</div>
+            <div class="chip" data-val="Help me understand and critically engage with the provided academic source.">Engage with a source</div>
+            <div class="chip" data-val="Help me get unstuck. Ask what I've already tried before jumping to a solution.">Get unstuck</div>
           </div>
           <input type="text" id="cg-input-1" placeholder="Or describe what you need help with..." />
         </div>
@@ -1817,12 +2105,12 @@
         </div>
         <div class="field-body">
           <div class="chips" id="cg-chips-2">
-            <div class="chip" data-val="Explain it to me — use precise language and real examples, then check that I follow" data-single="true">Explain it to me</div>
-            <div class="chip" data-val="Don't explain yet — ask me questions and help me think it through myself" data-single="true">Ask me questions</div>
-            <div class="chip" data-val="Give me critical feedback — don't soften it" data-single="true">Give me critical feedback</div>
-            <div class="chip" data-val="Quiz me — start with core concepts and push harder as I get things right" data-single="true">Quiz me</div>
-            <div class="chip" data-val="Be my thinking partner — push back on my ideas and stress-test my reasoning" data-single="true">Thinking partner</div>
-            <div class="chip" data-val="Act as a peer reviewer — give structured, academic-style feedback on my work" data-single="true">Peer reviewer</div>
+            <div class="chip" data-val="Explain it using precise language and real examples. Check that I follow before moving on." data-single="true">Explain it to me</div>
+            <div class="chip" data-val="Don't explain yet. Ask questions and help me work through it myself — guide, don't tell." data-single="true">Ask me questions</div>
+            <div class="chip" data-val="Give me honest, critical feedback. Don't soften it — I need to know what's actually weak." data-single="true">Give me critical feedback</div>
+            <div class="chip" data-val="Quiz me. Start with core concepts and push harder as I get things right. Tell me when I'm wrong." data-single="true">Quiz me</div>
+            <div class="chip" data-val="Be my thinking partner. Push back on my ideas, challenge my assumptions, and stress-test my reasoning." data-single="true">Thinking partner</div>
+            <div class="chip" data-val="Act as a peer reviewer. Give structured, academic-style feedback — what works, what's weak, specific improvements." data-single="true">Peer reviewer</div>
           </div>
           <input type="text" id="cg-input-2" placeholder="Or describe how you'd like AI to help..." />
         </div>
@@ -1833,7 +2121,7 @@
         <div class="field-header">
           <div class="field-num" style="background:#4ecdc418;color:var(--c3)">03</div>
           <div>
-            <div class="field-title">Tell AI about your coursework.</div>
+            <div class="field-title">Tell AI about your coursework</div>
             <div class="field-hint">Multi-select · or write your own below</div>
           </div>
         </div>
@@ -1895,24 +2183,67 @@
           </div>
           <div class="sub-label">Assignment Type</div>
           <div class="chips" id="cg-chips-3d">
-            <div class="chip" data-val="a research paper or essay">Research paper / Essay</div>
-            <div class="chip" data-val="a literature review">Literature review</div>
-            <div class="chip" data-val="a problem set">Problem set</div>
-            <div class="chip" data-val="a lab report">Lab report</div>
-            <div class="chip" data-val="a case study">Case study</div>
-            <div class="chip" data-val="a thesis or dissertation chapter">Thesis / Dissertation</div>
-            <div class="chip" data-val="a presentation">Presentation</div>
-            <div class="chip" data-val="a coding or technical project">Coding / Technical project</div>
-            <div class="chip" data-val="a reflection or response paper">Reflection / Response paper</div>
+            <div class="chip" data-val="a research paper or essay — focus on argument structure, evidence, and scholarly voice">Research paper / Essay</div>
+            <div class="chip" data-val="a literature review — synthesize sources and identify patterns or gaps across the literature">Literature review</div>
+            <div class="chip" data-val="a problem set — work through the reasoning step by step, don't just give the answer">Problem set</div>
+            <div class="chip" data-val="a lab report — follow scientific writing conventions, focus on methodology and results interpretation">Lab report</div>
+            <div class="chip" data-val="a case study — apply theoretical frameworks to the scenario provided, don't just describe it">Case study</div>
+            <div class="chip" data-val="a thesis or dissertation chapter — treat this as high-stakes academic writing with scholarly standards">Thesis / Dissertation</div>
+            <div class="chip" data-val="a presentation — prioritize clear structure, logical flow, and what the audience needs to take away">Presentation</div>
+            <div class="chip" data-val="a coding or technical project — prioritize correctness, efficiency, and clear explanation of the approach">Coding / Technical project</div>
+            <div class="chip" data-val="a reflection or response paper — help develop an original, well-supported personal position">Reflection / Response paper</div>
           </div>
           <input type="text" id="cg-input-3" placeholder="Or describe your course and assignment. Don't share personal info." />
         </div>
       </div>
 
-      <!-- CG4: Guardrails -->
+      <!-- CG4: Stage of Work -->
       <div class="field cre-field">
         <div class="field-header">
           <div class="field-num" style="background:#f7c94818;color:var(--c4)">04</div>
+          <div>
+            <div class="field-title">Where are you in the work?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="cg-chips-stage">
+            <div class="chip" data-val="Starting this assignment from scratch. Help me identify the right approach, structure the argument, and define what needs to be answered." data-single="true">Starting fresh</div>
+            <div class="chip" data-val="I have rough notes or initial ideas but nothing structured. Help me develop and organize them." data-single="true">Have rough notes / ideas</div>
+            <div class="chip" data-val="I'm mid-draft. Help me strengthen the argument and push toward a complete, coherent piece." data-single="true">Mid-draft</div>
+            <div class="chip" data-val="I have a complete draft. Focus on revision — argument quality, clarity, and academic rigor." data-single="true">Have a complete draft</div>
+            <div class="chip" data-val="I've received feedback from a professor or peer that will be provided. Help me understand and act on each point." data-single="true">Received feedback to address</div>
+            <div class="chip" data-val="I'm preparing for an exam or oral defense. Help me identify gaps and consolidate my understanding." data-single="true">Exam / defense prep</div>
+          </div>
+          <input type="text" id="cg-input-stage" placeholder="Or describe where you are in the work..." />
+        </div>
+      </div>
+
+      <!-- CG5: Starting Material -->
+      <div class="field cre-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#a78bfa18;color:var(--c5)">05</div>
+          <div>
+            <div class="field-title">What are you starting from?</div>
+            <div class="field-hint">Single-select · or write your own below</div>
+          </div>
+        </div>
+        <div class="field-body">
+          <div class="chips" id="cg-chips-material">
+            <div class="chip" data-val="No prior material — starting from scratch based on the assignment prompt I'll share." data-single="true">Nothing yet</div>
+            <div class="chip" data-val="Course readings or materials will be provided. Work from them directly." data-single="true">Course readings / materials</div>
+            <div class="chip" data-val="My own notes or rough outline will be provided. Help develop them into a complete piece." data-single="true">My own notes / outline</div>
+            <div class="chip" data-val="A partial draft will be provided. Build on what's there — don't restart." data-single="true">Partial draft</div>
+            <div class="chip" data-val="Professor or instructor feedback will be provided. Help me interpret and address each point." data-single="true">Professor feedback</div>
+          </div>
+          <input type="text" id="cg-input-material" placeholder="Or describe what you're starting from..." />
+        </div>
+      </div>
+
+      <!-- CG6: Academic Guardrails -->
+      <div class="field cre-field">
+        <div class="field-header">
+          <div class="field-num" style="background:#5b8dee18;color:var(--c1)">06</div>
           <div>
             <div class="field-title">Any academic guardrails AI should know?</div>
             <div class="field-hint">Multi-select · or write your own below</div>
@@ -1920,57 +2251,83 @@
         </div>
         <div class="field-body">
           <div class="chips" id="cg-chips-4">
-            <div class="chip" data-val="Don't give me the answer — help me work through it myself">No answers / spoilers</div>
-            <div class="chip" data-val="Cite academic sources — I'll specify the format (APA / MLA / Chicago / IEEE)">Cite sources</div>
-            <div class="chip" data-val="Preserve my academic voice — don't write in a way I couldn't have written myself">My own voice</div>
-            <div class="chip" data-val="This is AI-restricted — guide only, produce nothing I could paste in">AI-restricted assignment</div>
-            <div class="chip" data-val="I have a word or page limit — stay within scope">Word / page limit</div>
-            <div class="chip" data-val="Flag logical gaps or weak arguments in my thinking — don't let me slide">Flag weak arguments</div>
-            <div class="chip" data-val="Keep it rigorous — I can handle technical depth and precise language">Keep it rigorous</div>
+            <div class="chip" data-val="Don't give me the answer. Help me work through the reasoning myself.">No answers / spoilers</div>
+            <div class="chip" data-val="Cite academic sources where relevant. I'll specify the citation format if needed.">Cite sources</div>
+            <div class="chip" data-val="Preserve my academic voice. Don't write in a way I couldn't have written myself.">My own voice</div>
+            <div class="chip" data-val="This is AI-restricted. Guide only — produce nothing I could paste in directly.">AI-restricted assignment</div>
+            <div class="chip" data-val="I have a word or page limit. Stay within scope — don't pad.">Word / page limit</div>
+            <div class="chip" data-val="Flag logical gaps and weak arguments in my thinking. Don't let me slide past problems.">Flag weak arguments</div>
+            <div class="chip" data-val="Keep it rigorous. I can handle technical depth and precise language — don't dumb it down.">Keep it rigorous</div>
           </div>
           <input type="text" id="cg-input-4" placeholder="e.g. This paper must follow Chicago style. 12-page limit." />
         </div>
       </div>
 
       <!-- Tier 2 -->
-      <div class="tier-label">Tier 2 — Fine-tune your output</div>
+      <div class="tier-label">Fine-tune your output</div>
       <div class="tier2-content open" id="cg-tier2">
+
+        <!-- CG7: Specific Challenge -->
+        <div class="field cre-field">
+          <div class="field-header">
+            <div class="field-num" style="background:#e06c8a18;color:var(--c2)">07</div>
+            <div>
+              <div class="field-title">Any specific challenge to flag?</div>
+              <div class="field-hint">Multi-select · or write your own below</div>
+            </div>
+          </div>
+          <div class="field-body">
+            <div class="chips" id="cg-chips-challenge">
+              <div class="chip" data-val="The argument isn't holding together. Focus on strengthening the logic and structure before anything else.">Argument not holding</div>
+              <div class="chip" data-val="I have sources but can't synthesize them into a coherent position. Help me find the through-line.">Can't synthesize sources</div>
+              <div class="chip" data-val="The topic is too broad. Help me narrow it to something specific and defensible.">Topic too broad</div>
+              <div class="chip" data-val="I'm under significant time pressure. Prioritize the highest-impact improvements.">Time pressure</div>
+              <div class="chip" data-val="I'm not clear on what the assignment is asking. Help me decode the requirements before diving in.">Unclear requirements</div>
+              <div class="chip" data-val="This is a new type of assignment for me. Explain the conventions and expectations first.">New assignment type</div>
+            </div>
+            <input type="text" id="cg-input-challenge" placeholder="Or describe the specific challenge..." />
+          </div>
+        </div>
+
+        <!-- CG8: Tone / Format -->
         <div class="field-row">
           <div class="field cre-field">
             <div class="field-header">
-              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5a</div>
+              <div class="field-num" style="background:#4ecdc418;color:var(--c3)">8a</div>
               <div><div class="field-title">Tone</div><div class="field-hint">Single-select</div></div>
             </div>
             <div class="field-body">
               <div class="chips" id="cg-chips-5a">
-                <div class="chip" data-val="direct and rigorous" data-single="true">Direct & rigorous</div>
-                <div class="chip" data-val="concise" data-single="true">Concise</div>
-                <div class="chip" data-val="detailed" data-single="true">Detailed</div>
-                <div class="chip" data-val="conversational" data-single="true">Conversational</div>
+                <div class="chip" data-val="direct and rigorous — precise language, no hand-holding, push back on weak thinking" data-single="true">Direct & rigorous</div>
+                <div class="chip" data-val="concise — lead with the key point, cut everything that doesn't add to it" data-single="true">Concise</div>
+                <div class="chip" data-val="detailed — show the full reasoning, not just the conclusion" data-single="true">Detailed</div>
+                <div class="chip" data-val="conversational — clear and approachable, like explaining to a sharp peer" data-single="true">Conversational</div>
               </div>
               <input type="text" id="cg-input-5a" placeholder="Or describe your tone preference..." />
             </div>
           </div>
           <div class="field cre-field">
             <div class="field-header">
-              <div class="field-num" style="background:#a78bfa18;color:var(--c5)">5b</div>
+              <div class="field-num" style="background:#f7c94818;color:var(--c4)">8b</div>
               <div><div class="field-title">Format</div><div class="field-hint">Single-select</div></div>
             </div>
             <div class="field-body">
               <div class="chips" id="cg-chips-5b">
-                <div class="chip" data-val="bullet points" data-single="true">Bullet points</div>
-                <div class="chip" data-val="step-by-step" data-single="true">Step-by-step</div>
-                <div class="chip" data-val="prose" data-single="true">Prose</div>
-                <div class="chip" data-val="annotated feedback" data-single="true">Annotated feedback</div>
-                <div class="chip" data-val="examples where possible" data-single="true">Use examples</div>
+                <div class="chip" data-val="bullet points — structured and scannable" data-single="true">Bullet points</div>
+                <div class="chip" data-val="numbered steps — make the sequence explicit" data-single="true">Step-by-step</div>
+                <div class="chip" data-val="flowing prose — well-structured paragraphs" data-single="true">Prose</div>
+                <div class="chip" data-val="annotated feedback — comment directly on specific parts of my work" data-single="true">Annotated feedback</div>
+                <div class="chip" data-val="include concrete examples — ground every abstract idea in a specific case" data-single="true">Use examples</div>
               </div>
               <input type="text" id="cg-input-5b" placeholder="Or describe your format preference..." />
             </div>
           </div>
         </div>
+
+        <!-- CG9: Constraints -->
         <div class="field cre-field">
           <div class="field-header">
-            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">06</div>
+            <div class="field-num" style="background:#a78bfa18;color:var(--c5)">09</div>
             <div><div class="field-title">Anything else?</div><div class="field-hint">Extra context or things AI should avoid</div></div>
           </div>
           <div class="field-body">
@@ -1991,44 +2348,52 @@
       <div class="output-header">
         <div class="output-label">
           <div class="live-dot"></div>
-          <span id="output-theme-badge" class="theme-badge" style="background:#5b8dee22;color:var(--c1)">Agency</span>
-          Generated Prompt
+          <span id="output-theme-badge" class="theme-badge" style="background:#5b8dee22;color:var(--c1)">Consulting</span>
         </div>
-        <div class="copy-btn-wrap">
-          <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy Prompt</button>
-          <span class="copy-tooltip">Paste into any AI you use</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="output-tabs">
+            <button class="output-tab active" id="tab-inputs" onclick="switchOutputTab('inputs')">Inputs</button>
+            <button class="output-tab" id="tab-prompt" onclick="switchOutputTab('prompt')">Prompt</button>
+          </div>
+          <div class="copy-btn-wrap" id="copy-btn-wrap">
+            <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy Prompt</button>
+            <span class="copy-tooltip">Paste into any AI you use</span>
+          </div>
         </div>
       </div>
-      <div class="output-body">
+      <div class="output-body" id="tab-panel-prompt" style="display:none">
         <div id="prompt-preview"><span class="placeholder-msg">Your prompt will appear here as you fill in the fields above. No data is collected — your inputs stay in your browser and go nowhere else.</span></div>
       </div>
-      <div class="legend" id="legend-agency">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>AI Role</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Client</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Context</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Style</div>
+      <div class="output-body" id="tab-panel-inputs">
+        <div id="inputs-summary"><span class="placeholder-msg">Select options above to see your inputs summarised here.</span></div>
+      </div>
+      <div class="legend" id="legend-consulting">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task · Material</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>Role · Challenge</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Stakeholder · Tone</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Audience · Format</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Stage · Constraints</div>
       </div>
       <div class="legend" id="legend-education" style="display:none">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>Role</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Students</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Context</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Style</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task · Constraints</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>Role · Challenge</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Classroom · Tone</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Stage · Format</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Material · Style</div>
       </div>
-      <div class="legend" id="legend-student" style="display:none">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>AI Mode</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Assignment</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Constraints</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Style</div>
+      <div class="legend" id="legend-creative" style="display:none">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task · Voice</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>Content · Challenge</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Audience · Format</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Stage</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Material · Constraints</div>
       </div>
       <div class="legend" id="legend-college" style="display:none">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>AI Mode</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Coursework</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Guardrails</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Style</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task · Guardrails</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>AI Support · Challenge</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Coursework · Tone</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Stage · Format</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Material · Style</div>
       </div>
       <div class="output-footer">
         <div class="meta" id="meta">— / —</div>
@@ -2050,36 +2415,50 @@
 // ══════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════
-const themes = ['agency', 'education', 'student', 'college'];
-let currentTheme = 'agency';
+const themes = ['consulting', 'education', 'college', 'creative'];
+let currentTheme = 'consulting';
 
 const state = {
-  agency: {
+  consulting: {
     f1chips: [], f1text: '',
     f2chip: '',  f2text: '',
     f3industry: [], f3situation: [], f3text: '',
-    f4chips: [], f4text: '',
-    f5a: '', f5a_text: '', f5b: '', f5b_text: '', f6: ''
+    f4audience: [], f4audience_text: '',
+    f5stage: '', f5stage_text: '',
+    f6material: '', f6material_text: '',
+    f7challenge: [], f7challenge_text: '',
+    f8a: '', f8a_text: '', f8b: '', f8b_text: '',
+    f9: ''
   },
   education: {
     f1chips: [], f1text: '',
     f2chip: '',  f2text: '',
     f3grade: [], f3situation: [], f3subject: [], f3text: '',
     f4chips: [], f4text: '',
-    f5a: '', f5a_text: '', f5b: '', f5b_text: '', f6: ''
+    f5stage: '', f5stage_text: '',
+    f6material: '', f6material_text: '',
+    f7challenge: [], f7challenge_text: '',
+    f8a: '', f8a_text: '', f8b: '', f8b_text: '', f9: ''
   },
-  student: {
+  creative: {
     f1chips: [], f1text: '',
-    f2chip: '',  f2text: '',
-    f3subject: [], f3level: '', f3type: [], f3text: '',
-    f4chips: [], f4text: '',
-    f5a: '', f5a_text: '', f5b: '', f5b_text: '', f6: ''
+    f2chip: '', f2text: '',
+    f3platform: [], f3audience: [], f3text: '',
+    fstage: '', fstage_text: '',
+    fmaterial: '', fmaterial_text: '',
+    fvoice: [], fvoice_text: '',
+    fchallenge: [], fchallenge_text: '',
+    f8b: '', f8b_text: '',
+    f9: ''
   },
   college: {
     f1chips: [], f1text: '',
     f2chip: '',  f2text: '',
     f3field: '', f3major: [], f3level: '', f3type: [], f3text: '',
     f4chips: [], f4text: '',
+    fstage: '', fstage_text: '',
+    fmaterial: '', fmaterial_text: '',
+    fchallenge: [], fchallenge_text: '',
     f5a: '', f5a_text: '', f5b: '', f5b_text: '', f6: ''
   }
 };
@@ -2126,55 +2505,70 @@ function wireText(inputId, onUpdate) {
 //  WIRE ALL FIELDS
 // ══════════════════════════════════════════════
 
-// — AGENCY —
-wireChips('a-chips-1', false, () => { state.agency.f1chips = getActiveVals('a-chips-1'); render(); });
-wireChips('a-chips-2', true,  () => { state.agency.f2chip  = getSingleVal('a-chips-2'); render(); });
-wireChips('a-chips-3a',false, () => { state.agency.f3industry  = getActiveVals('a-chips-3a'); render(); });
-wireChips('a-chips-3c',false, () => { state.agency.f3situation = getActiveVals('a-chips-3c'); render(); });
-wireChips('a-chips-4', false, () => { state.agency.f4chips = getActiveVals('a-chips-4'); render(); });
-wireChips('a-chips-5a',true,  () => { state.agency.f5a = getSingleVal('a-chips-5a'); render(); });
-wireChips('a-chips-5b',true,  () => { state.agency.f5b = getSingleVal('a-chips-5b'); render(); });
-wireText('a-input-1', v => state.agency.f1text = v);
-wireText('a-input-2', v => state.agency.f2text = v);
-wireText('a-input-3', v => state.agency.f3text = v);
-wireText('a-input-4', v => state.agency.f4text = v);
-wireText('a-input-5a', v => state.agency.f5a_text = v);
-wireText('a-input-5b', v => state.agency.f5b_text = v);
-wireText('a-input-6', v => state.agency.f6 = v);
+// — CONSULTING —
+wireChips('a-chips-1', false, () => { state.consulting.f1chips    = getActiveVals('a-chips-1'); render(); });
+wireChips('a-chips-2', true,  () => { state.consulting.f2chip     = getSingleVal('a-chips-2');  render(); });
+wireChips('a-chips-3a',false, () => { state.consulting.f3industry  = getActiveVals('a-chips-3a'); render(); });
+wireChips('a-chips-3c',false, () => { state.consulting.f3situation = getActiveVals('a-chips-3c'); render(); });
+wireChips('a-chips-4', false, () => { state.consulting.f4audience  = getActiveVals('a-chips-4'); render(); });
+wireChips('a-chips-5', true,  () => { state.consulting.f5stage    = getSingleVal('a-chips-5');  render(); });
+wireChips('a-chips-6', true,  () => { state.consulting.f6material = getSingleVal('a-chips-6');  render(); });
+wireChips('a-chips-7', false, () => { state.consulting.f7challenge = getActiveVals('a-chips-7'); render(); });
+wireChips('a-chips-8a',true,  () => { state.consulting.f8a        = getSingleVal('a-chips-8a'); render(); });
+wireChips('a-chips-8b',true,  () => { state.consulting.f8b        = getSingleVal('a-chips-8b'); render(); });
+wireText('a-input-1',  v => state.consulting.f1text          = v);
+wireText('a-input-2',  v => state.consulting.f2text          = v);
+wireText('a-input-3',  v => state.consulting.f3text          = v);
+wireText('a-input-4',  v => state.consulting.f4audience_text = v);
+wireText('a-input-5',  v => state.consulting.f5stage_text    = v);
+wireText('a-input-6',  v => state.consulting.f6material_text = v);
+wireText('a-input-7',  v => state.consulting.f7challenge_text = v);
+wireText('a-input-8a', v => state.consulting.f8a_text        = v);
+wireText('a-input-8b', v => state.consulting.f8b_text        = v);
+wireText('a-input-9',  v => state.consulting.f9              = v);
 
 // — EDUCATION —
-wireChips('e-chips-1', false, () => { state.education.f1chips = getActiveVals('e-chips-1'); render(); });
-wireChips('e-chips-2', true,  () => { state.education.f2chip  = getSingleVal('e-chips-2'); render(); });
-wireChips('e-chips-3a',false, () => { state.education.f3grade     = getActiveVals('e-chips-3a'); render(); });
-wireChips('e-chips-3b',false, () => { state.education.f3situation = getActiveVals('e-chips-3b'); render(); });
-wireChips('e-chips-3c',false, () => { state.education.f3subject = getActiveVals('e-chips-3c'); render(); });
-wireChips('e-chips-4', false, () => { state.education.f4chips = getActiveVals('e-chips-4'); render(); });
-wireChips('e-chips-5a',true,  () => { state.education.f5a = getSingleVal('e-chips-5a'); render(); });
-wireChips('e-chips-5b',true,  () => { state.education.f5b = getSingleVal('e-chips-5b'); render(); });
-wireText('e-input-1', v => state.education.f1text = v);
-wireText('e-input-2', v => state.education.f2text = v);
-wireText('e-input-3', v => state.education.f3text = v);
-wireText('e-input-4', v => state.education.f4text = v);
-wireText('e-input-5a', v => state.education.f5a_text = v);
-wireText('e-input-5b', v => state.education.f5b_text = v);
-wireText('e-input-6', v => state.education.f6 = v);
+wireChips('e-chips-1',        false, () => { state.education.f1chips      = getActiveVals('e-chips-1'); render(); });
+wireChips('e-chips-2',        true,  () => { state.education.f2chip       = getSingleVal('e-chips-2'); render(); });
+wireChips('e-chips-3a',       false, () => { state.education.f3grade      = getActiveVals('e-chips-3a'); render(); });
+wireChips('e-chips-3b',       false, () => { state.education.f3situation  = getActiveVals('e-chips-3b'); render(); });
+wireChips('e-chips-3c',       false, () => { state.education.f3subject    = getActiveVals('e-chips-3c'); render(); });
+wireChips('e-chips-4',        false, () => { state.education.f4chips      = getActiveVals('e-chips-4'); render(); });
+wireChips('e-chips-stage',    true,  () => { state.education.f5stage      = getSingleVal('e-chips-stage'); render(); });
+wireChips('e-chips-material', true,  () => { state.education.f6material   = getSingleVal('e-chips-material'); render(); });
+wireChips('e-chips-challenge',false, () => { state.education.f7challenge  = getActiveVals('e-chips-challenge'); render(); });
+wireChips('e-chips-5a',       true,  () => { state.education.f8a          = getSingleVal('e-chips-5a'); render(); });
+wireChips('e-chips-5b',       true,  () => { state.education.f8b          = getSingleVal('e-chips-5b'); render(); });
+wireText('e-input-1',        v => state.education.f1text           = v);
+wireText('e-input-2',        v => state.education.f2text           = v);
+wireText('e-input-3',        v => state.education.f3text           = v);
+wireText('e-input-4',        v => state.education.f4text           = v);
+wireText('e-input-stage',    v => state.education.f5stage_text     = v);
+wireText('e-input-material', v => state.education.f6material_text  = v);
+wireText('e-input-challenge',v => state.education.f7challenge_text = v);
+wireText('e-input-5a',       v => state.education.f8a_text         = v);
+wireText('e-input-5b',       v => state.education.f8b_text         = v);
+wireText('e-input-6',        v => state.education.f9               = v);
 
-// — STUDENT —
-wireChips('s-chips-1', false, () => { state.student.f1chips = getActiveVals('s-chips-1'); render(); });
-wireChips('s-chips-2', true,  () => { state.student.f2chip  = getSingleVal('s-chips-2'); render(); });
-wireChips('s-chips-3a',false, () => { state.student.f3subject = getActiveVals('s-chips-3a'); render(); });
-wireChips('s-chips-3b',true,  () => { state.student.f3level   = getSingleVal('s-chips-3b'); render(); });
-wireChips('s-chips-3c',false, () => { state.student.f3type    = getActiveVals('s-chips-3c'); render(); });
-wireChips('s-chips-4', false, () => { state.student.f4chips = getActiveVals('s-chips-4'); render(); });
-wireChips('s-chips-5a',true,  () => { state.student.f5a = getSingleVal('s-chips-5a'); render(); });
-wireChips('s-chips-5b',true,  () => { state.student.f5b = getSingleVal('s-chips-5b'); render(); });
-wireText('s-input-1', v => state.student.f1text = v);
-wireText('s-input-2', v => state.student.f2text = v);
-wireText('s-input-3', v => state.student.f3text = v);
-wireText('s-input-4', v => state.student.f4text = v);
-wireText('s-input-5a', v => state.student.f5a_text = v);
-wireText('s-input-5b', v => state.student.f5b_text = v);
-wireText('s-input-6', v => state.student.f6 = v);
+// — CREATIVE —
+wireChips('cr-chips-1',        false, () => { state.creative.f1chips    = getActiveVals('cr-chips-1'); render(); });
+wireChips('cr-chips-2',        true,  () => { state.creative.f2chip     = getSingleVal('cr-chips-2'); render(); });
+wireChips('cr-chips-3a',       false, () => { state.creative.f3platform = getActiveVals('cr-chips-3a'); render(); });
+wireChips('cr-chips-3b',       false, () => { state.creative.f3audience = getActiveVals('cr-chips-3b'); render(); });
+wireChips('cr-chips-stage',    true,  () => { state.creative.fstage     = getSingleVal('cr-chips-stage'); render(); });
+wireChips('cr-chips-material', true,  () => { state.creative.fmaterial  = getSingleVal('cr-chips-material'); render(); });
+wireChips('cr-chips-voice',    false, () => { state.creative.fvoice     = getActiveVals('cr-chips-voice'); render(); });
+wireChips('cr-chips-challenge',false, () => { state.creative.fchallenge = getActiveVals('cr-chips-challenge'); render(); });
+wireChips('cr-chips-8b',       true,  () => { state.creative.f8b        = getSingleVal('cr-chips-8b'); render(); });
+wireText('cr-input-1',        v => state.creative.f1text          = v);
+wireText('cr-input-2',        v => state.creative.f2text          = v);
+wireText('cr-input-3',        v => state.creative.f3text          = v);
+wireText('cr-input-stage',    v => state.creative.fstage_text     = v);
+wireText('cr-input-material', v => state.creative.fmaterial_text  = v);
+wireText('cr-input-voice',    v => state.creative.fvoice_text     = v);
+wireText('cr-input-challenge',v => state.creative.fchallenge_text = v);
+wireText('cr-input-8b',       v => state.creative.f8b_text        = v);
+wireText('cr-input-9',        v => state.creative.f9              = v);
 
 // — COLLEGE/GRAD —
 wireChips('cg-chips-1', false, () => { state.college.f1chips = getActiveVals('cg-chips-1'); render(); });
@@ -2218,16 +2612,123 @@ wireChips('cg-chips-2', true,  () => { state.college.f2chip  = getSingleVal('cg-
 
 wireChips('cg-chips-3c', true,  () => { state.college.f3level = getSingleVal('cg-chips-3c'); render(); });
 wireChips('cg-chips-3d', false, () => { state.college.f3type  = getActiveVals('cg-chips-3d'); render(); });
-wireChips('cg-chips-4',  false, () => { state.college.f4chips = getActiveVals('cg-chips-4'); render(); });
-wireChips('cg-chips-5a', true,  () => { state.college.f5a = getSingleVal('cg-chips-5a'); render(); });
-wireChips('cg-chips-5b', true,  () => { state.college.f5b = getSingleVal('cg-chips-5b'); render(); });
-wireText('cg-input-1', v => state.college.f1text = v);
-wireText('cg-input-2', v => state.college.f2text = v);
-wireText('cg-input-3', v => state.college.f3text = v);
-wireText('cg-input-4', v => state.college.f4text = v);
-wireText('cg-input-5a', v => state.college.f5a_text = v);
-wireText('cg-input-5b', v => state.college.f5b_text = v);
-wireText('cg-input-6', v => state.college.f6 = v);
+wireChips('cg-chips-4',        false, () => { state.college.f4chips   = getActiveVals('cg-chips-4'); render(); });
+wireChips('cg-chips-stage',    true,  () => { state.college.fstage    = getSingleVal('cg-chips-stage'); render(); });
+wireChips('cg-chips-material', true,  () => { state.college.fmaterial = getSingleVal('cg-chips-material'); render(); });
+wireChips('cg-chips-challenge',false, () => { state.college.fchallenge = getActiveVals('cg-chips-challenge'); render(); });
+wireChips('cg-chips-5a',       true,  () => { state.college.f5a       = getSingleVal('cg-chips-5a'); render(); });
+wireChips('cg-chips-5b',       true,  () => { state.college.f5b       = getSingleVal('cg-chips-5b'); render(); });
+wireText('cg-input-1',        v => state.college.f1text          = v);
+wireText('cg-input-2',        v => state.college.f2text          = v);
+wireText('cg-input-3',        v => state.college.f3text          = v);
+wireText('cg-input-4',        v => state.college.f4text          = v);
+wireText('cg-input-stage',    v => state.college.fstage_text     = v);
+wireText('cg-input-material', v => state.college.fmaterial_text  = v);
+wireText('cg-input-challenge',v => state.college.fchallenge_text = v);
+wireText('cg-input-5a',       v => state.college.f5a_text        = v);
+wireText('cg-input-5b',       v => state.college.f5b_text        = v);
+wireText('cg-input-6',        v => state.college.f6              = v);
+
+// ══════════════════════════════════════════════
+//  OUTPUT TABS
+// ══════════════════════════════════════════════
+let currentOutputTab = 'inputs';
+
+function switchOutputTab(tab) {
+  currentOutputTab = tab;
+  document.getElementById('tab-prompt').classList.toggle('active', tab === 'prompt');
+  document.getElementById('tab-inputs').classList.toggle('active', tab === 'inputs');
+  document.getElementById('tab-panel-prompt').style.display = tab === 'prompt' ? '' : 'none';
+  document.getElementById('tab-panel-inputs').style.display = tab === 'inputs' ? '' : 'none';
+  if (tab === 'inputs') renderInputsSummary();
+}
+
+function getActiveLabels(containerId) {
+  const el = document.getElementById(containerId);
+  if (!el) return [];
+  return [...el.querySelectorAll('.chip.active')].map(c => c.textContent.trim());
+}
+
+function getInputVal(inputId) {
+  const el = document.getElementById(inputId);
+  return el ? el.value.trim() : '';
+}
+
+const summaryConfig = {
+  consulting: [
+    { label: 'Task',        color: 'var(--c1)', chips: ['a-chips-1'],                  texts: ['a-input-1']  },
+    { label: 'AI Role',     color: 'var(--c2)', chips: ['a-chips-2'],                  texts: ['a-input-2']  },
+    { label: 'Context',     color: 'var(--c3)', chips: ['a-chips-3a', 'a-chips-3c'],   texts: ['a-input-3']  },
+    { label: 'Audience',    color: 'var(--c4)', chips: ['a-chips-4'],                  texts: ['a-input-4']  },
+    { label: 'Stage',       color: 'var(--c5)', chips: ['a-chips-5'],                  texts: ['a-input-5']  },
+    { label: 'Material',    color: 'var(--c1)', chips: ['a-chips-6'],                  texts: ['a-input-6']  },
+    { label: 'Challenge',   color: 'var(--c2)', chips: ['a-chips-7'],                  texts: ['a-input-7']  },
+    { label: 'Tone',        color: 'var(--c3)', chips: ['a-chips-8a'],                 texts: ['a-input-8a'] },
+    { label: 'Format',      color: 'var(--c4)', chips: ['a-chips-8b'],                 texts: ['a-input-8b'] },
+    { label: 'Constraints', color: 'var(--c5)', chips: [],                              texts: ['a-input-9']  },
+  ],
+  education: [
+    { label: 'Task',        color: 'var(--c1)', chips: ['e-chips-1'],                             texts: ['e-input-1']        },
+    { label: 'AI Role',     color: 'var(--c2)', chips: ['e-chips-2'],                             texts: ['e-input-2']        },
+    { label: 'Class',       color: 'var(--c3)', chips: ['e-chips-3a','e-chips-3b','e-chips-3c'],  texts: ['e-input-3']        },
+    { label: 'Constraints', color: 'var(--c1)', chips: ['e-chips-4'],                             texts: ['e-input-4']        },
+    { label: 'Stage',       color: 'var(--c4)', chips: ['e-chips-stage'],                         texts: ['e-input-stage']    },
+    { label: 'Material',    color: 'var(--c5)', chips: ['e-chips-material'],                      texts: ['e-input-material'] },
+    { label: 'Challenge',   color: 'var(--c2)', chips: ['e-chips-challenge'],                     texts: ['e-input-challenge']},
+    { label: 'Tone',        color: 'var(--c3)', chips: ['e-chips-5a'],                            texts: ['e-input-5a']       },
+    { label: 'Format',      color: 'var(--c4)', chips: ['e-chips-5b'],                            texts: ['e-input-5b']       },
+    { label: 'Notes',       color: 'var(--c5)', chips: [],                                         texts: ['e-input-6']        },
+  ],
+  creative: [
+    { label: 'Task',        color: 'var(--c1)', chips: ['cr-chips-1'],                          texts: ['cr-input-1']         },
+    { label: 'Content',     color: 'var(--c2)', chips: ['cr-chips-2'],                          texts: ['cr-input-2']         },
+    { label: 'Platform',    color: 'var(--c3)', chips: ['cr-chips-3a','cr-chips-3b'],           texts: ['cr-input-3']         },
+    { label: 'Stage',       color: 'var(--c4)', chips: ['cr-chips-stage'],                      texts: ['cr-input-stage']     },
+    { label: 'Material',    color: 'var(--c5)', chips: ['cr-chips-material'],                   texts: ['cr-input-material']  },
+    { label: 'Voice',       color: 'var(--c1)', chips: ['cr-chips-voice'],                      texts: ['cr-input-voice']     },
+    { label: 'Challenge',   color: 'var(--c2)', chips: ['cr-chips-challenge'],                  texts: ['cr-input-challenge'] },
+    { label: 'Format',      color: 'var(--c3)', chips: ['cr-chips-8b'],                         texts: ['cr-input-8b']        },
+    { label: 'Constraints', color: 'var(--c5)', chips: [],                                       texts: ['cr-input-9']         },
+  ],
+  college: [
+    { label: 'Task',        color: 'var(--c1)', chips: ['cg-chips-1'],                                          texts: ['cg-input-1']         },
+    { label: 'AI Support',  color: 'var(--c2)', chips: ['cg-chips-2'],                                          texts: ['cg-input-2']         },
+    { label: 'Context',     color: 'var(--c3)', chips: ['cg-chips-3a','cg-chips-3b','cg-chips-3c','cg-chips-3d'], texts: ['cg-input-3']       },
+    { label: 'Guardrails',  color: 'var(--c4)', chips: ['cg-chips-4'],                                          texts: ['cg-input-4']         },
+    { label: 'Stage',       color: 'var(--c5)', chips: ['cg-chips-stage'],                                      texts: ['cg-input-stage']     },
+    { label: 'Material',    color: 'var(--c1)', chips: ['cg-chips-material'],                                   texts: ['cg-input-material']  },
+    { label: 'Challenge',   color: 'var(--c2)', chips: ['cg-chips-challenge'],                                  texts: ['cg-input-challenge'] },
+    { label: 'Tone',        color: 'var(--c3)', chips: ['cg-chips-5a'],                                         texts: ['cg-input-5a']        },
+    { label: 'Format',      color: 'var(--c4)', chips: ['cg-chips-5b'],                                         texts: ['cg-input-5b']        },
+    { label: 'Notes',       color: 'var(--c5)', chips: [],                                                       texts: ['cg-input-6']         },
+  ],
+};
+
+function renderInputsSummary() {
+  const el = document.getElementById('inputs-summary');
+  const config = summaryConfig[currentTheme];
+  const rows = config
+    .map(row => {
+      const chips = row.chips.flatMap(id => getActiveLabels(id));
+      const texts = row.texts.map(id => getInputVal(id)).filter(Boolean);
+      return chips.length || texts.length ? { ...row, chips, texts } : null;
+    })
+    .filter(Boolean);
+
+  if (!rows.length) {
+    el.innerHTML = '<span class="placeholder-msg">No inputs selected yet — fill in fields above to see your choices summarised here.</span>';
+    return;
+  }
+
+  el.innerHTML = rows.map(row => `
+    <div class="inputs-summary-row">
+      <div class="inputs-summary-label" style="color:${row.color}">${row.label}</div>
+      <div class="inputs-summary-tags">
+        ${row.chips.map(c => `<span class="inputs-summary-chip">${c}</span>`).join('')}
+        ${row.texts.map(t => `<span class="inputs-summary-freetext">"${t}"</span>`).join('')}
+      </div>
+    </div>`).join('');
+}
 
 // ══════════════════════════════════════════════
 //  HELPERS
@@ -2239,72 +2740,95 @@ function joinList(arr) {
   return arr.slice(0, -1).join(', ') + ', and ' + arr[arr.length - 1];
 }
 
-function isFullSentence(str) { return /[.!?]$/.test(str.trim()); }
-
 function wrapFragment(str, label) {
   if (!str) return '';
   str = str.trim();
-  if (isFullSentence(str)) return str;
   return label + ': ' + str + '.';
 }
 // ══════════════════════════════════════════════
 //  BUILD PROMPTS
 // ══════════════════════════════════════════════
-function buildAgency() {
-  const s = state.agency;
+function buildConsulting() {
+  const s = state.consulting;
   const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
                  s.f3industry.length || s.f3situation.length || s.f3text ||
-                 s.f4chips.length || s.f4text;
+                 s.f4audience.length || s.f4audience_text ||
+                 s.f5stage || s.f5stage_text ||
+                 s.f6material || s.f6material_text ||
+                 s.f7challenge.length || s.f7challenge_text;
   if (!hasAny) return null;
 
   const plain = [], html = [];
   function add(p, h) { plain.push(p); html.push(h); }
+  const trim = v => String(v).replace(/\.+$/, '');
 
   const aiRole = s.f2chip || s.f2text;
   if (aiRole) {
-    const sentence = isFullSentence(aiRole) ? aiRole : 'YOUR ROLE: ' + aiRole + '.';
+    const sentence = 'YOUR ROLE: ' + trim(aiRole) + '.';
     add(sentence, '<span class="hl-a2">' + sentence + '</span>');
   }
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
-    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + trim(s.f1chips.join(' ')) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
+    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + trim(s.f1chips.join(' ')) + '.';
     else sentence = wrapFragment(s.f1text, 'YOUR TASK TODAY');
     add(sentence, '<span class="hl-a1">' + sentence + '</span>');
   }
 
   if (s.f3industry.length || s.f3situation.length || s.f3text) {
-    let desc = 'CONTEXT: the client/audience is';
-    
+    let desc = 'STAKEHOLDER CONTEXT: the stakeholder is';
     if (s.f3industry.length) desc += ' in ' + joinList(s.f3industry) + ' industry';
-    if (!s.f3industry.length) desc += '';
-    if (s.f3situation.length) desc += ' currently focused on ' + joinList(s.f3situation);
+    if (s.f3situation.length) desc += ' currently ' + s.f3situation.join('; ');
     desc += '.';
-    if (s.f3text) desc += ' ' + wrapFragment(s.f3text, 'CONTEXT');
-    const sentence = (s.f3industry.length || s.f3situation.length) ? desc : wrapFragment(s.f3text, 'CONTEXT');
+    if (s.f3text) desc += ' ' + wrapFragment(s.f3text, 'STAKEHOLDER CONTEXT');
+    const sentence = (s.f3industry.length || s.f3situation.length) ? desc : wrapFragment(s.f3text, 'STAKEHOLDER CONTEXT');
     add(sentence, '<span class="hl-a3">' + sentence + '</span>');
   }
 
-  if (s.f4chips.length || s.f4text) {
+  if (s.f4audience.length || s.f4audience_text) {
     let sentence;
-    if (s.f4chips.length && s.f4text) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text, 'ADDITIONAL CONTEXT');
-    else if (s.f4chips.length) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '.';
-    else sentence = wrapFragment(s.f4text, 'ADDITIONAL CONTEXT');
+    if (s.f4audience.length && s.f4audience_text) sentence = 'TARGET AUDIENCE: ' + trim(s.f4audience.join(' ')) + '. ' + wrapFragment(s.f4audience_text, 'TARGET AUDIENCE');
+    else if (s.f4audience.length) sentence = 'TARGET AUDIENCE: ' + trim(s.f4audience.join(' ')) + '.';
+    else sentence = wrapFragment(s.f4audience_text, 'TARGET AUDIENCE');
     add(sentence, '<span class="hl-a4">' + sentence + '</span>');
   }
 
-  if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
-    const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
-    add('OUTPUT TONE & FORMAT: ' + joinList(parts) + '.',
-        'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-a5">' + p + '</span>').join(' and ') + '.');
+  if (s.f5stage || s.f5stage_text) {
+    const val = s.f5stage || s.f5stage_text;
+    const sentence = 'STAGE OF WORK: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-a5">' + sentence + '</span>');
   }
 
-  if (s.f6) { const sentence = wrapFragment(s.f6, 'CONSTRAINTS'); add(sentence, '<span class="hl-a5">' + sentence + '</span>'); }
+  if (s.f6material || s.f6material_text) {
+    const val = s.f6material || s.f6material_text;
+    const sentence = 'STARTING MATERIAL: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-a6">' + sentence + '</span>');
+  }
 
-  const closing = `\nWhen sharing insights or recommendations, acknowledge any assumptions that go into the analysis and highlight the limitations of your response.
-  \nIMPORTANT: Never fabricate, assume, or infer insights beyond what the data directly supports. If you are uncertain, say so clearly rather than guessing.
-  `;
+  if (s.f7challenge.length || s.f7challenge_text) {
+    let sentence;
+    if (s.f7challenge.length && s.f7challenge_text) sentence = 'SPECIFIC CHALLENGE: ' + trim(s.f7challenge.join(' ')) + '. ' + wrapFragment(s.f7challenge_text, 'SPECIFIC CHALLENGE');
+    else if (s.f7challenge.length) sentence = 'SPECIFIC CHALLENGE: ' + trim(s.f7challenge.join(' ')) + '.';
+    else sentence = wrapFragment(s.f7challenge_text, 'SPECIFIC CHALLENGE');
+    add(sentence, '<span class="hl-a7">' + sentence + '</span>');
+  }
+
+  if (s.f8a || s.f8a_text) {
+    const val = s.f8a || s.f8a_text;
+    const sentence = 'OUTPUT TONE: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-a8">' + sentence + '</span>');
+  }
+
+  if (s.f8b || s.f8b_text) {
+    const val = s.f8b || s.f8b_text;
+    const sentence = 'OUTPUT FORMAT: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-a9">' + sentence + '</span>');
+  }
+
+  if (s.f9) { const sentence = wrapFragment(s.f9, 'CONSTRAINTS'); add(sentence, '<span class="hl-a10">' + sentence + '</span>'); }
+
+  const closing = `\nLead with the most important point. State assumptions explicitly. If uncertain, name what you'd need to be more confident — don't hedge vaguely.`;
   add(closing, closing);
 
   return { plain: plain.join('\n'), highlighted: html.join('\n') };
@@ -2313,56 +2837,160 @@ function buildAgency() {
 function buildEducation() {
   const s = state.education;
   const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
-                 s.f3grade.length || s.f3situation.length ||s.f3subject.length || s.f3text ||
-                 s.f4chips.length || s.f4text;
+                 s.f3grade.length || s.f3situation.length || s.f3subject.length || s.f3text ||
+                 s.f4chips.length || s.f4text ||
+                 s.f5stage || s.f5stage_text ||
+                 s.f6material || s.f6material_text ||
+                 s.f7challenge.length || s.f7challenge_text;
   if (!hasAny) return null;
 
   const plain = [], html = [];
   function add(p, h) { plain.push(p); html.push(h); }
+  const trim = v => String(v).replace(/\.+$/, '');
 
   const role = s.f2chip || s.f2text;
   if (role) {
-    const sentence = isFullSentence(role) ? role : 'USER\'S ROLE: a ' + role + '.';
+    const sentence = 'USER\'S ROLE: ' + trim(role) + '.';
     add(sentence, '<span class="hl-e2">' + sentence + '</span>');
   }
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
-    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + trim(s.f1chips.join(' ')) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
+    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + trim(s.f1chips.join(' ')) + '.';
     else sentence = wrapFragment(s.f1text, 'YOUR TASK TODAY');
     add(sentence, '<span class="hl-e1">' + sentence + '</span>');
   }
 
   if (s.f3grade.length || s.f3situation.length || s.f3subject.length || s.f3text) {
     let parts = [];
-    if (s.f3grade.length) parts.push('' + joinList(s.f3grade));
-    if (s.f3situation.length) parts.push('' + joinList(s.f3situation));
+    if (s.f3grade.length) parts.push(joinList(s.f3grade));
+    if (s.f3situation.length) parts.push(s.f3situation.join('; '));
     if (s.f3subject.length) parts.push('the subject is ' + joinList(s.f3subject));
     let desc = parts.length ? 'CLASS CONTEXT: ' + parts.join(', ') + '.' : '';
     if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text, 'CLASS CONTEXT');
     if (desc) add(desc, '<span class="hl-e3">' + desc + '</span>');
   }
 
-  if (s.f4chips.length || s.f4text) {
-    let sentence;
-    if (s.f4chips.length && s.f4text) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text, 'ADDITIONAL CONTEXT');
-    else if (s.f4chips.length) sentence = 'ADDITIONAL CONTEXT: ' + joinList(s.f4chips) + '.';
-    else sentence = wrapFragment(s.f4text, 'ADDITIONAL CONTEXT');
+  if (s.f5stage || s.f5stage_text) {
+    const val = s.f5stage || s.f5stage_text;
+    const sentence = 'STAGE OF WORK: ' + trim(val) + '.';
     add(sentence, '<span class="hl-e4">' + sentence + '</span>');
   }
 
-  if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
-    const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
-    add('OUTPUT TONE & FORMAT:  ' + joinList(parts) + '.',
-        'OUTPUT TONE & FORMAT:  ' + parts.map(p => '<span class="hl-e5">' + p + '</span>').join(' and ') + '.');
+  if (s.f6material || s.f6material_text) {
+    const val = s.f6material || s.f6material_text;
+    const sentence = 'STARTING MATERIAL: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-e5">' + sentence + '</span>');
   }
 
-  if (s.f6) { const sentence = wrapFragment(s.f6, 'CONSTRAINTS'); add(sentence, '<span class="hl-e5">' + sentence + '</span>'); }
+  if (s.f4chips.length || s.f4text) {
+    let sentence;
+    if (s.f4chips.length && s.f4text) sentence = 'PRACTICAL CONSTRAINTS: ' + trim(s.f4chips.join(' ')) + '. ' + wrapFragment(s.f4text, 'PRACTICAL CONSTRAINTS');
+    else if (s.f4chips.length) sentence = 'PRACTICAL CONSTRAINTS: ' + trim(s.f4chips.join(' ')) + '.';
+    else sentence = wrapFragment(s.f4text, 'PRACTICAL CONSTRAINTS');
+    add(sentence, '<span class="hl-e1">' + sentence + '</span>');
+  }
 
-  const closing = `\nWork only with the context that provided by me. If you make any assumptions to fill in gaps — about class size, time available, resources, or student needs — state them briefly at the start of your response.
-  \nKeep your output practical and immediately usable, not idealized. If something I've described makes a standard approach unrealistic, say so and adjust accordingly.
-  `;
+  if (s.f7challenge.length || s.f7challenge_text) {
+    let sentence;
+    if (s.f7challenge.length && s.f7challenge_text) sentence = 'SPECIFIC CHALLENGE: ' + trim(s.f7challenge.join(' ')) + '. ' + wrapFragment(s.f7challenge_text, 'SPECIFIC CHALLENGE');
+    else if (s.f7challenge.length) sentence = 'SPECIFIC CHALLENGE: ' + trim(s.f7challenge.join(' ')) + '.';
+    else sentence = wrapFragment(s.f7challenge_text, 'SPECIFIC CHALLENGE');
+    add(sentence, '<span class="hl-e7">' + sentence + '</span>');
+  }
+
+  if (s.f8a || s.f8a_text || s.f8b || s.f8b_text) {
+    const tone = trim(s.f8a || s.f8a_text || '');
+    const fmt  = trim(s.f8b || s.f8b_text || '');
+    const parts = [tone, fmt].filter(Boolean);
+    add('OUTPUT TONE & FORMAT: ' + parts.join('; ') + '.',
+        'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-e8">' + p + '</span>').join('; ') + '.');
+  }
+
+  if (s.f9) { const sentence = wrapFragment(s.f9, 'CONSTRAINTS'); add(sentence, '<span class="hl-e9">' + sentence + '</span>'); }
+
+  const closing = `\nWork only with the context provided. If you make assumptions to fill gaps — about class size, time, resources, or student needs — state them briefly at the start.\nKeep output practical and immediately usable. If something described makes a standard approach unrealistic, say so and adjust.`;
+  add(closing, closing);
+
+  return { plain: plain.join('\n'), highlighted: html.join('\n') };
+}
+
+function buildCreative() {
+  const s = state.creative;
+  const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
+                 s.f3platform.length || s.f3audience.length || s.f3text ||
+                 s.fstage || s.fstage_text ||
+                 s.fmaterial || s.fmaterial_text ||
+                 s.fvoice.length || s.fvoice_text ||
+                 s.fchallenge.length || s.fchallenge_text;
+  if (!hasAny) return null;
+
+  const plain = [], html = [];
+  function add(p, h) { plain.push(p); html.push(h); }
+  const trim = v => String(v).replace(/\.+$/, '');
+
+  if (s.f1chips.length || s.f1text) {
+    let sentence;
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + trim(s.f1chips.join(' ')) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
+    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + trim(s.f1chips.join(' ')) + '.';
+    else sentence = wrapFragment(s.f1text, 'YOUR TASK TODAY');
+    add(sentence, '<span class="hl-cr1">' + sentence + '</span>');
+  }
+
+  if (s.f2chip || s.f2text) {
+    const val = s.f2chip || s.f2text;
+    const sentence = 'CONTENT TYPE: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-cr2">' + sentence + '</span>');
+  }
+
+  if (s.f3platform.length || s.f3audience.length || s.f3text) {
+    let parts = [];
+    if (s.f3platform.length) parts.push('CHANNEL: ' + joinList(s.f3platform));
+    if (s.f3audience.length) parts.push('AUDIENCE: ' + trim(s.f3audience.join(' ')));
+    let desc = parts.join('. ');
+    if (desc) desc += '.';
+    if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text, 'AUDIENCE & CHANNEL');
+    if (desc) add(desc, '<span class="hl-cr3">' + desc + '</span>');
+  }
+
+  if (s.fstage || s.fstage_text) {
+    const val = s.fstage || s.fstage_text;
+    const sentence = 'STAGE OF WORK: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-cr4">' + sentence + '</span>');
+  }
+
+  if (s.fmaterial || s.fmaterial_text) {
+    const val = s.fmaterial || s.fmaterial_text;
+    const sentence = 'STARTING MATERIAL: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-cr5">' + sentence + '</span>');
+  }
+
+  if (s.fvoice.length || s.fvoice_text) {
+    let sentence;
+    if (s.fvoice.length && s.fvoice_text) sentence = 'VOICE & TONE: ' + trim(s.fvoice.join(' ')) + '. ' + wrapFragment(s.fvoice_text, 'VOICE & TONE');
+    else if (s.fvoice.length) sentence = 'VOICE & TONE: ' + trim(s.fvoice.join(' ')) + '.';
+    else sentence = wrapFragment(s.fvoice_text, 'VOICE & TONE');
+    add(sentence, '<span class="hl-cr6">' + sentence + '</span>');
+  }
+
+  if (s.fchallenge.length || s.fchallenge_text) {
+    let sentence;
+    if (s.fchallenge.length && s.fchallenge_text) sentence = 'SPECIFIC CHALLENGE: ' + trim(s.fchallenge.join(' ')) + '. ' + wrapFragment(s.fchallenge_text, 'SPECIFIC CHALLENGE');
+    else if (s.fchallenge.length) sentence = 'SPECIFIC CHALLENGE: ' + trim(s.fchallenge.join(' ')) + '.';
+    else sentence = wrapFragment(s.fchallenge_text, 'SPECIFIC CHALLENGE');
+    add(sentence, '<span class="hl-cr7">' + sentence + '</span>');
+  }
+
+  if (s.f8b || s.f8b_text) {
+    const val = s.f8b || s.f8b_text;
+    const sentence = 'OUTPUT FORMAT: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-cr8">' + sentence + '</span>');
+  }
+
+  if (s.f9) { const sentence = wrapFragment(s.f9, 'CONSTRAINTS'); add(sentence, '<span class="hl-cr9">' + sentence + '</span>'); }
+
+  const closing = `\nPreserve the creator's voice. If you make creative choices that weren't explicitly requested, name them so they can be accepted or rejected.\nDo not homogenize. Distinctive writing is the goal.`;
   add(closing, closing);
 
   return { plain: plain.join('\n'), highlighted: html.join('\n') };
@@ -2388,7 +3016,7 @@ function buildStudent() {
 
   const aiMode = s.f2chip || s.f2text;
   if (aiMode) {
-    const sentence = isFullSentence(aiMode) ? aiMode : 'HOW TO HELP: ' + aiMode + '.';
+    const sentence = 'HOW TO HELP: ' + aiMode + '.';
     add(sentence, '<span class="hl-s2">' + sentence + '</span>');
   }
 
@@ -2430,23 +3058,27 @@ function buildCollege() {
   const s = state.college;
   const hasAny = s.f1chips.length || s.f1text || s.f2chip || s.f2text ||
                  s.f3field || s.f3major.length || s.f3level || s.f3type.length || s.f3text ||
-                 s.f4chips.length || s.f4text;
+                 s.f4chips.length || s.f4text ||
+                 s.fstage || s.fstage_text ||
+                 s.fmaterial || s.fmaterial_text ||
+                 s.fchallenge.length || s.fchallenge_text;
   if (!hasAny) return null;
 
   const plain = [], html = [];
   function add(p, h) { plain.push(p); html.push(h); }
+  const trim = v => String(v).replace(/\.+$/, '');
 
   if (s.f1chips.length || s.f1text) {
     let sentence;
-    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
-    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + joinList(s.f1chips) + '.';
+    if (s.f1chips.length && s.f1text) sentence = 'YOUR TASK TODAY: ' + trim(s.f1chips.join(' ')) + '. ' + wrapFragment(s.f1text, 'YOUR TASK TODAY');
+    else if (s.f1chips.length) sentence = 'YOUR TASK TODAY: ' + trim(s.f1chips.join(' ')) + '.';
     else sentence = wrapFragment(s.f1text, 'YOUR TASK TODAY');
     add(sentence, '<span class="hl-c1">' + sentence + '</span>');
   }
 
   const aiMode = s.f2chip || s.f2text;
   if (aiMode) {
-    const sentence = isFullSentence(aiMode) ? aiMode : 'HOW TO HELP: ' + aiMode + '.';
+    const sentence = 'HOW TO HELP: ' + trim(aiMode) + '.';
     add(sentence, '<span class="hl-c2">' + sentence + '</span>');
   }
 
@@ -2455,33 +3087,52 @@ function buildCollege() {
     if (s.f3field) parts.push('FIELD: ' + s.f3field);
     if (s.f3major.length) parts.push('MAJOR: ' + joinList(s.f3major));
     if (s.f3level) parts.push('LEVEL: ' + s.f3level);
-    if (s.f3type.length) parts.push('ASSIGNMENT: ' + joinList(s.f3type));
+    if (s.f3type.length) parts.push('ASSIGNMENT: ' + s.f3type.join('; '));
     let desc = parts.join('. ');
     if (desc) desc += '.';
     if (s.f3text) desc += (desc ? ' ' : '') + wrapFragment(s.f3text, 'CONTEXT');
     if (desc) add(desc, '<span class="hl-c3">' + desc + '</span>');
   }
 
-  if (s.f4chips.length || s.f4text) {
-    let sentence;
-    if (s.f4chips.length && s.f4text) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '. ' + wrapFragment(s.f4text, 'ACADEMIC GUARDRAILS');
-    else if (s.f4chips.length) sentence = 'ACADEMIC GUARDRAILS: ' + joinList(s.f4chips) + '.';
-    else sentence = wrapFragment(s.f4text, 'ACADEMIC GUARDRAILS');
+  if (s.fstage || s.fstage_text) {
+    const val = s.fstage || s.fstage_text;
+    const sentence = 'STAGE OF WORK: ' + trim(val) + '.';
     add(sentence, '<span class="hl-c4">' + sentence + '</span>');
   }
 
-  if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
-    const parts = [s.f5a || s.f5a_text, s.f5b || s.f5b_text].filter(Boolean);
-    add('OUTPUT TONE & FORMAT: ' + joinList(parts) + '.',
-        'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-c5">' + p + '</span>').join(' and ') + '.');
+  if (s.fmaterial || s.fmaterial_text) {
+    const val = s.fmaterial || s.fmaterial_text;
+    const sentence = 'STARTING MATERIAL: ' + trim(val) + '.';
+    add(sentence, '<span class="hl-c5">' + sentence + '</span>');
   }
 
-  if (s.f6) { const sentence = wrapFragment(s.f6, 'ADDITIONAL CONTEXT'); add(sentence, '<span class="hl-c5">' + sentence + '</span>'); }
+  if (s.f4chips.length || s.f4text) {
+    let sentence;
+    if (s.f4chips.length && s.f4text) sentence = 'ACADEMIC GUARDRAILS: ' + trim(s.f4chips.join(' ')) + '. ' + wrapFragment(s.f4text, 'ACADEMIC GUARDRAILS');
+    else if (s.f4chips.length) sentence = 'ACADEMIC GUARDRAILS: ' + trim(s.f4chips.join(' ')) + '.';
+    else sentence = wrapFragment(s.f4text, 'ACADEMIC GUARDRAILS');
+    add(sentence, '<span class="hl-c6">' + sentence + '</span>');
+  }
 
-  const closing = `\nAsk before you assume — if my request is vague or missing key context, ask one focused question before responding.
-  \nBe intellectually honest — if my argument has gaps or my reasoning is weak, say so directly. Don't soften critique.
-  \nDon't produce content I could paste in — help me build the thinking, not bypass it.
-  `;
+  if (s.fchallenge.length || s.fchallenge_text) {
+    let sentence;
+    if (s.fchallenge.length && s.fchallenge_text) sentence = 'SPECIFIC CHALLENGE: ' + trim(s.fchallenge.join(' ')) + '. ' + wrapFragment(s.fchallenge_text, 'SPECIFIC CHALLENGE');
+    else if (s.fchallenge.length) sentence = 'SPECIFIC CHALLENGE: ' + trim(s.fchallenge.join(' ')) + '.';
+    else sentence = wrapFragment(s.fchallenge_text, 'SPECIFIC CHALLENGE');
+    add(sentence, '<span class="hl-c7">' + sentence + '</span>');
+  }
+
+  if (s.f5a || s.f5a_text || s.f5b || s.f5b_text) {
+    const tone = trim(s.f5a || s.f5a_text || '');
+    const fmt  = trim(s.f5b || s.f5b_text || '');
+    const parts = [tone, fmt].filter(Boolean);
+    add('OUTPUT TONE & FORMAT: ' + parts.join('; ') + '.',
+        'OUTPUT TONE & FORMAT: ' + parts.map(p => '<span class="hl-c8">' + p + '</span>').join('; ') + '.');
+  }
+
+  if (s.f6) { const sentence = wrapFragment(s.f6, 'ADDITIONAL CONTEXT'); add(sentence, '<span class="hl-c9">' + sentence + '</span>'); }
+
+  const closing = `\nBe intellectually honest. If my argument has gaps or my reasoning is weak, say so directly.\nDon't produce content I could paste in. Help me build the thinking, not bypass it.`;
   add(closing, closing);
 
   return { plain: plain.join('\n'), highlighted: html.join('\n') };
@@ -2495,13 +3146,14 @@ function render() {
   const copyBtn = document.getElementById('copy-btn');
   const meta    = document.getElementById('meta');
 
-  const builders = { agency: buildAgency, education: buildEducation, student: buildStudent, college: buildCollege };
+  const builders = { consulting: buildConsulting, education: buildEducation, college: buildCollege, creative: buildCreative };
   const result = builders[currentTheme]();
 
   if (!result) {
     preview.innerHTML = '<span class="placeholder-msg">Your prompt will appear here as you fill in the fields above. No data is collected — your inputs stay in your browser and go nowhere else.</span>';
     copyBtn.disabled = true;
     meta.textContent = '— / —';
+    renderInputsSummary();
     return;
   }
 
@@ -2509,15 +3161,16 @@ function render() {
   copyBtn.disabled = false;
   const words = result.plain.trim().split(/\s+/).filter(Boolean).length;
   meta.textContent = words + ' words · ' + result.plain.length + ' chars';
+  renderInputsSummary();
 }
 
 // ══════════════════════════════════════════════
 //  THEME SWITCH
 // ══════════════════════════════════════════════
 const badgeConfig = {
-  agency:    { label: 'Agency',    bg: '#5b8dee22', color: 'var(--c1)' },
+  consulting:    { label: 'Consulting',    bg: '#5b8dee22', color: 'var(--c1)' },
   education: { label: 'Education', bg: '#5b8dee22', color: 'var(--c1)' },
-  student:   { label: 'Pre-college',   bg: '#5b8dee22', color: 'var(--c1)' },
+  creative:  { label: 'Creative',      bg: '#5b8dee22', color: 'var(--c1)' },
   college:   { label: 'College/Grad',  bg: '#5b8dee22', color: 'var(--c1)' }
 };
 
@@ -2550,7 +3203,7 @@ function switchTheme(theme) {
 //  COPY
 // ══════════════════════════════════════════════
 function copyPrompt() {
-  const builders = { agency: buildAgency, education: buildEducation, student: buildStudent, college: buildCollege };
+  const builders = { consulting: buildConsulting, education: buildEducation, college: buildCollege, creative: buildCreative };
   const result = builders[currentTheme]();
   if (!result) return;
   navigator.clipboard.writeText(result.plain).then(() => {
@@ -2566,21 +3219,21 @@ function copyPrompt() {
 // ══════════════════════════════════════════════
 function resetAll() {
   const t = currentTheme;
-  if (t === 'agency') {
-    state.agency = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3industry:[], f3situation:[], f3text:'', f4chips:[], f4text:'', f5a:'', f5b:'', f6:'' };
+  if (t === 'consulting') {
+    state.consulting = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3industry:[], f3situation:[], f3text:'', f4audience:[], f4audience_text:'', f5stage:'', f5stage_text:'', f6material:'', f6material_text:'', f7challenge:[], f7challenge_text:'', f8a:'', f8a_text:'', f8b:'', f8b_text:'', f9:'' };
   } else if (t === 'education') {
-    state.education = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3grade:[], f3situation:[], f3subject:[], f3text:'', f4chips:[], f4text:'', f5a:'', f5b:'', f6:'' };
-  } else if (t === 'student') {
-    state.student = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3subject:[], f3level:'', f3type:[], f3text:'', f4chips:[], f4text:'', f5a:'', f5b:'', f6:'' };
+    state.education = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3grade:[], f3situation:[], f3subject:[], f3text:'', f4chips:[], f4text:'', f5stage:'', f5stage_text:'', f6material:'', f6material_text:'', f7challenge:[], f7challenge_text:'', f8a:'', f8a_text:'', f8b:'', f8b_text:'', f9:'' };
+  } else if (t === 'creative') {
+    state.creative = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3platform:[], f3audience:[], f3text:'', fstage:'', fstage_text:'', fmaterial:'', fmaterial_text:'', fvoice:[], fvoice_text:'', fchallenge:[], fchallenge_text:'', f8b:'', f8b_text:'', f9:'' };
   } else if (t === 'college') {
-    state.college = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3field:'', f3major:[], f3level:'', f3type:[], f3text:'', f4chips:[], f4text:'', f5a:'', f5a_text:'', f5b:'', f5b_text:'', f6:'' };
+    state.college = { f1chips:[], f1text:'', f2chip:'', f2text:'', f3field:'', f3major:[], f3level:'', f3type:[], f3text:'', f4chips:[], f4text:'', fstage:'', fstage_text:'', fmaterial:'', fmaterial_text:'', fchallenge:[], fchallenge_text:'', f5a:'', f5a_text:'', f5b:'', f5b_text:'', f6:'' };
     document.getElementById('cg-major-label').style.display = 'none';
     const majorContainer = document.getElementById('cg-chips-3b');
     majorContainer.style.display = 'none';
     majorContainer.querySelectorAll('.chip').forEach(c => { c.style.display = 'none'; });
   }
 
-  const prefix = { agency:'a', education:'e', student:'s', college:'cg' }[t];
+  const prefix = { consulting:'a', education:'e', college:'cg', creative:'cr' }[t];
   document.getElementById('panel-' + t).querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   document.getElementById('panel-' + t).querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
   render();
@@ -2593,7 +3246,7 @@ function resetAll() {
 
 // init legend visibility
 themes.forEach(t => {
-  document.getElementById('legend-' + t).style.display = t === 'agency' ? 'flex' : 'none';
+  document.getElementById('legend-' + t).style.display = t === 'consulting' ? 'flex' : 'none';
 });
 
 // ══════════════════════════════════════════════
@@ -2626,37 +3279,37 @@ document.addEventListener('keydown', e => {
 //  MODE-AWARE EXAMPLE MODAL
 // ══════════════════════════════════════════════
 const exampleData = {
-  agency: {
-    subtitle: 'Agency mode · CPG deck scenario',
-    situation: '"I\'m a strategist preparing a competitive landscape deck for a CPG client launching a new product. I need the AI to think like a business strategist and keep things tight for an exec audience."',
+  consulting: {
+    subtitle: 'Consulting mode · Retail strategy business review',
+    situation: '"I\'m a strategy consultant preparing a business review deck for a retail client. Leadership is skeptical about a proposed shift to direct-to-consumer channels. I need an exec-ready argument backed by data that can hold up to scrutiny."',
     fields: [
-      { color: 'var(--c1)', label: 'Task',    val: 'Build a deck' },
-      { color: 'var(--c2)', label: 'AI Role', val: 'Business strategist' },
-      { color: 'var(--c3)', label: 'Client',  val: 'CPG company · New product launch' },
-      { color: 'var(--c4)', label: 'Context', val: 'Executive audience' },
-      { color: 'var(--c5)', label: 'Style',   val: 'Concise · Bullet points' }
+      { color: 'var(--c1)', label: 'Task',      val: 'Build a deck' },
+      { color: 'var(--c2)', label: 'AI Role',   val: 'Business Strategist' },
+      { color: 'var(--c3)', label: 'Client',    val: 'Retail · Business review' },
+      { color: 'var(--c4)', label: 'Audience',  val: 'Executive stakeholder' },
+      { color: 'var(--c5)', label: 'Style',     val: 'Concise · Slide-ready' }
     ]
   },
   education: {
-    subtitle: 'Education mode · Differentiated lesson plan',
-    situation: '"I\'m a middle school art teacher planning some class activities. I need some ideas that works for a large size class."',
+    subtitle: 'Education mode · High school essay feedback',
+    situation: '"I\'m a high school English teacher who needs to write feedback on student persuasive essays. I have a large class and students tend to ignore generic comments. I want feedback that actually gets them to revise."',
     fields: [
-      { color: 'var(--c1)', label: 'Task',     val: 'Class activity' },
-      { color: 'var(--c2)', label: 'Role',     val: 'Classroom teacher' },
-      { color: 'var(--c3)', label: 'Students', val: 'Middle school students (6–8) · Art' },
-      { color: 'var(--c4)', label: 'Context',  val: 'Large class size' },
-      { color: 'var(--c5)', label: 'Style',    val: 'Detailed · Step-by-step' }
+      { color: 'var(--c1)', label: 'Task',      val: 'Student feedback' },
+      { color: 'var(--c2)', label: 'Role',      val: 'Classroom teacher' },
+      { color: 'var(--c3)', label: 'Classroom', val: 'High school · English / ELA' },
+      { color: 'var(--c4)', label: 'Stage',     val: 'Starting from scratch' },
+      { color: 'var(--c5)', label: 'Style',     val: 'Warm & encouraging · Template' }
     ]
   },
-  student: {
-    subtitle: 'Pre-college mode · Chemistry problem set',
-    situation: '"I\'m a 10th grader stuck on a chemistry problem set about limiting reagents. I know we covered balanced equations already, but I keep getting the wrong answer. I don\'t want the answer handed to me — I want to actually understand where I\'m going wrong."',
+  creative: {
+    subtitle: 'Creative mode · SaaS re-engagement email',
+    situation: '"I\'m writing a re-engagement email for SaaS users who haven\'t logged in for 30+ days. I want it to feel direct and human — not another automated drip email they immediately ignore."',
     fields: [
-      { color: 'var(--c1)', label: 'Task',        val: 'Review draft' },
-      { color: 'var(--c2)', label: 'AI Mode',     val: 'Honest critical feedback' },
-      { color: 'var(--c3)', label: 'Assignment',  val: 'High school · Chemistry · Lab report' },
-      { color: 'var(--c4)', label: 'Constraints', val: 'No spoilers · Keep it basic' },
-      { color: 'var(--c5)', label: 'Style',       val: 'Patient & encouraging · Step-by-step' }
+      { color: 'var(--c1)', label: 'Task',     val: 'Write a first draft' },
+      { color: 'var(--c2)', label: 'Content',  val: 'Email / Newsletter' },
+      { color: 'var(--c3)', label: 'Audience', val: 'Email · Customers' },
+      { color: 'var(--c4)', label: 'Stage',    val: 'Have a brief / concept' },
+      { color: 'var(--c5)', label: 'Voice',    val: 'Direct · Warm & human' }
     ]
   },
   college: {
@@ -2673,66 +3326,48 @@ const exampleData = {
 };
 
 const comparisonData = {
-  agency: {
-    themeLabel: 'Agency',
+  consulting: {
+    themeLabel: 'Consulting',
     left: {
-      prompt: 'Help me make a deck for a CPG client launching a new product.',
+      prompt: 'Help me preparing a deck. Leadership is skeptical about a proposed shift to direct-to-consumer channels.',
       messages: [
-        { role: 'ai', html: `Sure! Here's a suggested deck structure:<br><br><strong>1. Title Slide</strong> — Product name, tagline, client logo, date<br><strong>2. Executive Summary</strong> — One-sentence description, key benefits, launch goals<br><strong>3. Market Opportunity</strong> — Market size, trends, competitive landscape<br><strong>4. Consumer Insights</strong> — Target audience, shopper motivations, key trends<br><strong>5. Product Overview</strong> — Features, USP, benefits vs competitors<br><strong>6. Marketing &amp; Launch Strategy</strong> — Channels, promotions, messaging framework<br><strong>7. Distribution &amp; Retail</strong> — Target retailers, shelf placement, e-commerce<br><strong>8. Pricing &amp; Packaging</strong> — Price positioning, packaging design<br><strong>9. Sales &amp; KPIs</strong> — Launch targets, metrics to track success<br><strong>10. Timeline / Next Steps</strong> — Pre-launch, launch, post-launch milestones<br><br>I can fill in the slides with copy tailored to your product. To make this precise, can you tell me:<br>1. What type of product is it?<br>2. Who's the target consumer?<br>3. Are we pitching to internal stakeholders, retailers, or investors?` }
+        { role: 'ai', html: `If leadership is skeptical, your deck shouldn't try to "sell a vision" first — it should reduce perceived risk. Executives push back on DTC because of channel conflict, margin uncertainty, and operational complexity. Structure your deck to answer those concerns before they're voiced.<br><br>Here's a clear, persuasive flow:<br><br><strong>1. Start with the problem (not DTC)</strong><br>Frame what's broken today — slowing channel growth, margin pressure from intermediaries, lack of customer data, dependence on third parties. Make it factual — this sets up why change is necessary.<br><br><strong>2. Reframe DTC as a <em>controlled experiment</em></strong><br>Don't position it as a massive shift. Define scope: a product line, geography, or segment. Emphasize reversibility. This lowers resistance immediately.<br><br><strong>3. Show market validation</strong><br>Reference comparable companies — but highlight what conditions made them succeed, not just that they did it.<br><br><strong>4. Quantify the upside (conservatively)</strong><br>Executives trust modest projections: incremental revenue, margin improvement vs. current channel, value of first-party data. Include a base case that still looks worthwhile even if things go mediocre.<br><br><strong>5. Address the biggest fears head-on</strong><br>Make a slide titled <em>"What could go wrong"</em> — channel conflict, operational burden, CAC, brand risk. This builds credibility fast.<br><br><strong>6. Present a phased roadmap</strong><br>Pilot → Scale → Optimize, with decision gates. Ask for a 90–120 day test window and a small cross-functional team — make the "yes" easy.<br><br>Want me to turn this into actual slide content? What industry are you in, and how mature is your current channel mix?` }
       ]
     },
     right: {
-      prompt: `YOUR ROLE: Act as a business strategist — think in terms of trade-offs, priorities, and outcomes.\nYOUR TASK TODAY: Build a deck that communicates findings clearly.\nCONTEXT: the client/audience is in CPG industry.\nADDITIONAL CONTEXT: this is for an executive audience — be concise and lead with the so-what.\nOUTPUT TONE & FORMAT: concise and bullet points.`,
+      prompt: `YOUR ROLE: You are a business strategist. Prioritize trade-offs, not comprehensiveness. Push for a clear so-what.\nYOUR TASK TODAY: Build a slide-by-slide outline. Each slide: clear headline, supporting bullets, one so-what takeaway.\n[ + 6 more fields configured: Stakeholder · Audience · Stage · Challenge · Tone · Format ]`,
       messages: [
-        { role: 'ai', html: `Understood. Before I draft the deck content, can you clarify: do you want a <strong>full slide-by-slide outline</strong> (titles, bullets, so-what takeaways), or a <strong>summary of key insights and recommendations</strong> that could be dropped into slides?` },
-        { role: 'user', html: `Create a full slide-by-slide outline, including slide titles, bullet points, and so-what takeaways` },
-        { role: 'ai', html: `Here's a concise, executive-focused outline for a CPG company — trade-offs and so-whats in focus throughout:<br><br><strong>Slide 1 — Executive Summary</strong><br>Growth is possible, but requires prioritization across channels, categories, and brand investments.<br><em>So-what: Make high-confidence decisions by understanding trade-offs, not pursuing everything at once.</em><br><br><strong>Slide 2 — Market Overview</strong><br>Premiumization, e-commerce, and convenience are the key consumer trends. Assumption: based on public industry data.<br><em>So-what: Strategic investments should align with sustainability and e-commerce shifts.</em><br><br><strong>Slide 3 — Portfolio Performance</strong><br>High-margin vs. high-volume trade-off. Underperforming SKUs dilute resources.<br><em>So-what: Prioritize categories where growth potential aligns with profitability.</em><br><br><strong>Slide 4 — Strategic Opportunities</strong><br>1. SKU Rationalization — frees resources. 2. Premiumization — may reduce short-term volume. 3. Channel Optimization — risk underexposing mass retail. 4. Innovation Pipeline — requires R&amp;D investment.<br><em>So-what: Weigh short-term profitability vs. long-term brand equity.</em><br><br><strong>Slide 5 — Recommended Next Steps</strong><br>Conduct SKU review → prioritize 2–3 innovations → optimize e-commerce spend → test with high-value segments.<br><em>So-what: Data-backed prioritization reduces risk of spreading resources too thin.</em>` }
+        { role: 'ai', html: `<strong>Slide 1 — Recommendation: Shift to Margin-Led Growth, Not Pure Revenue Growth</strong><br>• Current growth driven by promotions and low-margin categories — unsustainable<br>• Margin compression eroding profitability despite top-line gains<br>• Competitors prioritizing pricing discipline outperform on EBIT<br>• Trade-off: slower revenue growth vs. stronger profitability<br><em>So-what: Optimize for profitable growth now or risk scaling an unprofitable model</em><br><br><strong>Slide 2 — Profitability Is Declining Despite Sales Growth</strong><br>• Revenue +X% YoY; gross margin −Y pts (assumption: recent financials)<br>• Promotions account for disproportionate sales lift but dilute margin<br>• Cost inflation (COGS, logistics) not fully passed to customers<br>• Store-level profitability uneven; bottom quartile dragging results<br><em>So-what: Top-line growth is masking structural profit erosion</em><br><br><strong>Slide 3 — Promotions Are Driving Volume, Not Value</strong><br>• &gt;X% of sales tied to discounts (assumption: promo dependency high)<br>• Incremental volume from promotions has diminishing returns<br>• Customers increasingly price-sensitive; weak full-price sell-through<br>• Competitor benchmarks show lower promo reliance with similar growth<br><em>So-what: Current promo strategy is training customers to wait for discounts</em><br><br><strong>Slide 4 — Category Mix Is Misaligned with Profit Goals</strong><br>• High-growth categories are lower margin (e.g., essentials vs. discretionary)<br>• Premium/private label underpenetrated vs. peers<br>• Inventory skewed toward fast-moving but low-margin SKUs<br>• Trade-off: volume stability vs. margin expansion<br><em>So-what: Growth is coming from the wrong places</em><br><br><strong>Slide 5 — Cost Structure Is Outpacing Efficiency Gains</strong><br>• Labor and supply chain costs rising faster than productivity improvements<br>• Store operations lack standardization — cost variability<br>• Limited automation/digital leverage vs. peers<br>• Assumption: cost base increased X–Y% YoY<br><em>So-what: Without cost action, margin recovery will stall even with pricing fixes</em><br><br><strong>Slide 6 — Customer Economics Are Weakening</strong><br>• Customer acquisition cost rising; retention flat/declining<br>• Basket size growth driven by discounts, not organic demand<br>• Loyalty program under-monetized (low repeat uplift vs. benchmarks)<br>• Key uncertainty: true lifetime value by segment<br><em>So-what: Customer growth is becoming more expensive and less valuable</em><br><br><strong>Slide 7 — Strategic Options (Trade-offs Explicit)</strong><br>1. Double down on promotions — defend volume, sacrifice margin<br>2. Aggressive price increases — margin recovery, risk volume decline<br>3. Rebalance mix + targeted promos — moderate growth, margin expansion<br>• Assumption: elasticity varies significantly by category/segment<br><em>So-what: Only option 3 balances near-term risk with long-term viability</em><br><br><strong>Slide 8 — Recommendation: Rebalance Mix + Targeted Promotions</strong><br>• Reduce blanket discounting; shift to targeted, data-driven offers<br>• Expand private label/premium SKUs (higher margin)<br>• Rationalize low-margin SKUs and underperforming stores<br>• Invest in pricing analytics to optimize elasticity<br><em>So-what: Protect volume where it matters, rebuild margin where it counts</em><br><br><strong>Slide 9 — Expected Impact (Base Case)</strong><br>• Gross margin +X–Y pts within 12–18 months<br>• Revenue growth moderates to X% but EBIT improves materially<br>• Promo dependency reduced by X pts<br>• Sensitivity: high risk if demand elasticity underestimated<br><em>So-what: Short-term growth dip is the cost of long-term profitability</em><br><br><strong>Slide 10 — Key Risks &amp; Mitigations</strong><br>• Volume decline &gt; expected — mitigate via targeted offers<br>• Customer churn — strengthen loyalty/value perception<br>• Execution complexity — pilot in select regions/categories first<br>• Data limitations — invest in pricing/CRM analytics<br><em>So-what: Risks are manageable with phased, data-driven execution</em><br><br><strong>Slide 11 — What Would Change This Recommendation</strong><br>• If price elasticity proves highly sensitive across all categories<br>• If competitors escalate price competition aggressively<br>• If cost inflation stabilizes faster than expected<br>• If customer LTV is materially higher than assumed<br><em>So-what: Recommendation hinges on elasticity, competitive response, and cost trajectory</em><br><br><strong>Slide 12 — Immediate Next Steps</strong><br>• Validate elasticity by category (4–6 week pricing tests)<br>• Identify SKUs for rationalization and mix shift<br>• Redesign promotion strategy (targeting, cadence, depth)<br>• Build margin-focused KPI dashboard for leadership<br><em>So-what: Move quickly to test and prove the path — don't wait for perfect data</em>` }
       ]
     }
   },
   education: {
     themeLabel: 'Education',
     left: {
-      prompt: 'Give me some classroom activity ideas for my art class.',
+      prompt: 'I need to write feedback on my students\' persuasive essays. Can you help?',
       messages: [
-        { role: 'ai', html: `Here's a mix of creative, hands-on, and discussion-based ideas:<br><br><strong>Hands-On Art Making</strong><br>1. Collaborative Mural — students contribute sections around a central theme<br>2. Found Object Sculpture — everyday items turned into assemblages<br>3. Texture Exploration — rubbing collages with different materials<br>4. Blind Contour Drawing — draw without looking at your paper<br>5. Color Mixing Challenge — match a color using only primaries<br><br><strong>Discussion &amp; Reflection</strong><br>6. Art Critique Circle — structured peer feedback ("I notice… I wonder… I like…")<br>7. Artist Studies — research an artist, create an inspired piece<br>8. Art and Emotion — identify feelings evoked by famous artworks<br><br><strong>Mini-Projects</strong><br>9. Mini Comics or Storyboards — tell a story in 3–6 panels<br>10. Mask Making — paper, cardboard, or clay masks<br>11. Opposite Day Art — use a technique the student usually avoids<br><br>Want me to build a ready-to-use 1-week lesson plan with time breakdowns and materials lists?` }
+        { role: 'ai', html: `Of course! Here are some principles for writing effective essay feedback:<br><br><strong>Be specific</strong> — avoid "good job" or "needs work." Point to a sentence, a claim, a paragraph.<br><br><strong>Balance strengths and growth areas</strong> — start with what's working so students stay open to the critique.<br><br><strong>Focus on the writing, not the writer</strong> — "this argument needs support" lands better than "you didn't explain yourself."<br><br><strong>For persuasive essays specifically, consider addressing:</strong><br>• Thesis — is it arguable or just a statement of fact?<br>• Evidence — are claims backed up?<br>• Reasoning — does the argument actually follow?<br>• Counterargument — is the other side acknowledged?<br>• Voice and mechanics<br><br>Would it help if I drafted a sample feedback comment? If so — what grade level are your students, and is this formative feedback or a graded submission? That'll help me get the tone right.` }
       ]
     },
     right: {
-      prompt: `USER'S ROLE: a classroom teacher / professor.\nYOUR TASK TODAY: Plan a classroom activity that is engaging and curriculum-aligned.\nCLASS CONTEXT: middle school students (6–8), the subject is Art.\nADDITIONAL CONTEXT: this is a large class — prioritize scalable, manageable approaches.\nOUTPUT TONE & FORMAT: detailed and step-by-step.`,
+      prompt: `USER'S ROLE: classroom teacher or professor who knows this subject and needs practical, classroom-ready output.\nYOUR TASK TODAY: Write constructive feedback for a student. Be specific, actionable, and frame it to motivate improvement.\n[ + 6 more fields configured: Classroom · Stage · Material · Challenge · Tone · Format ]`,
       messages: [
-        { role: 'ai', html: `Got it! First, my working assumptions for a large middle school art class:<br>Class size: 25–35 students · Time: 45–50 min · Materials: basic supplies (paper, pencils, markers, scissors) · Goal: creativity + art technique, curriculum-aligned.<br><br><strong>Activity: Collaborative "Story Through Art" Mural</strong><br><br><strong>Step 1 — Introduction &amp; Warm-Up (5–7 min)</strong><br>Announce the theme (e.g., "underwater adventure"). Students sketch one small object related to the theme for 2–3 min to loosen up.<br><br><strong>Step 2 — Assign Story Sections (5 min)</strong><br>Divide the story into 6 parts: Setting → Character → Problem → Journey → Climax → Resolution. Assign 4–6 students per section.<br><br><strong>Step 3 — Sketch &amp; Plan (10 min)</strong><br>Students lightly sketch their section. Prompt them to consider: composition, color mood, and story consistency with adjacent sections.<br><br><strong>Step 4 — Color &amp; Detail (10–15 min)</strong><br>Add color and detail. Circulate for technique guidance (layering, shading, proportion). Encourage quiet peer sharing within groups.<br><br><strong>Step 5 — Assemble the Mural (5–7 min)</strong><br>Tape drawings in order on a wall or long paper roll. Students step back and view the full story together.<br><br><strong>Step 6 — Reflection (5 min)</strong><br>"Which section do you like most and why?" Highlight collaborative and creative choices.<br><br><em>Scalability note: Works for large classes — students work independently before combining. Minimal materials per student. Repeatable across semesters.</em>` }
+        { role: 'ai', html: `Assumption: essays are ~400–600 words; feedback should be readable in under 2 minutes per student.<br><br>Here's a reusable feedback template — fill in the [brackets] for each student:<br><br><strong>— Feedback Template —</strong><br><br>[Student name], here's my feedback on your persuasive essay.<br><br><strong>What's working:</strong> [1–2 sentences on the strongest element — thesis, evidence, voice, or structure. Be specific: name the paragraph or sentence that stood out.]<br><br><strong>Your argument:</strong> Your central claim [is clear and arguable / needs to be sharpened — right now it reads more like a statement of fact than a position]. [One sentence on why this matters for a persuasive essay.]<br><br><strong>Evidence:</strong> [Your strongest piece of evidence is X — it directly supports your claim. / Your examples are relevant, but the connection to your argument needs to be made explicit. Tell the reader why this example proves your point, not just what happened.]<br><br><strong>One thing to focus on:</strong> [Single, specific improvement — e.g., "Your counterargument paragraph acknowledges the other side but doesn't fully address it. Add one sentence that explains why your position is still stronger despite that objection."]<br><br><strong>Your next step:</strong> [Concrete, doable action — e.g., "Revise your thesis to take a stronger stance, then re-read paragraph 2 to check that your evidence still supports it."]<br><br>You're [making real progress / showing real improvement in X / building something worth developing further]. Keep going.<br><br><em>Scalability note: Each fill-in takes 3–5 min per essay. For 30 students, that's roughly 2–2.5 hours for a full feedback pass — realistic for a single prep period plus one evening.</em>` }
       ]
     }
   },
-  student: {
-    themeLabel: 'Pre-college',
+  creative: {
+    themeLabel: 'Creative',
     left: {
-      prompt: "Can you check my chemistry lab report and tell me if it's good?",
+      prompt: "Help me write a re-engagement email for users who haven't logged in for a while.",
       messages: [
-        { role: 'ai', html: `Absolutely! Please share your lab report and I'll review it for clarity, correctness, and chemistry lab standards.<br><br>Do you want me to focus more on <strong>content accuracy</strong> or <strong>writing style and clarity</strong>?` },
-        { role: 'user', html: `Discussion section! <span class="chat-paste-note">↳ lab report section pasted</span>` },
-        { role: 'ai', html: `Thanks for sharing! Here's a breakdown:<br><br><strong>✓ Strengths</strong><br>1. You state the concentration result clearly.<br>2. You acknowledge human and equipment errors.<br>3. You note the experiment was successful.<br><br><strong>Areas for Improvement</strong><br>1. <strong>Be specific</strong> — "close to expected" needs an actual number or percent error.<br>2. <strong>Explain your errors</strong> — say how each error would affect the result.<br>3. <strong>Link to theory</strong> — connect results back to stoichiometry or titration principles.<br>4. <strong>Strengthen recommendations</strong> — "more care should be taken" is too vague.<br><br><em>Want me to rewrite your discussion in a polished version under 150 words?</em>` }
+        { role: 'ai', html: `Of course! Here's a re-engagement email template you can customize:<br><br><strong>Subject:</strong> We miss you, [Name] — here's what's new<br><br>Hi [Name],<br><br>We noticed it's been a while since you've logged in to [Product], and we wanted to reach out.<br><br>Since your last visit, we've added some things we think you'll love:<br>• [Feature 1]<br>• [Feature 2]<br>• [Feature 3]<br><br>Come back and see what's new — it only takes a minute to get started again.<br><br><strong>[Log back in →]</strong><br><br>If you have questions or need help, just reply to this email.<br><br>Best,<br>[Your name] at [Company]<br><br>---<br><br>Want me to customize this further? It would help to know:<br>• What's the main thing they're missing out on?<br>• What tone does your brand usually use?<br>• Is there an offer or incentive you can include?` }
       ]
     },
     right: {
-      prompt: `YOUR TASK TODAY: Review my draft and give me specific, actionable feedback I can actually use.
-
-HOW TO HELP: Give me honest, critical feedback on my work — don't soften it.
-
-GRADE LEVEL: high school level. SUBJECT: Chemistry ASSIGNMENT: a lab report.
-
-ACADEMIC GUARDRAILS: This needs to sound like me — don't write in a way I couldn't have written myself.
-
-OUTPUT TONE & FORMAT: detailed and step-by-step.
-
-Ask before you assume — if my request is vague or missing context, ask one focused question before responding.
-
-Don't front-load everything — let me react, push back, or redirect before you move forward. If my thinking is off, say so directly. Don't soften it to be polite.`,
+      prompt: `YOUR TASK TODAY: Write a first draft from the brief or idea I'll share. Match the tone and stay within scope.\nCONTENT TYPE: email or newsletter.\n[ + 5 more fields configured: Audience · Stage · Material · Voice · Challenge ]`,
       messages: [
-        { role: 'ai', html: `Got it! Before I dive in, one key question:<br><br>What section would you like me to review first — the whole report, or a specific part like Introduction, Methods, Results, or Discussion?` },
-        { role: 'user', html: `Discussion section! <span class="chat-paste-note">↳ same section pasted</span>` },
-        { role: 'ai', html: `Perfect. Step-by-step feedback:<br><br><strong>1. Clarity and Depth</strong><br>Problem: "Close to what was expected" — you never state the expected value or how close.<br>Fix: <em>"The expected concentration was 0.50 mol/L. Our result of 0.48 mol/L gives a percent error of 4%."</em><br><br><strong>2. Error Analysis</strong><br>Problem: Errors are listed but not connected to their impact on results.<br>Fix: <em>"Adding too much NaOH past the endpoint would inflate the recorded volume, making the calculated acid concentration too high."</em><br><br><strong>3. Interpretation vs. Summary</strong><br>Problem: "Overall the experiment went well" doesn't discuss the chemistry.<br>Fix: <em>"The 1:1 NaOH-to-acid ratio means the base volume directly reflects moles of acid present."</em><br><br><strong>4. Recommendations</strong><br>Problem: "More care should be taken" is too vague.<br>Fix: <em>"Read the burette at eye level, slow down near the endpoint, run at least three trials."</em><br><br><strong>5. Tone &amp; Voice ✓</strong><br>Your writing sounds like you — that's exactly right. These fixes add precision without changing your voice.<br><br>&#8594; <em>Want me to rewrite your Discussion using your voice — stronger, specific, and analytical?</em>` }
+        { role: 'ai', html: `Assumption: users are 30+ days inactive; no discount or incentive to offer — just a direct nudge.<br><br><strong>Subject:</strong> You haven't logged in for a while. Here's what you're missing.<br><br>Hey [First name],<br><br>It's been [X] days since you last logged in.<br><br>Meanwhile, [one specific thing sitting unused in their account — e.g. "your pipeline has 4 deals that haven't moved in three weeks."]<br><br>Not sure if that matters to you anymore — but if it does, logging back in takes 30 seconds.<br><br><strong>[Pick up where you left off →]</strong><br><br>If you've moved on, no hard feelings — just let us know and we'll stop sending these.<br><br>— [First name], [Company]<br><br><em>Note: I left [X] and the account detail as placeholders — fill those with your actual data trigger. The CTA is intentionally low-pressure. If you want a stronger push, I can rewrite that line.</em>` }
       ]
     }
   },
@@ -2838,10 +3473,10 @@ function populateExampleModal() {
 
 function loadExample() {
   const loaders = {
-    agency: loadAgencyExample,
+    consulting: loadConsultingExample,
     education: loadEducationExample,
-    student: loadStudentExample,
-    college: loadCollegeExample
+    college: loadCollegeExample,
+    creative: loadCreativeExample
   };
   resetAll();
   loaders[currentTheme]();
@@ -2850,41 +3485,49 @@ function loadExample() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function loadAgencyExample() {
-  activateChip('a-chips-1', 'Build a deck that communicates findings clearly');
-  state.agency.f1chips = getActiveVals('a-chips-1');
-  activateChip('a-chips-2', 'Act as a business strategist — think in terms of trade-offs, priorities, and outcomes');
-  state.agency.f2chip = getSingleVal('a-chips-2');
-  activateChip('a-chips-3a', 'CPG');
-  state.agency.f3industry = getActiveVals('a-chips-3a');
-  activateChip('a-chips-3c', 'new product launch');
-  state.agency.f3situation = getActiveVals('a-chips-3c');
-  activateChip('a-chips-4', 'this is for an executive audience — be concise and lead with the so-what');
-  state.agency.f4chips = getActiveVals('a-chips-4');
-  activateChip('a-chips-5a', 'concise');
-  state.agency.f5a = getSingleVal('a-chips-5a');
-  activateChip('a-chips-5b', 'bullet points');
-  state.agency.f5b = getSingleVal('a-chips-5b');
+function loadConsultingExample() {
+  activateChip('a-chips-1', 'Build a slide-by-slide outline. Each slide: clear headline, supporting bullets, one so-what takeaway. Prioritize executive clarity.');
+  state.consulting.f1chips = getActiveVals('a-chips-1');
+  activateChip('a-chips-2', 'You are a business strategist. Prioritize trade-offs, not comprehensiveness. Push for a clear so-what. Flag assumptions that would change the recommendation.');
+  state.consulting.f2chip = getSingleVal('a-chips-2');
+  activateChip('a-chips-3a', 'retail');
+  state.consulting.f3industry = getActiveVals('a-chips-3a');
+  activateChip('a-chips-3c', 'preparing for a business review — they need clear, defensible answers backed by data');
+  state.consulting.f3situation = getActiveVals('a-chips-3c');
+  activateChip('a-chips-4', 'Senior executive audience. Lead with the so-what. They want the recommendation and rationale — not the full analysis trail.');
+  state.consulting.f4audience = getActiveVals('a-chips-4');
+  activateChip('a-chips-5', 'Final deliverable. Must be polished, internally consistent, and ready to defend.');
+  state.consulting.f5stage = getSingleVal('a-chips-5');
+  activateChip('a-chips-7', 'Stakeholders are skeptical. Every claim must be backed, every assumption surfaced, every likely objection anticipated.');
+  state.consulting.f7challenge = getActiveVals('a-chips-7');
+  activateChip('a-chips-8a', "concise — lead with the point, cut everything that doesn't add to it");
+  state.consulting.f8a = getSingleVal('a-chips-8a');
+  activateChip('a-chips-8b', 'slide-ready — one headline per section, tight supporting bullets, one so-what takeaway');
+  state.consulting.f8b = getSingleVal('a-chips-8b');
 }
 
 function loadEducationExample() {
   switchTheme('education');
-  activateChip('e-chips-1', 'Plan a classroom activity that is engaging and curriculum-aligned');
+  activateChip('e-chips-1', 'Write constructive feedback for a student. Be specific, actionable, and frame it to motivate improvement.');
   state.education.f1chips = getActiveVals('e-chips-1');
-  activateChip('e-chips-2', 'classroom teacher / professor');
+  activateChip('e-chips-2', 'classroom teacher or professor who knows this subject and needs practical, classroom-ready output');
   state.education.f2chip = getSingleVal('e-chips-2');
-  activateChip('e-chips-3a', 'middle school students (6–8)');
+  activateChip('e-chips-3a', 'high school students (9–12)');
   state.education.f3grade = getActiveVals('e-chips-3a');
-  // activateChip('e-chips-3b', 'a mixed-ability class');
-  // state.education.f3situation = getActiveVals('e-chips-3b');
-  activateChip('e-chips-3c', 'Art');
+  activateChip('e-chips-3c', 'English / ELA');
   state.education.f3subject = getActiveVals('e-chips-3c');
-  activateChip('e-chips-4', 'this is a large class — prioritize scalable, manageable approaches');
+  activateChip('e-chips-stage', 'Starting from scratch with no existing material. Build something structured and ready to use.');
+  state.education.f5stage = getSingleVal('e-chips-stage');
+  activateChip('e-chips-material', "A student's draft or work sample will be provided. Treat it as the primary input.");
+  state.education.f6material = getSingleVal('e-chips-material');
+  activateChip('e-chips-4', 'Large class. Prioritize scalable, manageable approaches that work without one-on-one attention.');
   state.education.f4chips = getActiveVals('e-chips-4');
-  activateChip('e-chips-5a', 'detailed');
-  state.education.f5a = getSingleVal('e-chips-5a');
-  activateChip('e-chips-5b', 'step-by-step');
-  state.education.f5b = getSingleVal('e-chips-5b');
+  activateChip('e-chips-challenge', 'Students are disengaged or resistant. Build in engagement hooks — avoid passive, one-way formats.');
+  state.education.f7challenge = getActiveVals('e-chips-challenge');
+  activateChip('e-chips-5a', 'warm and encouraging — prioritize a supportive, affirming voice');
+  state.education.f8a = getSingleVal('e-chips-5a');
+  activateChip('e-chips-5b', 'structured template — headers and placeholders, easy to customize');
+  state.education.f8b = getSingleVal('e-chips-5b');
 }
 
 function loadStudentExample() {
@@ -2909,11 +3552,10 @@ function loadStudentExample() {
 
 function loadCollegeExample() {
   switchTheme('college');
-  activateChip('cg-chips-1', 'Help me develop a thesis or research angle — push back until I have something defensible');
+  activateChip('cg-chips-1', 'Help me develop a thesis or research argument. Push back until I have something specific and defensible.');
   state.college.f1chips = getActiveVals('cg-chips-1');
-  activateChip('cg-chips-2', 'Be my thinking partner — push back on my ideas and stress-test my reasoning');
+  activateChip('cg-chips-2', 'Be my thinking partner. Push back on my ideas, challenge my assumptions, and stress-test my reasoning.');
   state.college.f2chip = getSingleVal('cg-chips-2');
-  // Activate Business/Econ field and reveal matching majors
   activateChip('cg-chips-3a', 'Business / Economics');
   state.college.f3field = getSingleVal('cg-chips-3a');
   const majorLabel = document.getElementById('cg-major-label');
@@ -2927,15 +3569,44 @@ function loadCollegeExample() {
   state.college.f3major = getActiveVals('cg-chips-3b');
   activateChip('cg-chips-3c', 'undergraduate level');
   state.college.f3level = getSingleVal('cg-chips-3c');
-  activateChip('cg-chips-3d', 'a research paper or essay');
+  activateChip('cg-chips-3d', 'a research paper or essay — focus on argument structure, evidence, and scholarly voice');
   state.college.f3type = getActiveVals('cg-chips-3d');
-  activateChip('cg-chips-4', 'Preserve my academic voice — don\'t write in a way I couldn\'t have written myself');
-  activateChip('cg-chips-4', 'Flag logical gaps or weak arguments in my thinking — don\'t let me slide');
+  activateChip('cg-chips-stage', 'I have rough notes or initial ideas but nothing structured. Help me develop and organize them.');
+  state.college.fstage = getSingleVal('cg-chips-stage');
+  activateChip('cg-chips-material', 'My own notes or rough outline will be provided. Help develop them into a complete piece.');
+  state.college.fmaterial = getSingleVal('cg-chips-material');
+  activateChip('cg-chips-4', 'Preserve my academic voice. Don\'t write in a way I couldn\'t have written myself.');
+  activateChip('cg-chips-4', 'Flag logical gaps and weak arguments in my thinking. Don\'t let me slide past problems.');
   state.college.f4chips = getActiveVals('cg-chips-4');
-  activateChip('cg-chips-5a', 'direct and rigorous');
+  activateChip('cg-chips-challenge', "The argument isn't holding together. Focus on strengthening the logic and structure before anything else.");
+  state.college.fchallenge = getActiveVals('cg-chips-challenge');
+  activateChip('cg-chips-5a', 'direct and rigorous — precise language, no hand-holding, push back on weak thinking');
   state.college.f5a = getSingleVal('cg-chips-5a');
-  activateChip('cg-chips-5b', 'annotated feedback');
+  activateChip('cg-chips-5b', 'annotated feedback — comment directly on specific parts of my work');
   state.college.f5b = getSingleVal('cg-chips-5b');
+}
+
+function loadCreativeExample() {
+  switchTheme('creative');
+  activateChip('cr-chips-1', "Write a first draft from the brief or idea I'll share. Match the tone and stay within scope.");
+  state.creative.f1chips = getActiveVals('cr-chips-1');
+  activateChip('cr-chips-2', 'email or newsletter');
+  state.creative.f2chip = getSingleVal('cr-chips-2');
+  activateChip('cr-chips-3a', 'email');
+  state.creative.f3platform = getActiveVals('cr-chips-3a');
+  activateChip('cr-chips-3b', "potential customers or consumers — focus on value, relevance, and what's in it for them");
+  state.creative.f3audience = getActiveVals('cr-chips-3b');
+  activateChip('cr-chips-stage', "I have a brief or concept but nothing written. Develop it into content.");
+  state.creative.fstage = getSingleVal('cr-chips-stage');
+  activateChip('cr-chips-material', "A brief or creative direction will be provided. Treat it as the primary guide.");
+  state.creative.fmaterial = getSingleVal('cr-chips-material');
+  activateChip('cr-chips-voice', "direct and no-fluff — cut everything that doesn't earn its place, get to the point fast");
+  activateChip('cr-chips-voice', 'warm and human — write with empathy and authenticity, avoid corporate language');
+  state.creative.fvoice = getActiveVals('cr-chips-voice');
+  activateChip('cr-chips-challenge', "Preserving my voice is critical. Don't let AI polish away the personality.");
+  state.creative.fchallenge = getActiveVals('cr-chips-challenge');
+  activateChip('cr-chips-8b', 'full draft — complete, ready-to-publish content');
+  state.creative.f8b = getSingleVal('cr-chips-8b');
 }
 
 function activateChip(containerId, val) {
@@ -2974,7 +3645,7 @@ function activateChip(containerId, val) {
             <div class="how-step-num" style="background:#5b8dee18;color:var(--c1)">01</div>
             <div class="how-step-content">
               <div class="how-step-title">Pick your mode</div>
-              <div class="how-step-desc">Choose the context that fits you — Agency, Education, Student, or Creative. Each mode surfaces the fields that actually matter for your situation.</div>
+              <div class="how-step-desc">Choose the context that fits you — Consulting, Education, Student, or Creative. Each mode surfaces the fields that actually matter for your situation.</div>
             </div>
           </div>
           <div class="how-step">

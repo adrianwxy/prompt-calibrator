@@ -627,9 +627,9 @@
 
   .output-body {
     padding: 22px;
-    min-height: 192px; /* Starts slim when empty */
+    min-height: 250px; /* Starts slim when empty */
     height: auto;      /* Tells the box to expand as text is generated */
-    max-height: calc(160vh - 300px); /* Stops expanding before it hits the bottom of the screen */
+    max-height: calc(208vh - 300px); /* Stops expanding before it hits the bottom of the screen */
     overflow-y: auto;
   }
 
@@ -2346,19 +2346,16 @@
   <div class="output-col">
     <div class="output-card">
       <div class="output-header">
-        <div class="output-label">
-          <div class="live-dot"></div>
-          <span id="output-theme-badge" class="theme-badge" style="background:#5b8dee22;color:var(--c1)">Consulting</span>
-        </div>
         <div style="display:flex;align-items:center;gap:8px">
+          <div class="live-dot"></div>
           <div class="output-tabs">
             <button class="output-tab active" id="tab-inputs" onclick="switchOutputTab('inputs')">Inputs</button>
             <button class="output-tab" id="tab-prompt" onclick="switchOutputTab('prompt')">Prompt</button>
           </div>
-          <div class="copy-btn-wrap" id="copy-btn-wrap">
-            <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy Prompt</button>
-            <span class="copy-tooltip">Paste into any AI you use</span>
-          </div>
+        </div>
+        <div class="copy-btn-wrap" id="copy-btn-wrap">
+          <button class="copy-btn" id="copy-btn" onclick="copyPrompt()" disabled>Copy Prompt</button>
+          <span class="copy-tooltip">Paste into any AI you use</span>
         </div>
       </div>
       <div class="output-body" id="tab-panel-prompt" style="display:none">
@@ -2366,34 +2363,6 @@
       </div>
       <div class="output-body" id="tab-panel-inputs">
         <div id="inputs-summary"><span class="placeholder-msg">Select options above to see your inputs summarised here.</span></div>
-      </div>
-      <div class="legend" id="legend-consulting">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task · Material</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>Role · Challenge</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Stakeholder · Tone</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Audience · Format</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Stage · Constraints</div>
-      </div>
-      <div class="legend" id="legend-education" style="display:none">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task · Constraints</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>Role · Challenge</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Classroom · Tone</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Stage · Format</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Material · Style</div>
-      </div>
-      <div class="legend" id="legend-creative" style="display:none">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task · Voice</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>Content · Challenge</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Audience · Format</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Stage</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Material · Constraints</div>
-      </div>
-      <div class="legend" id="legend-college" style="display:none">
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c1)"></div>Task · Guardrails</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c2)"></div>AI Support · Challenge</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c3)"></div>Coursework · Tone</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c4)"></div>Stage · Format</div>
-        <div class="legend-item"><div class="legend-dot" style="background:var(--c5)"></div>Material · Style</div>
       </div>
       <div class="output-footer">
         <div class="meta" id="meta">— / —</div>
@@ -3180,20 +3149,12 @@ function switchTheme(theme) {
   // Panels
   themes.forEach(t => {
     document.getElementById('panel-' + t).classList.toggle('active', t === theme);
-    document.getElementById('legend-' + t).style.display = t === theme ? 'flex' : 'none';
   });
 
   // Switcher buttons
   document.querySelectorAll('.theme-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.theme === theme);
   });
-
-  // Badge
-  const badge = document.getElementById('output-theme-badge');
-  const cfg = badgeConfig[theme];
-  badge.textContent = cfg.label;
-  badge.style.background = cfg.bg;
-  badge.style.color = cfg.color;
 
   render();
   renderComparison();
@@ -3244,10 +3205,6 @@ function resetAll() {
 // ══════════════════════════════════════════════
 
 
-// init legend visibility
-themes.forEach(t => {
-  document.getElementById('legend-' + t).style.display = t === 'consulting' ? 'flex' : 'none';
-});
 
 // ══════════════════════════════════════════════
 //  MODALS
@@ -3802,7 +3759,7 @@ function activateChip(containerId, val) {
           <div class="how-step-num" style="background:#4ecdc418;color:var(--c3)">03</div>
           <div class="how-step-content">
             <div class="how-step-title">Anonymous usage analytics</div>
-            <div class="how-step-desc">This tool will use Google Analytics to understand general usage patterns — no personal data, no cross-site tracking.</div>
+            <div class="how-step-desc">This tool uses Google Analytics to understand general usage patterns — no personal data, no cross-site tracking.</div>
           </div>
         </div>
         <div class="how-step">
